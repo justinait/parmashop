@@ -1,0 +1,13 @@
+.header {
+    display: flex;
+}
+.logoNavbar {
+    width: 100px;
+    object-fit: contain;
+}
+.header {
+    padding: 0.5rem;
+}
+.rightNavbar {
+    
+}
