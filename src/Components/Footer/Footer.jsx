@@ -25,7 +25,7 @@ function Footer() {
             <p className='footerItemLinks'><Link>Abrigos</Link></p>
         </ul> */}
         
-        <p className='location'> <PlaceIcon/> <strong>Buenos Aires 60</strong> - Paseo de las Luces.</p>
+        {/* <p className='location'> <PlaceIcon/> <strong>Buenos Aires 60</strong> - Paseo de las Luces.</p> */}
         <img src={logoFooter} alt="PARMA" className='logoFooter' />
         <p className='justina'>Desarrollada por Justina Iturraspe</p>
     </div>
