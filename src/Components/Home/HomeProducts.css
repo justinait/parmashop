@@ -1,6 +1,6 @@
 .imageProductHome {
     width: 100%;
-    padding: 5% 0;
+    padding: 5% 0 0;
     height: 60vh;
     object-fit: cover;
 }
@@ -10,6 +10,7 @@
     text-transform: uppercase;
     color: white;
     text-align: center;
+    height: 0;
 }
 .productTitleHome {
     font-weight: 700;
