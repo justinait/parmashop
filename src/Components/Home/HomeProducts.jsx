@@ -2,10 +2,10 @@ import React from 'react'
 import './HomeProducts.css'
 import tshirts from '/images/remes.png'
 import trausers from '/images/pants.png'
-import buzos from '/images/buzos.jpg'
-import shorts from '/images/shorts.jpg'
+import buzos from '/images/buzos.png'
+import shorts from '/images/shorts.png'
 import camisas from '/images/pantalones.jpg'
-import hoodies from '/images/hoodies.png'
+import hoodies from '/images/hoodie.png'
 import accesorios from '/images/accesorios.png'
 
 function HomeProducts() {
