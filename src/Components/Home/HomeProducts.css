@@ -1,14 +1,14 @@
 .imageProductHome {
     width: 100%;
     padding: 5% 0 0;
-    height: 60vh;
+    height: 50vh;
     object-fit: cover;
 }
 .homeProductInfo {
     position: relative;
     top: -200px;
     text-transform: uppercase;
-    color: white;
+    color: #fbfbfb;
     text-align: center;
     height: 0;
 }

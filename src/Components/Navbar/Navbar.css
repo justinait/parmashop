@@ -1,13 +1,24 @@
 .header {
     display: flex;
+    justify-content: space-between;
+    height: 8vh;
+    top: 0;
+    z-index: 100;
+    position: fixed;
+    background: #FAFAFA;
+    width: 100%;
+    padding: 0.3rem 1rem;
 }
 .logoNavbar {
     width: 100px;
     object-fit: contain;
 }
-.header {
-    padding: 0.5rem;
-}
 .rightNavbar {
-    
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.rightNavbar p {
+    margin-bottom: 0;
 }
