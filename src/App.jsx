@@ -4,16 +4,36 @@ import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home'
 import Navbar from './Components/Navbar/Navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductsContainer from './Components/Products/ProductsContainer';
+import CheckScroll from './CheckScroll'
+import Products from './Components/Products/Products';
+import ProductsProvider from './context/ProductsProvider';
 
 function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Navbar/>
-        <Home/>
-        <Footer />
-      </BrowserRouter>
+      <ProductsProvider>
+        <BrowserRouter>
+          <Navbar/>
+          <CheckScroll />
+          <Routes className='appRoutes'>
+
+            <Route path='/' element={< Home />} />
+            
+            <Route path='/:product' element={< Products />} />
+            
+            {/* <Route path='/entrar' element={< Login />} />
+            <Route path='/about' element={< About />} /> */}
+            {/* <Route path='/:curtain' element={< Detail />} /> */}
+            {/* <Route element={<ProtectedAdmin/>} >
+              <Route path="/dashboard" element={<Dashboard/>} />
+            </Route> */}
+            
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </ProductsProvider>
     </>
   )
 }
