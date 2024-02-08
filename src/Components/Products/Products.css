@@ -1,8 +1,12 @@
 .productsContainer {
     width: 90vw;
-    margin: 10vh auto;
+    margin: 8vh auto;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+}
+.productsContainer h2 {
+    justify-content: center;
 }
 .productContainer {
     width: 50%;
@@ -16,6 +20,8 @@
 .productName{
     text-transform: capitalize;
     font-weight: 500;
+    margin-bottom: 3%;
+    font-size: 15px;
 }
 .productPrice {
     font-weight: 700;
