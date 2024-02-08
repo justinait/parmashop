@@ -39,4 +39,15 @@
 }
 .dropdownItemsContainer {
     padding-top: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.dropdownItemsContainer a {
+    margin-bottom: 1rem;
+}
+a:focus {
+    font-weight: 500;
+} 
+a:hover {
+    font-weight: 500;
 }

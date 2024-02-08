@@ -7,6 +7,7 @@ import ProductsContainer from './Components/Products/ProductsContainer';
 import CheckScroll from './CheckScroll'
 import Products from './Components/Products/Products';
 import ProductsProvider from './context/ProductsProvider';
+import Detail from './Components/Detail/Detail';
 
 function App() {
 
@@ -20,11 +21,11 @@ function App() {
             
             <Route path='/' element={< Home />} />
             
-            <Route path='/:product' element={< Products />} />
+            <Route path='/product' element={< Products />} />
+            <Route path='/:product' element={< Detail />} />
             
             {/* <Route path='/entrar' element={< Login />} />
             <Route path='/about' element={< About />} /> */}
-            {/* <Route path='/:curtain' element={< Detail />} /> */}
             {/* <Route element={<ProtectedAdmin/>} >
               <Route path="/dashboard" element={<Dashboard/>} />
             </Route> */}
