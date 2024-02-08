@@ -8,54 +8,46 @@ const ProductsContext = createContext();
 function ProductsProvider({children}) {
 
   const [dataProducts, setDataProducts] = useState(null);
-  const [dataFabrics, setDataFabrics] = useState(null);
 
-  useEffect(() => {
-    const getCurtains = async () => {
-      try {
-        const curtainsCollection = collection(db, 'curtains');
-        const curtainsSnapshot = await getDocs(curtainsCollection);
+  useEffect(()=>{
+    let refCollection = collection(db, 'products')
+    getDocs(refCollection)
+    .then((res)=>{
+      let newArray = res.docs.map(e =>{
+        return {
+          ...e.data(), 
+          id: e.id
+        }
+      })
+      setDataProducts(newArray);
+    })
+    .catch((err)=>console.log(err))
+  }, [])
 
-        const curtainsList = curtainsSnapshot.docs.map((e) => {
-          let eachItem = e.data();
-          eachItem.id = e.id;
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     try {
+  //       const productsCollection = collection(db, 'products');
+  //       const productsSnapshot = await getDocs(productsCollection);
 
-          return eachItem;
-        });
+  //       const productsList = productsSnapshot.docs.map((e) => {
+  //         let eachItem = e.data();
+  //         eachItem.id = e.id;
 
-        setDataProducts(curtainsList);
+  //         return eachItem;
+  //       });
+
+  //       setDataProducts(productsList);
         
-      } catch (error) {
-        console.error('Error fetching curtains:', error);
-      }
-    };
-    getCurtains();
-  }, []);
-  
-  useEffect(() => {
-    const getFabrics = async () => {
-      try {
-        const fabricsCollection = collection(db, 'fabrics');
-        const fabricsSnapshot = await getDocs(fabricsCollection);
-
-        const fabricsList = fabricsSnapshot.docs.map((e) => {
-          let eachItem = e.data();
-          eachItem.id = e.id;
-
-          return eachItem;
-        });
-
-        setDataFabrics(fabricsList);
-        
-      } catch (error) {
-        console.error('Error fetching Fabrics:', error);
-      }
-    };
-    getFabrics();
-  }, []);
+  //     } catch (error) {
+  //       console.error('Error fetching products:', error);
+  //     }
+  //   };
+  //   getProducts();
+  // }, []);
 
   return (
-    <ProductsContext.Provider value={{ dataProducts, dataFabrics }}>
+    <ProductsContext.Provider value={{ dataProducts }}>
       {children}
     </ProductsContext.Provider>
   );

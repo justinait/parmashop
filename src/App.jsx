@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home'
@@ -17,8 +16,8 @@ function App() {
         <BrowserRouter>
           <Navbar/>
           <CheckScroll />
-          <Routes className='appRoutes'>
-
+          <Routes>
+            
             <Route path='/' element={< Home />} />
             
             <Route path='/:product' element={< Products />} />

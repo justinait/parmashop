@@ -4,6 +4,7 @@ import './Navbar.css'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -33,7 +34,8 @@ function Navbar() {
           <CloseIcon onClick={handleClose} className='closeIconNavbar'/>
           <div className='dropdownItemsContainer'>
             <p>INICIO</p>
-            
+
+            <Link to='/product'>Todos los productos</Link>
             <p>NEW</p>
             <p>Remeras</p>
             <p>Camisas</p>
