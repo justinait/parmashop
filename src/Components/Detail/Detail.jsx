@@ -2,6 +2,7 @@ import { collection, doc, getDoc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
 import { useParams } from 'react-router-dom';
+import './Detail.css'
 
 function Detail() {
   
@@ -28,14 +29,16 @@ function Detail() {
   }, [id]);
   return (
     <div>
-      {product ? (
-        <div>
+      {product && (
+        <div className='detailContainer'>
           {console.log(product)}
-          <h2>{product.name}</h2>
-          <p>{product.unit_price}</p>
+          <img src={product.image} alt={product.name} className='imageDetail'/>
+          <div className='infoBasic'>
+            <p className='nameDetail'>{product.name}</p>
+            <p className='brandDetail'>Shato</p>
+            <p className='priceDetail'>${product.unit_price}</p>
+          </div>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
     </div>
   )
