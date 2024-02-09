@@ -5,31 +5,31 @@ import { ProductsContext } from '../../context/ProductsProvider';
 
 function Products() {
   const { dataProducts } = useContext(ProductsContext);
-  const {id} = useParams();
-  const [product, setProduct] = useState([]);
+  const {category} = useParams();
+  const [productsList, setProductsList] = useState(dataProducts);
 
-  const getProduct = () =>{
+  const getProducts = () => {
+    let filteredProducts
+    if (category) {
+      filteredProducts = dataProducts?.filter((e) => e?.category === category);
+    }
+    setProductsList(filteredProducts)
+    return productsList;
+  };
+  
+  useEffect(() => {
+    getProducts();
+  }, [category]);
 
-    dataProducts?.map(e => {
-
-      setProduct(e);
-      return product
-
-    })
-  }
-
-  useEffect(()=>{
-    getProduct();
-  }, [])
   return (
     <div className='productsContainer'>
-
+      {console.log(category)}
       <h2 className=''>NUESTROS PRODUCTOS</h2>
 
       {
-        dataProducts && dataProducts.slice().reverse().map((e, i) =>  {
+        productsList && productsList.slice().reverse().map((e, i) =>  {
           return(
-            <Link to={`/${e.id}`} className='productContainer' key={i}>
+            <Link to={`/item/${e.id}`} className='productContainer' key={i}>
               <img src={e.image} alt={e.name} className='imgProduct'/>
               <div className='productInfoContainer'>
                 <p className='productName'>{e.name}</p>

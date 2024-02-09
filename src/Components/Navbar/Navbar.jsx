@@ -35,15 +35,15 @@ function Navbar() {
           <div className='dropdownItemsContainer'>
             <Link to='/' onClick={handleClose}>INICIO</Link>
 
-            <Link to='/product' onClick={handleClose}>Todos los productos</Link>
-            <Link to='/product' onClick={handleClose}>NEW</Link>
-            <Link to='/product' onClick={handleClose}>Remeras</Link>
-            <Link to='/product' onClick={handleClose}>Camisas</Link>
-            <Link to='/product' onClick={handleClose}>Pantalones</Link>
-            <Link to='/product' onClick={handleClose}>Bermudas</Link>
-            <Link to='/product' onClick={handleClose}>Buzos</Link>
-            <Link to='/product' onClick={handleClose}>Hoodies</Link>
-            <Link to='/product' onClick={handleClose}>Accesorios</Link>
+            <Link to='/category' onClick={handleClose}>Todos los productos</Link>
+            <Link to='/category' onClick={handleClose}>NEW</Link>
+            <Link to='/tshirts' onClick={handleClose}>Remeras</Link>
+            <Link to='/category' onClick={handleClose}>Camisas</Link>
+            <Link to='/category' onClick={handleClose}>Pantalones</Link>
+            <Link to='/shorts' onClick={handleClose}>Bermudas</Link>
+            <Link to='/category' onClick={handleClose}>Buzos</Link>
+            <Link to='/category' onClick={handleClose}>Hoodies</Link>
+            <Link to='/category' onClick={handleClose}>Accesorios</Link>
             
             <p onClick={handleClose}>Política de cambios</p>
             <p onClick={handleClose}>Carrito</p>
