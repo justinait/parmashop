@@ -19,7 +19,7 @@ function Navbar() {
 
   return (
     <div className='header'>
-      <img src={logo} alt="PARMA" className='logoNavbar'/>
+      <Link to='/' style={{display: 'flex'}}> <img src={logo} alt="PARMA" className='logoNavbar' onClick={handleClose}/></Link>
       {
         !openMenu &&
         <div className='rightNavbar'>
@@ -46,7 +46,7 @@ function Navbar() {
             <Link to='/product' onClick={handleClose}>Accesorios</Link>
             
             <p onClick={handleClose}>Política de cambios</p>
-            <p onClick={handleClose}>MI CARRITO</p>
+            <p onClick={handleClose}>Carrito</p>
             
           </div>
         </div>

@@ -15,21 +15,42 @@
     margin-bottom: 0.5rem;
 }
 .nameDetail {
-    text-transform: capitalize;
-    font-size: 26px;
+    text-transform: uppercase;
+    font-size: 24px;
     font-weight: 400;
-    font-family: 'Poppins';
     font-family: 'Chakra Petch', sans-serif;
+    color: #353535;
 }
 
 .priceDetail {
     font-weight: 600;
     font-size: 24px;
     font-family: 'Inter Tight', sans-serif;
-    color: #252525;
+    color: #353535;
 }
 
 .brandDetail {
     color: #878787;
     font-size: 18px;
+}
+.sizesBox {
+    display: flex;
+}
+.size {
+    color: #878787;
+    border: #ddd 1px solid;
+    width: 25%;
+    text-align: center;
+    padding: 2%;
+    margin: 2%;
+    border-radius: 10px;
+}
+.selectDetail {
+    margin: 2%;
+    color: #878787;
+}
+.separatorLine {    
+    border-bottom: #878787 2px solid;
+    margin: 8% 1% 6%;
+    width: 25%;
 }

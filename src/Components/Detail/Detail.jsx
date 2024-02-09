@@ -37,6 +37,20 @@ function Detail() {
             <p className='nameDetail'>{product.name}</p>
             <p className='brandDetail'>Shato</p>
             <p className='priceDetail'>${product.unit_price}</p>
+            <div className='separatorLine'></div>
+            <p className='selectDetail'>Seleccionar color</p>
+            <div className='sizesBox'>
+              <p className='size'>Negro</p>
+              <p className='size'>Blanco</p>
+            </div>
+
+            <p className='selectDetail'>Seleccionar talle</p>
+            <div className='sizesBox'>
+              <p className='size'>S</p>
+              <p className='size'>M</p>
+              <p className='size'>L</p>
+              <p className='size'>XL</p>
+            </div>
           </div>
         </div>
       )}
