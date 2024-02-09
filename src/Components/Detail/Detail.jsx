@@ -38,6 +38,7 @@ function Detail() {
             <p className='brandDetail'>Shato</p>
             <p className='priceDetail'>${product.unit_price}</p>
             <div className='separatorLine'></div>
+            
             <p className='selectDetail'>Seleccionar color</p>
             <div className='sizesBox'>
               <p className='size'>Negro</p>
@@ -51,6 +52,8 @@ function Detail() {
               <p className='size'>L</p>
               <p className='size'>XL</p>
             </div>
+
+            <button className='addToCartButton'>Agregar al carrito</button>
           </div>
         </div>
       )}
