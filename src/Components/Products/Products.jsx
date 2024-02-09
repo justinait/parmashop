@@ -10,10 +10,12 @@ function Products() {
 
   const getProducts = () => {
     let filteredProducts
-    if (category) {
+    if (category && category!='category') {
       filteredProducts = dataProducts?.filter((e) => e?.category === category);
+      setProductsList(filteredProducts)
+    } else {
+      setProductsList(dataProducts)
     }
-    setProductsList(filteredProducts)
     return productsList;
   };
   
