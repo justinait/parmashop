@@ -24,28 +24,6 @@ function ProductsProvider({children}) {
     .catch((err)=>console.log(err))
   }, [])
 
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     try {
-  //       const productsCollection = collection(db, 'products');
-  //       const productsSnapshot = await getDocs(productsCollection);
-
-  //       const productsList = productsSnapshot.docs.map((e) => {
-  //         let eachItem = e.data();
-  //         eachItem.id = e.id;
-
-  //         return eachItem;
-  //       });
-
-  //       setDataProducts(productsList);
-        
-  //     } catch (error) {
-  //       console.error('Error fetching products:', error);
-  //     }
-  //   };
-  //   getProducts();
-  // }, []);
-
   return (
     <ProductsContext.Provider value={{ dataProducts }}>
       {children}

@@ -33,10 +33,10 @@ function Navbar() {
           
           <CloseIcon onClick={handleClose} className='closeIconNavbar'/>
           <div className='dropdownItemsContainer'>
-            <Link to='/'>INICIO</Link>
+            <Link to='/' onClick={handleClose}>INICIO</Link>
 
-            <Link to='/product'>Todos los productos</Link>
-            <Link to='/product'>NEW</Link>
+            <Link to='/product' onClick={handleClose}>Todos los productos</Link>
+            <Link to='/product' onClick={handleClose}>NEW</Link>
             <Link to='/product' onClick={handleClose}>Remeras</Link>
             <Link to='/product' onClick={handleClose}>Camisas</Link>
             <Link to='/product' onClick={handleClose}>Pantalones</Link>
@@ -45,9 +45,8 @@ function Navbar() {
             <Link to='/product' onClick={handleClose}>Hoodies</Link>
             <Link to='/product' onClick={handleClose}>Accesorios</Link>
             
-            <p>Guía de talles</p>
-            <p>Política de cambios</p>
-            <p>MI CARRITO</p>
+            <p onClick={handleClose}>Política de cambios</p>
+            <p onClick={handleClose}>MI CARRITO</p>
             
           </div>
         </div>
