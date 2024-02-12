@@ -103,7 +103,7 @@ a:hover {
 }
 @media (min-width:1700px){
     .logoNavbar {
-        width: 180px;
+        width: 200px;
     }
     .dropdownHeader {
         width: 40%;

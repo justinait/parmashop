@@ -19,7 +19,7 @@
 
 .seeInfoHome {
     background: #0000005e;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 500;
     padding: 1% 3%;
     width: fit-content;
@@ -28,4 +28,12 @@
 .productHomeBox {
     position: relative;
     width: 100%;
+}
+@media (min-width:639px){
+    .seeInfoHome {
+        font-size: 14px;
+    }
+    .homeProductInfo {
+        top: -220px;
+    }
 }
