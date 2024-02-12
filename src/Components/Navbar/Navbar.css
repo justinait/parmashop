@@ -7,7 +7,7 @@
     position: fixed;
     background: #FAFAFA;
     width: 100%;
-    padding: 0.3rem 1rem;
+    padding: 0.3rem 5%;
 }
 .logoNavbar {
     width: 100px;
@@ -28,7 +28,7 @@
     width: 60%;
     height: 100vh;
     padding: 5%;
-    margin: 0 -5%;
+    margin: 0px -6%;
     display: flex;
     flex-direction: column;
 }
@@ -50,4 +50,63 @@ a:focus {
 } 
 a:hover {
     font-weight: 500;
+}
+@media (min-width:639px){
+    .logoNavbar {
+        width: 150px;
+    }
+    .rightNavbar {
+        width: 18%;
+    }
+    .iconsNavbar{
+        font-size: 2rem !important;
+    }
+    .dropdownHeader {
+        font-size: 18px;
+        margin: 0px -7%;
+    }
+    .dropdownItemsContainer {
+        padding-top: 13%;
+    }
+}
+@media (min-width:1023px){
+    .logoNavbar {
+        width: 150px;
+    }
+    .rightNavbar {
+        width: 16%;
+    }
+    .dropdownHeader {
+        width: 50%;
+        font-size: 20px;
+    }
+    .dropdownItemsContainer {
+        padding-top: 10%;
+    }
+}
+@media (min-width:1239px){
+    .header{
+        height: 10vh;
+    }
+    .rightNavbar {
+        width: 10%;
+    }
+    .dropdownHeader {
+        padding: 3% 5%;
+        width: 45%;
+    }
+}
+@media (min-width:1439px){
+    .logoNavbar{
+        width: 170px;
+    }
+}
+@media (min-width:1700px){
+    .logoNavbar {
+        width: 180px;
+    }
+    .dropdownHeader {
+        width: 40%;
+        font-size: 24px;
+    }
 }

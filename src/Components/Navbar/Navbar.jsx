@@ -23,15 +23,15 @@ function Navbar() {
       {
         !openMenu &&
         <div className='rightNavbar'>
-          < ShoppingCartOutlinedIcon/>
-          < MenuRoundedIcon onClick={handleOpen} />
+          < ShoppingCartOutlinedIcon className='iconsNavbar'/>
+          < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
         </div>
       }
       
       {openMenu &&
         <div className='dropdownHeader'>
           
-          <CloseIcon onClick={handleClose} className='closeIconNavbar'/>
+          <CloseIcon onClick={handleClose} className='closeIconNavbar iconsNavbar'/>
           <div className='dropdownItemsContainer'>
             <Link to='/' onClick={handleClose}>INICIO</Link>
 
