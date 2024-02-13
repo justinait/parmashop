@@ -1,5 +1,6 @@
 .detailContainer {
     margin: 8vh auto;
+    min-height: 90vh;
 }
 
 .imageDetail {
@@ -44,7 +45,13 @@
     padding: 2%;
     margin: 2%;
     border-radius: 10px;
+    transition: border 0.3s ease-in-out, color 0.3s ease-in-out; 
 }
+.size:hover {
+    border: black solid 1px;
+    color: black;
+}
+
 .selectDetail {
     margin: 2%;
     color: #878787;
@@ -64,7 +71,6 @@
     margin: 5% 2%;
     width: 96%;
 }
-
 @media(min-width: 1000px){
     .imageDetail{
         width: 50%;

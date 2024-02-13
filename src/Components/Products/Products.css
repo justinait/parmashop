@@ -4,9 +4,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    min-height: 90vh;
 }
 .productsContainer h2 {
     margin: 10% 0;
+    width: 80%;
 }
 .productContainer {
     width: 50%;
@@ -29,5 +31,18 @@
     font-weight: 600;
 }
 .productInfoContainer {
+    text-align: center;
+    margin-top: -25px;
+}
+.stockProducts {
+    position: relative;
+    top: -30px;
+    background: black;
+    color: white;
+    font-weight: 500;
+    width: 50%;
+    border-radius: 25px;
+    padding: 1% 2%;
+    font-size: 14px;
     text-align: center;
 }
