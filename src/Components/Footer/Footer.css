@@ -18,6 +18,9 @@
     margin: 3px 10px;
     color: lightgrey;
 }
+.footerIcons:hover {
+    color: white;
+}
 .footerItemLinks {
     text-decoration: none;
     margin-bottom: 3%;

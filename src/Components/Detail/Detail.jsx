@@ -7,10 +7,11 @@ import './Detail.css'
 function Detail() {
   
   const {id} = useParams();
-  const [product, setProduct] = useState(null)
+  const [product, setProduct] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
 
   useEffect(() => {
-    console.log(id)
     const fetchProduct = async () => {
       try {
         const refCollection = collection(db, 'products');
@@ -27,6 +28,12 @@ function Detail() {
     };
     fetchProduct();
   }, [id]);
+
+  // const handleClick = (e) => {
+  //   // cual es la mejor forma de diferenciar color y talle
+  //   setSelectedColor(e)
+  // }
+
   return (
     <div>
       {product && (
