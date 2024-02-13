@@ -1,6 +1,7 @@
 .footerBox {
     background-color: #222222;
-    height: 32vh;
+    
+    height: 37vh;
     color: #ebebeb;
 }
 .logoFooter {
@@ -47,4 +48,67 @@
     position: relative;
     top: 18px;
     color: lightgrey;
+}
+
+@media (min-width:639px) {
+    .logoFooter {
+        width: 50%;
+        margin: 7% 25%;
+    }
+    .location {
+        font-size: 16px;
+    }
+    .justina {
+        font-size: 14px;
+    }
+    .footerIcons {
+        font-size: 2.7rem !important;
+        margin: 5px 25px;
+    }
+}
+@media (min-width:1000px) {
+    .logoFooter {
+        width: 40%;
+        margin: 7% 30%;
+    }
+    .location {
+        font-size: 18px;
+    }
+    .justina {
+        font-size: 16px;
+    }
+    .footerIcons {
+        font-size: 3.5rem !important;
+        margin: 5px 35px;
+    }
+}
+
+@media (min-width:1200px) {
+    .logoFooter {
+        width: 20%;
+        margin: 7% 15%;
+    }
+    .location {
+        position: relative;
+        top: -150px;
+    }
+    .justina {
+        margin-top: -23vh;
+    }
+    .footerIcons {
+        font-size: 3rem !important;
+        margin: 16px 0 0 25px;
+    }
+    .footerLinksContainer{
+        display: block;
+        flex-direction: column;
+        position: relative;
+        text-align: right;
+        top: -150px;
+        right: 5%;
+    }
+    .footerBox{
+        
+    height: 45vh;
+    }
 }
