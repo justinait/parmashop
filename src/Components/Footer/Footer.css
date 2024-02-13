@@ -113,6 +113,10 @@
 }
 @media (min-width:1439px){
     .footerBox{ 
-        height: 50vh;
+        height: 59vh;
+    }
+    
+    .justina {
+        margin-top: -30vh;
     }
 }
