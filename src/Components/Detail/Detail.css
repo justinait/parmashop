@@ -64,3 +64,45 @@
     margin: 5% 2%;
     width: 96%;
 }
+
+@media(min-width: 1000px){
+    .imageDetail{
+        width: 50%;
+        margin: unset;
+    }
+    .nameDetail {
+        font-size: 32px;
+        font-weight: 600;
+    }
+    .detailContainer{
+        display: flex;
+    }
+    .infoBasic{
+        width: 50%;
+    }
+    .infoBasic p {
+        margin-bottom: 0.8rem;
+    }
+    .brandDetail {
+        font-size: 21px;
+    }
+    .selectDetail {
+        font-size: 18px;
+    }
+    .separatorLine  {
+        border-bottom: #878787 0px solid;
+    }
+    .priceDetail {
+        font-size: 32px;
+    }
+    .addToCartButton{
+        font-size: 18px;
+        font-weight: 500;
+    }
+}
+
+@media(min-width: 1200px){
+    .imageDetail{
+        height: 90vh;
+    }
+}

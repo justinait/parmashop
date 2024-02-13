@@ -45,7 +45,7 @@
         top: -220px;
     }
 }
-@media (min-width:1023px){
+@media (min-width:1000px){
     .productHomeBox {
         width: 50%;
         display: block;
