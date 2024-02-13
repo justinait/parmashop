@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 
 function HomeProducts() {
   return (
-    <div>
+    <div className='homeProductsContainer'>
         <Link to='/tshirts' className='productHomeBox'>
             <img src={tshirts} alt="Remeras" className='imageProductHome' />
             <div className='homeProductInfo'>

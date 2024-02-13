@@ -37,3 +37,39 @@
         top: -220px;
     }
 }
+@media (min-width:1023px){
+    .productHomeBox {
+        width: 50%;
+        display: block;
+    }
+    .homeProductInfo {
+        top: -280px;
+    }
+    .homeProductsContainer {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: black;
+    }
+}
+@media (min-width:1239px){
+    .imageProductHome {
+        padding: 2% 0 0;
+    }
+    .homeProductInfo {
+        top: -200px;
+    }
+}
+@media (min-width:1439px){
+    .homeProductInfo {
+        top: -250px;
+    }
+}
+@media (min-width:1439px){
+    .productTitleHome {
+        font-size: 38px;
+        margin-bottom: 2rem;
+    }
+    .seeInfoHome {
+        font-size: 16px;
+    }
+}
