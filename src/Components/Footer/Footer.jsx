@@ -2,6 +2,7 @@ import React from 'react'
 import logoFooter from '/public/logowhite.png'
 import './Footer.css'
 import InstagramIcon from '@mui/icons-material/Instagram';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PlaceIcon from '@mui/icons-material/Place';
 import { Link } from 'react-router-dom';
 
@@ -11,11 +12,13 @@ function Footer() {
     <div className='footerBox'>
 
         {/* Buscanos en Instagram <br /> */}
-        {/* <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon/> @parmashop_ </Link> */}
-
-        {/* <p className='location'> <PlaceIcon/> <strong>Buenos Aires 60</strong> - Paseo de las Luces.</p> */}
         
         <img src={logoFooter} alt="PARMA" className='logoFooter' />
+        <div className='footerLinksContainer'>
+          <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
+          <Link> <WhatsAppIcon className='footerIcons'/> </Link>
+        </div>
+        <p className='location'>  <strong>Buenos Aires 60</strong> - Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
         <p className='justina'>Desarrollada por Justina Iturraspe</p>
     </div>
   )

@@ -44,6 +44,9 @@
     .homeProductInfo {
         top: -220px;
     }
+    .imageProductHome {
+        padding: 3% 0 0;
+    }
 }
 @media (min-width:1000px){
     .productHomeBox {

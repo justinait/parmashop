@@ -105,9 +105,6 @@
     .imageDetail{
         height: 90vh;
     }
-    .separatorLine  {
-        /* display: none; */
-    }
 }
 @media (min-width: 1700px){
     .infoBasic {
