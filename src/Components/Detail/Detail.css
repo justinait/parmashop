@@ -71,7 +71,7 @@
         margin: unset;
     }
     .nameDetail {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 600;
     }
     .detailContainer{
@@ -81,13 +81,13 @@
         width: 50%;
     }
     .infoBasic p {
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.7rem;
     }
     .brandDetail {
-        font-size: 21px;
+        font-size: 20px;
     }
     .selectDetail {
-        font-size: 18px;
+        font-size: 17px;
     }
     .separatorLine  {
         border-bottom: #878787 0px solid;
@@ -104,5 +104,14 @@
 @media(min-width: 1200px){
     .imageDetail{
         height: 90vh;
+    }
+    .separatorLine  {
+        /* display: none; */
+    }
+}
+@media (min-width: 1700px){
+    .infoBasic {
+        width: 40%;
+        margin: 3% auto;
     }
 }
