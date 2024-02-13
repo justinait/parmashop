@@ -45,7 +45,7 @@
     padding: 2%;
     margin: 2%;
     border-radius: 10px;
-    transition: border 0.3s ease-in-out, color 0.3s ease-in-out; 
+    transition: border 0.3s ease-in-out, color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 }
 .size:hover {
     border: black solid 1px;
@@ -76,6 +76,11 @@
     background-color: white;
     color: black;
     border: 2px solid black;
+}
+.sizeActive{
+    background-color: black;
+    color: white !important;
+    font-weight: 500;
 }
 @media(min-width: 1000px){
     .imageDetail{

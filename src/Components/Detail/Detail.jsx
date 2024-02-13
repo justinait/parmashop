@@ -10,6 +10,7 @@ function Detail() {
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
+  const [sizes, setSizes] = useState(['38', '40', '42', '44', '46'])
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -27,12 +28,26 @@ function Detail() {
       }
     };
     fetchProduct();
-  }, [id]);
 
-  // const handleClick = (e) => {
-  //   // cual es la mejor forma de diferenciar color y talle
-  //   setSelectedColor(e)
-  // }
+    setSizes([]);
+    handleSizes();
+    
+  }, [id]);
+  const handleSizes = () => {
+    if( product && (product.category !== 'shorts' || product.category !== 'jeans' ) ){
+      setSizes(['S', 'M', 'L', 'XL'])
+    } else {
+      setSizes(['38', '40', '42', '44', '46'])
+    }
+  }
+
+  const handleColorPick = (e) => {
+    // cual es la mejor forma de diferenciar color y talle
+    setSelectedColor(e);
+  }
+  const handleSizePick = (e) => {
+    setSelectedSize(e);
+  }
 
   return (
     <div>
@@ -44,23 +59,25 @@ function Detail() {
             <p className='nameDetail'>{product.name}</p>
             <p className='brandDetail'>Shato</p>
             <p className='priceDetail'>${product.unit_price}</p>
+            
             <div className='separatorLine'></div>
             
             <p className='selectDetail'>Seleccionar color</p>
             <div className='sizesBox'>
-              <p className='size'>Negro</p>
+              <p className='size' onClick={()=>{handleColorPick(e)}}>Negro</p>
               <p className='size'>Blanco</p>
             </div>
 
+            
             <p className='selectDetail'>Seleccionar talle</p>
             <div className='sizesBox'>
-              <p className='size'>S</p>
-              <p className='size'>M</p>
-              <p className='size'>L</p>
-              <p className='size'>XL</p>
+              {sizes.map((e, i)=>{
+                return <p key={i}  onClick={()=>{handleSizePick(e)}} className={`size ${selectedSize === e ? 'sizeActive' : ''}`}>{e}</p>
+              })}
             </div>
 
             <button className='addToCartButton'>Agregar al carrito</button>
+
           </div>
         </div>
       )}
