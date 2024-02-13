@@ -3,6 +3,12 @@
     padding: 5% 0 0;
     height: 50vh;
     object-fit: cover;
+    max-width: 100%;   
+    transition: filter 0.7s ease-in-out, transform 0.7s ease-in-out; 
+}
+.imageProductHome:hover {
+    transform: scale(1.1);
+    filter: grayscale(100%);
 }
 .homeProductInfo {
     position: relative;
@@ -28,7 +34,9 @@
 .productHomeBox {
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
+
 @media (min-width:639px){
     .seeInfoHome {
         font-size: 14px;
