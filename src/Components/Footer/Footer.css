@@ -107,8 +107,12 @@
         top: -150px;
         right: 5%;
     }
-    .footerBox{
-        
-    height: 45vh;
+    .footerBox{ 
+        height: 45vh;
+    }
+}
+@media (min-width:1439px){
+    .footerBox{ 
+        height: 50vh;
     }
 }
