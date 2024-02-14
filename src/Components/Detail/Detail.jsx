@@ -11,9 +11,12 @@ function Detail() {
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-  const [sizes, setSizes] = useState(['38', '40', '42', '44', '46'])
 
-  const { addToCart } = useContext(CartContext)
+  const [sizes, setSizes] = useState([]);
+  
+  const [count, setCount] = useState(1);
+
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,6 +39,19 @@ function Detail() {
     handleSizes();
     
   }, [id]);
+
+  function onAdd () {
+    if ( product.stock > count ){
+      return setCount(count+1);
+    }
+    else{
+      alert('stock maximo')
+    }
+  }
+  
+  function onRemove () {
+    if( count > 0)   setCount ( count - 1 )
+  }
   const handleSizes = () => {
     if( product && (product.category !== 'shorts' || product.category !== 'jeans' ) ){
       setSizes(['S', 'M', 'L', 'XL'])
@@ -43,7 +59,7 @@ function Detail() {
       setSizes(['38', '40', '42', '44', '46'])
     }
   }
-
+  
   const handleColorPick = (e) => {
     // cual es la mejor forma de diferenciar color y talle
     setSelectedColor(e);
@@ -56,7 +72,6 @@ function Detail() {
     <div>
       {product && (
         <div className='detailContainer'>
-          {console.log(product)}
           <img src={product.image} alt={product.name} className='imageDetail'/>
           <div className='infoBasic'>
             <p className='nameDetail'>{product.name}</p>
@@ -67,10 +82,10 @@ function Detail() {
             
             <p className='selectDetail'>Seleccionar color</p>
             <div className='sizesBox'>
-              <p className='size' onClick={()=>{handleColorPick(e)}}>Negro</p>
-              <p className='size'>Blanco</p>
+              {product.colors.map((e, i)=>{
+                return <p key={i}  onClick={()=>{handleColorPick(e)}} className={`size ${selectedColor === e ? 'sizeActive' : ''}`}>{e}</p>
+              })}
             </div>
-
             
             <p className='selectDetail'>Seleccionar talle</p>
             <div className='sizesBox'>
