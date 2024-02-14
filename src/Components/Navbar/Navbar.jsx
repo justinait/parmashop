@@ -45,8 +45,17 @@ function Navbar() {
             <Link to='/category' onClick={handleClose}>Hoodies</Link>
             <Link to='/category' onClick={handleClose}>Accesorios</Link>
             
-            <p onClick={handleClose}>Política de cambios</p>
-            <p onClick={handleClose}>Carrito</p>
+            <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
+            <Link to='/cart' onClick={handleClose}>Carrito</Link>
+
+            {/* {
+            isLogged &&
+            <>
+              <Link to='/dashboard' onClick={closeDropdown} className='dropdownItem'><Dashboard/></Link>
+              <p className="dropdownItem"><LogoutIcon onClick={handleLogOut} /></p>
+              
+            </> 
+            } */}
             
           </div>
         </div>

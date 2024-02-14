@@ -8,31 +8,38 @@ import CheckScroll from './CheckScroll'
 import Products from './Components/Products/Products';
 import ProductsProvider from './context/ProductsProvider';
 import Detail from './Components/Detail/Detail';
+import Changes from './Components/Changes/Changes';
+import Login from './Components/Login/Login';
+import Cart from './Components/Cart/Cart';
+import CartContextComponent from './context/CartContext';
 
 function App() {
 
   return (
     <>
       <ProductsProvider>
-        <BrowserRouter>
-          <Navbar/>
-          <CheckScroll />
-          <Routes>
-            
-            <Route path='/' element={< Home />} />
-            
-            <Route path='item/:id' element={<Detail />} />
-            <Route path=':category' element={< Products />} />
-            
-            {/* <Route path='/entrar' element={< Login />} />
-            <Route path='/about' element={< About />} /> */}
-            {/* <Route element={<ProtectedAdmin/>} >
-              <Route path="/dashboard" element={<Dashboard/>} />
-            </Route> */}
-            
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+      <CartContextComponent>
+          <BrowserRouter>
+            <Navbar/>
+            <CheckScroll />
+            <Routes>
+              
+              <Route path='/' element={< Home />} />
+              
+              <Route path='item/:id' element={<Detail />} />
+              <Route path=':category' element={< Products />} />
+              <Route path='/changes' element={< Changes />} />
+              <Route path='/login' element={< Login />} />
+              <Route path='/cart' element={< Cart />} />
+              
+              {/* <Route element={<ProtectedAdmin/>} >
+                <Route path="/dashboard" element={<Dashboard/>} />
+              </Route> */}
+              
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </CartContextComponent>
       </ProductsProvider>
     </>
   )

@@ -1,8 +1,9 @@
 import { collection, doc, getDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
 import { useParams } from 'react-router-dom';
 import './Detail.css'
+import { CartContext } from '../../context/CartContext';
 
 function Detail() {
   
@@ -11,6 +12,8 @@ function Detail() {
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [sizes, setSizes] = useState(['38', '40', '42', '44', '46'])
+
+  const { addToCart } = useContext(CartContext)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -76,7 +79,7 @@ function Detail() {
               })}
             </div>
 
-            <button className='addToCartButton'>Agregar al carrito</button>
+            <button onClick={()=>addToCart(product)} className='addToCartButton'>Agregar al carrito</button>
 
           </div>
         </div>

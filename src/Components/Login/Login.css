@@ -1,0 +1,45 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+    
+.form {
+    display: flex;
+    flex-direction: column;
+}
+    
+.input {
+    margin-bottom: 16px;
+    padding: 8px;
+}
+    
+.passwordContainer {
+    position: relative;
+    margin: 0 auto 20%;
+}
+    
+.passwordToggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+    
+.button {
+    background-color: var(--color-secondary);
+    border: grey 1px solid;
+    padding: 10px 20px;
+    padding: 8px;
+    margin: 3%;
+    cursor: pointer;
+}
+.button:hover{
+    background-color: grey;
+    color: white;
+}
+    

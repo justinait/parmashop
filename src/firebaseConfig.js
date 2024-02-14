@@ -2,10 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 import {
-    signInWithEmailAndPassword, 
-    getAuth, 
-    signOut, 
-    sendPasswordResetEmail
+  signInWithEmailAndPassword, 
+  getAuth, 
+  signOut, 
+  sendPasswordResetEmail
 } from "firebase/auth"
   
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage"
