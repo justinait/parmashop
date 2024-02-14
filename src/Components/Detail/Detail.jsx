@@ -11,10 +11,8 @@ function Detail() {
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
-
   const [sizes, setSizes] = useState([]);
-  
-  const [count, setCount] = useState(1);
+  const [stock, setStock] = useState(true);
 
   const { addToCart } = useContext(CartContext);
 
@@ -40,18 +38,20 @@ function Detail() {
     
   }, [id]);
 
-  function onAdd () {
-    if ( product.stock > count ){
-      return setCount(count+1);
-    }
-    else{
-      alert('stock maximo')
-    }
+  useEffect(()=>{
+    checkStock();
+  }, [selectedColor, selectedSize])
+
+  function onAdd (product) {
+    let obj = [
+      product,
+      selectedColor,
+      selectedSize
+    ]
+    addToCart(obj)
+    console.log(obj)
   }
   
-  function onRemove () {
-    if( count > 0)   setCount ( count - 1 )
-  }
   const handleSizes = () => {
     if( product && (product.category !== 'shorts' || product.category !== 'jeans' ) ){
       setSizes(['S', 'M', 'L', 'XL'])
@@ -68,10 +68,23 @@ function Detail() {
     setSelectedSize(e);
   }
 
+  const checkStock = () => {
+    if(product){
+      const detailsArray = Object.values(product.details);
+      const foundDetail = detailsArray.find((e) => {
+        return (e.color === selectedColor && e.size === selectedSize && e.stock);
+      });
+      return setStock(foundDetail)
+    }else {
+      return console.error('El producto o los detalles del producto son nulos o indefinidos.');
+  }
+  }
+
   return (
     <div>
       {product && (
         <div className='detailContainer'>
+          {console.log(product.details)}
           <img src={product.image} alt={product.name} className='imageDetail'/>
           <div className='infoBasic'>
             <p className='nameDetail'>{product.name}</p>
@@ -94,7 +107,11 @@ function Detail() {
               })}
             </div>
 
-            <button onClick={()=>addToCart(product)} className='addToCartButton'>Agregar al carrito</button>
+            {
+              !stock &&
+              <p>No hay stock</p>
+            }
+            <button onClick={()=>onAdd(product)} className='addToCartButton' disabled={!stock} >Agregar al carrito</button>
 
           </div>
         </div>
