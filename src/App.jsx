@@ -12,6 +12,7 @@ import Changes from './Components/Changes/Changes';
 import Login from './Components/Login/Login';
 import Cart from './Components/Cart/Cart';
 import CartContextComponent from './context/CartContext';
+import Checkout from './Components/Checkout/Checkout';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
               <Route path='/changes' element={< Changes />} />
               <Route path='/login' element={< Login />} />
               <Route path='/cart' element={< Cart />} />
+              <Route path='/checkout' element={< Checkout />} />
               
               {/* <Route element={<ProtectedAdmin/>} >
                 <Route path="/dashboard" element={<Dashboard/>} />

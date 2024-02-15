@@ -54,7 +54,8 @@ function Detail() {
       productData: product,
       color: selectedColor,
       size: selectedSize,
-      id: product.id+selectedColor+selectedSize
+      id: product.id+selectedColor+selectedSize,
+      quantity: 1
     }
     addToCart(obj)
   }
@@ -74,7 +75,6 @@ function Detail() {
   }
   
   const handleColorPick = (e) => {
-    // cual es la mejor forma de diferenciar color y talle
     setSelectedColor(e);
   }
   const handleSizePick = (e) => {
@@ -111,9 +111,9 @@ function Detail() {
       {product && (
         <div className='detailContainer'>
           {/* {console.log(stock)} */}
-          <img src={product.image} alt={product.name} className='imageDetail'/>
+          <img src={product.image} alt={product.title} className='imageDetail'/>
           <div className='infoBasic'>
-            <p className='nameDetail'>{product.name}</p>
+            <p className='nameDetail'>{product.title}</p>
             <p className='brandDetail'>Shato</p>
             <p className='priceDetail'>${product.unit_price}</p>
             
