@@ -32,15 +32,22 @@ function Detail() {
       }
     };
     fetchProduct();
-
-    setSizes([]);
-    handleSizes();
-    
   }, [id]);
-
+  
   useEffect(()=>{
     checkStock();
   }, [selectedColor, selectedSize])
+
+  useEffect (()=>{
+    const loadProductAndSizes = async () => {
+      setTimeout(() => {
+        setSizes([]);
+        handleSizes();
+      }, 1000);
+    };
+  
+    loadProductAndSizes();
+  }, [product])
 
   function onAdd (product) {
     let obj = [
@@ -49,14 +56,20 @@ function Detail() {
       selectedSize
     ]
     addToCart(obj)
-    console.log(obj)
+    // console.log(obj)
   }
   
   const handleSizes = () => {
-    if( product && (product.category !== 'shorts' || product.category !== 'jeans' ) ){
-      setSizes(['S', 'M', 'L', 'XL'])
-    } else {
-      setSizes(['38', '40', '42', '44', '46'])
+    if(product){
+
+      if( product.category !== 'shorts' && product.category !== 'jeans'  ){
+        setSizes(['S', 'M', 'L', 'XL'])
+        console.log(product.category)
+      } else {
+        setSizes(['38', '40', '42', '44', '46'])
+        console.log(product.category)
+        console.log(sizes)
+      }
     }
   }
   
@@ -70,13 +83,22 @@ function Detail() {
 
   const checkStock = () => {
     if(product){
+      // console.log(selectedColor);
       const detailsArray = Object.values(product.details);
-      const foundDetail = detailsArray.find((e) => {
-        return (e.color === selectedColor && e.size === selectedSize && e.stock);
+      if(selectedColor && !selectedSize){
+        detailsArray.map((e, i)=>{
+          // console.log(e)
+          if(selectedColor == e)  return true
+          else  return false;
+        })  
+      }
+      const foundDetail = detailsArray.some((e) => {
+        // console.log(e)
+        return (e.color == selectedColor && e.size == selectedSize && e.stock);
       });
       return setStock(foundDetail)
     }else {
-      return console.error('El producto o los detalles del producto son nulos o indefinidos.');
+      return console.error('El producto aún no cargó.');
   }
   }
 
@@ -84,7 +106,7 @@ function Detail() {
     <div>
       {product && (
         <div className='detailContainer'>
-          {console.log(product.details)}
+          {/* {console.log(stock)} */}
           <img src={product.image} alt={product.name} className='imageDetail'/>
           <div className='infoBasic'>
             <p className='nameDetail'>{product.name}</p>
