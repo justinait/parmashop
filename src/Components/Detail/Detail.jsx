@@ -50,13 +50,13 @@ function Detail() {
   }, [product])
 
   function onAdd (product) {
-    let obj = [
-      product,
-      selectedColor,
-      selectedSize
-    ]
+    let obj = {
+      productData: product,
+      color: selectedColor,
+      size: selectedSize,
+      id: product.id+selectedColor+selectedSize
+    }
     addToCart(obj)
-    // console.log(obj)
   }
   
   const handleSizes = () => {
@@ -83,23 +83,27 @@ function Detail() {
 
   const checkStock = () => {
     if(product){
-      // console.log(selectedColor);
       const detailsArray = Object.values(product.details);
+      
       if(selectedColor && !selectedSize){
         detailsArray.map((e, i)=>{
-          // console.log(e)
-          if(selectedColor == e)  return true
-          else  return false;
+          if(selectedColor == e)  
+            return true
+          else  
+            return false;
         })  
       }
+
       const foundDetail = detailsArray.some((e) => {
-        // console.log(e)
         return (e.color == selectedColor && e.size == selectedSize && e.stock);
       });
+
       return setStock(foundDetail)
-    }else {
+    
+    }
+    else {
       return console.error('El producto aún no cargó.');
-  }
+    }
   }
 
   return (
