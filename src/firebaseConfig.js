@@ -12,13 +12,13 @@ import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage"
 import {v4} from "uuid"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgZHEih7Vwh-QjeQc_1MfYgSMJYQkDpwU",
-  authDomain: "parmashop-41ea8.firebaseapp.com",
-  projectId: "parmashop-41ea8",
-  storageBucket: "parmashop-41ea8.appspot.com",
-  messagingSenderId: "919437739579",
-  appId: "1:919437739579:web:8155926428e6caec6bfe1e",
-  measurementId: "G-SL0NQ2FPTG"
+  apiKey: import.meta.env.VITE_APIKEY,
+  authDomain: import.meta.env.VITE_APIKEY,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENTID
 };
 
 const app = initializeApp(firebaseConfig);

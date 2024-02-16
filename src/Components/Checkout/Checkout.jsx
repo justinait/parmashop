@@ -8,7 +8,7 @@ function Checkout() {
    
     const {cart} = useContext(CartContext)
     const [preferenceId, setPreferenceId] = useState(null)
-    initMercadoPago("APP_USR-e77add54-99a1-4ae3-ba15-57b30bf8d9d8", {locale: "es-AR"})
+    initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale: "es-AR"})
 
     const createPreference = async ()=>{
         const newArr = cart?.map (e =>{
