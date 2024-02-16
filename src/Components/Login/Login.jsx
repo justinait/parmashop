@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {db, onSignIn} from '../../firebaseConfig'
 import {collection, doc, getDoc} from "firebase/firestore"
-// import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import './Login.css'
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 function Login() {
   
-//   const {handleLogin} = useContext(AuthContext)
+  const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function Login() {
     try {
       const res = await onSignIn(userCredentials);
       
-      if(res?.user){
+      if(res.user){
         
         const userCollection = collection(db, "users");
         const userRef = doc(userCollection, res.user.uid)
@@ -35,9 +35,10 @@ function Login() {
 
         let finallyUser = {
           email: res.user.email,
+          rol: userDoc.data().rol
         }
 
-        // handleLogin(finallyUser);
+        handleLogin(finallyUser);
         navigate('/');
       }  
     } catch (error) {

@@ -1,0 +1,53 @@
+.tableDiv {
+    font-size: 12px;
+    margin-bottom: 10vh;
+}
+.dashboardContainer {
+    min-height: 90vh;
+    padding: 10vh 0;
+}
+.tableRowDashboard{
+    width: 100vw;
+}
+.tableRowDashboard td{
+    max-width: 20%;
+    padding: 5% 0;
+    border-bottom: 1px solid grey;
+}
+.dashboardButton {
+    background-color: #fff;
+    border: 2px grey solid;
+    border-radius: 20px;
+    margin-bottom: 5%;
+    padding: 6%;
+}
+.deleteButton:hover{
+    background-color: red;
+    border: 2px red solid;
+}
+.editButton:hover {
+    background-color: yellow;
+    border: 2px yellow solid;
+}
+.addButton:hover {
+    background-color: greenyellow;
+    border: 2px greenyellow solid;
+}
+.addButton {
+    padding: 1%;
+    margin-left: 25%;
+    margin-bottom: 15%;
+}
+
+@media(min-width:1023px){
+    .tableDiv {
+        font-size: 16px;
+        width: 90vw;
+        margin: auto;
+    }
+    .addButton {
+        padding: 1%;
+        margin-left: 5%;
+        margin-bottom: 10%;
+    }
+}

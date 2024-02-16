@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import logo from '/public/logo.png'
 import './Navbar.css'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { onLogOut } from '../../firebaseConfig';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthContext } from '../../context/AuthContext';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
+  const navigate = useNavigate()
+
+  const [isLogged, handleLogOut] = useContext(AuthContext)
 
   const handleOpen = () => {
     return setOpenMenu(true);
@@ -15,6 +22,11 @@ function Navbar() {
   
   const handleClose = () => {
     return setOpenMenu(false);
+  }
+  const logoutButton = ()=>{
+    onLogOut();
+    handleLogOut();
+    navigate("/login")
   }
 
   return (
@@ -47,15 +59,15 @@ function Navbar() {
             
             <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
             <Link to='/cart' onClick={handleClose}>Carrito</Link>
-
-            {/* {
+            {console.log(isLogged)}
+            {
             isLogged &&
             <>
-              <Link to='/dashboard' onClick={closeDropdown} className='dropdownItem'><Dashboard/></Link>
-              <p className="dropdownItem"><LogoutIcon onClick={handleLogOut} /></p>
+              <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
+              <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>
               
             </> 
-            } */}
+            }
             
           </div>
         </div>

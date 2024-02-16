@@ -11,36 +11,40 @@ import Detail from './Components/Detail/Detail';
 import Changes from './Components/Changes/Changes';
 import Login from './Components/Login/Login';
 import Cart from './Components/Cart/Cart';
-import CartContextComponent from './context/CartContext';
 import Checkout from './Components/Checkout/Checkout';
+import CartContextComponent from './context/CartContext';
+import AuthContextComponent from './context/AuthContext';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {
 
   return (
     <>
       <ProductsProvider>
-      <CartContextComponent>
-          <BrowserRouter>
-            <Navbar/>
-            <CheckScroll />
-            <Routes>
-              
-              <Route path='/' element={< Home />} />
-              
-              <Route path='item/:id' element={<Detail />} />
-              <Route path=':category' element={< Products />} />
-              <Route path='/changes' element={< Changes />} />
-              <Route path='/login' element={< Login />} />
-              <Route path='/cart' element={< Cart />} />
-              <Route path='/checkout' element={< Checkout />} />
-              
-              {/* <Route element={<ProtectedAdmin/>} >
-                <Route path="/dashboard" element={<Dashboard/>} />
-              </Route> */}
-              
-            </Routes>
-            <Footer />
-          </BrowserRouter>
+        <CartContextComponent>
+          <AuthContextComponent>
+            <BrowserRouter>
+              <Navbar/>
+              <CheckScroll />
+              <Routes>
+                
+                <Route path='/' element={< Home />} />
+                
+                <Route path='item/:id' element={<Detail />} />
+                <Route path=':category' element={< Products />} />
+                <Route path='/changes' element={< Changes />} />
+                <Route path='/login' element={< Login />} />
+                <Route path='/cart' element={< Cart />} />
+                <Route path='/checkout' element={< Checkout />} />
+                
+                {/* <Route element={<ProtectedAdmin/>} > */}
+                  <Route path="/dashboard" element={<Dashboard/>} />
+                {/* </Route> */}
+                
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </AuthContextComponent>
         </CartContextComponent>
       </ProductsProvider>
     </>
