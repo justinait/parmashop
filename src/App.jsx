@@ -15,6 +15,7 @@ import Checkout from './Components/Checkout/Checkout';
 import CartContextComponent from './context/CartContext';
 import AuthContextComponent from './context/AuthContext';
 import Dashboard from './Components/Dashboard/Dashboard';
+import ProtectedAdmin from './ProtectedAdmin';
 
 function App() {
 
@@ -37,9 +38,9 @@ function App() {
                 <Route path='/cart' element={< Cart />} />
                 <Route path='/checkout' element={< Checkout />} />
                 
-                {/* <Route element={<ProtectedAdmin/>} > */}
+                <Route element={<ProtectedAdmin/>} >
                   <Route path="/dashboard" element={<Dashboard/>} />
-                {/* </Route> */}
+                </Route>
                 
               </Routes>
               <Footer />
