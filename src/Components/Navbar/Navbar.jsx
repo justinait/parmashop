@@ -14,10 +14,12 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate()
 
-  const [isLogged, handleLogOut] = useContext(AuthContext)
+  const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
 
   const handleOpen = () => {
+    console.log(isLogged);
     return setOpenMenu(true);
+    
   }
   
   const handleClose = () => {
@@ -59,14 +61,13 @@ function Navbar() {
             
             <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
             <Link to='/cart' onClick={handleClose}>Carrito</Link>
-            {console.log(isLogged)}
+            {console.log({isLogged})}
             {
-            isLogged &&
-            <>
-              <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
-              <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>
-              
-            </> 
+              isLogged &&
+              <>
+                <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
+                <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>
+              </> 
             }
             
           </div>
