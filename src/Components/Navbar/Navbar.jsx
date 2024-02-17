@@ -17,9 +17,7 @@ function Navbar() {
   const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
 
   const handleOpen = () => {
-    console.log(isLogged);
     return setOpenMenu(true);
-    
   }
   
   const handleClose = () => {
@@ -61,7 +59,7 @@ function Navbar() {
             
             <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
             <Link to='/cart' onClick={handleClose}>Carrito</Link>
-            {console.log({isLogged})}
+            
             {
               isLogged &&
               <>

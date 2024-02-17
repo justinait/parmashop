@@ -1,20 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { db, uploadFile } from '../../firebaseConfig';
 import {addDoc, collection, updateDoc, doc} from "firebase/firestore"
 
 function EditAddModal({handleClose, setIsChange, productSelected, setProductSelected}) {
-  const [show, setShow] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
-    
+  const [categorySelected, setCategorySelected] = useState('');
+  const [file, setFile] = useState(null);
+  const [sizes, setSizes] = useState([]);
+  const [colors, setColors] = useState(['']);
+
+
   const [newProduct, setNewProduct] = useState({
     title:"",
     unit_price:0,
     image:"",
-    description:""
+    category:"",
+    quantity:1,
+    colors: ['Blanco', 'Negro'],
+    details: {
+      1: {
+        color:'',
+        size:'',
+        stock: false
+      }
+    }
   })
-  const [file, setFile] = useState(null);
 
   const handleImage = async () => {
     setIsLoading(true);
@@ -69,6 +82,33 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     }
   }
 
+  const handleSelectChange = (event) => {
+    setCategorySelected(event.target.value);
+  };
+  const handleSizes = () => {
+    if(productSelected){
+      if( productSelected.category !== 'shorts' && productSelected.category !== 'jeans'  ){
+        setSizes(['S', 'M', 'L', 'XL'])
+      } else {
+        setSizes(['38', '40', '42', '44', '46'])
+      }
+    }
+  }
+  
+  const handleColorChange = (index, event) => {
+    const newColors = [...colors];
+    newColors[index] = event.target.value;
+    setColors(newColors);
+  };
+
+  const addColorInput = () => {
+    setColors([...colors, '']);
+  };
+
+  useEffect(()=>{
+    handleSizes()
+  }, [categorySelected])
+
   return (
     <>
       <Modal.Header closeButton>
@@ -98,16 +138,32 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
             />
           </div>
           <div className="input">
-            <input
-              type="text"
-              name="description"
-              onChange={handleChange}
-              placeholder="Descripción"
-              className="input"
-              defaultValue={productSelected?.description}
-            />
+            <select value={categorySelected} onChange={handleSelectChange}>
+              <option value="">Categorias..</option>
+              <option value="opcion1">Remeras</option>
+              <option value="opcion2">Pantalones</option>
+              <option value="opcion4">Camisas</option>
+              <option value="opcion5">Bermudas</option>
+              <option value="opcion6">Buzo</option>
+              <option value="opcion7">Hoodies</option>
+              <option value="opcion8">Accesorios</option>
+            </select>
           </div>
-
+          <div>
+            <p>Colores</p>
+            {colors.map((color, index) => (
+              <div key={index} className="input">
+                <input
+                  type="text"
+                  value={color}
+                  onChange={(event) => handleColorChange(index, event)}
+                  placeholder="Color"
+                  className="input"
+                />
+              </div>
+            ))}
+            <p onClick={addColorInput}>+</p>
+          </div>
           <div className="input">
             <input
               type="file"
