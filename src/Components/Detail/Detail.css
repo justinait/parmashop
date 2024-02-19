@@ -77,7 +77,7 @@
     width: 96%;
     transition: border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out; 
 }
-.addToCartButton:hover{
+.addToCartButton:hover, .disabledButton{
     background-color: white;
     color: black;
     border: 2px solid black;

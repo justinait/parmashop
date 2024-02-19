@@ -31,7 +31,6 @@ function Dashboard() {
       
       <ProductsDashboard products={products} setIsChange={setIsChange} /> 
       
-      
     </div>
   )
 }

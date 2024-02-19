@@ -143,7 +143,10 @@ function Detail() {
               !stock &&
               <p>No hay stock</p>
             }
-            <button onClick={()=>onAdd(product)} className='addToCartButton' disabled={!stock} >Agregar al carrito</button>
+            <button 
+            onClick={()=>onAdd(product)} 
+            className={`addToCartButton ${!stock ? 'disabledButton' : ''}`}
+            disabled={!stock} >Agregar al carrito</button>
 
           </div>
         </div>

@@ -18,6 +18,8 @@
 .imgProduct{
     width: 90%;
     margin: auto;
+    height: 70%;
+    object-fit: cover;
 }
 .productName{
     text-transform: capitalize;
