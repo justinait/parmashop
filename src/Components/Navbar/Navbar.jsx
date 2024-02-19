@@ -9,12 +9,14 @@ import { onLogOut } from '../../firebaseConfig';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../context/AuthContext';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
+import { CartContext } from '../../context/CartContext';
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const navigate = useNavigate()
 
   const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
+  const {totalProducts} = useContext(CartContext);
 
   const handleOpen = () => {
     return setOpenMenu(true);
@@ -37,7 +39,7 @@ function Navbar() {
         <div className='rightNavbar'>
           <div className='cartContainer'>
             < ShoppingCartOutlinedIcon className='iconsNavbar'/>
-            <span className="cartItemCount">3</span>
+            <span className="cartItemCount">{totalProducts}</span>
           </div>
           < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
         </div>
