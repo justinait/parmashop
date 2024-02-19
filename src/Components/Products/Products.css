@@ -46,3 +46,6 @@
     font-size: 14px;
     text-align: center;
 }
+.categoryTitle{
+    text-transform: uppercase;
+}

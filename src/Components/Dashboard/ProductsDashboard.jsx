@@ -15,8 +15,11 @@ function ProductsDashboard({products, setIsChange}) {
     const handleClose = () => setShow(false);
   
     const handleOpen = (product) => {
-        setShow(true);
-        setProductSelected(product);
+        if(!show){
+
+            setShow(true);
+            setProductSelected(product);
+        }
     }
   
     const deleteProduct = (id) => {
@@ -59,24 +62,24 @@ function ProductsDashboard({products, setIsChange}) {
                                     <button className='dashboardButton deleteButton' onClick={()=>deleteProduct(e.id)}> <DeleteIcon/></button>
                                 </td>
 
-                                <Modal
-                                    show={show}
-                                    onHide={handleClose}
-                                    backdrop="static"
-                                    keyboard={false}
-                                >
-                                    <EditAddModal handleClose={handleClose} setIsChange={setIsChange} productSelected={productSelected} setProductSelected={setProductSelected} />
-                                    
-                                </Modal>
                             </tr>
                         )
                     })}
+                    <Modal
+                        show={show}
+                        onHide={handleClose}
+                        backdrop="static"
+                        keyboard={false}
+                    >
+                        <EditAddModal handleClose={handleClose} setIsChange={setIsChange} productSelected={productSelected} setProductSelected={setProductSelected} />
+                        
+                    </Modal>
                         
 
                 </tbody>
             </table>    :    
             
-            <p>No hay promociones por el momento.</p>
+            <p>No hay productos.</p>
         
         }
     </div>

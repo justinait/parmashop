@@ -49,19 +49,19 @@ function Navbar() {
 
             <Link to='/category' onClick={handleClose}>Todos los productos</Link>
             <Link to='/category' onClick={handleClose}>NEW</Link>
-            <Link to='/tshirts' onClick={handleClose}>Remeras</Link>
-            <Link to='/category' onClick={handleClose}>Camisas</Link>
-            <Link to='/category' onClick={handleClose}>Pantalones</Link>
-            <Link to='/shorts' onClick={handleClose}>Bermudas</Link>
-            <Link to='/category' onClick={handleClose}>Buzos</Link>
-            <Link to='/category' onClick={handleClose}>Hoodies</Link>
-            <Link to='/category' onClick={handleClose}>Accesorios</Link>
+            <Link to='/Remeras' onClick={handleClose}>Remeras</Link>
+            <Link to='/Camisas' onClick={handleClose}>Camisas</Link>
+            <Link to='/Pantalones' onClick={handleClose}>Pantalones</Link>
+            <Link to='/Bermudas' onClick={handleClose}>Bermudas</Link>
+            <Link to='/Buzos' onClick={handleClose}>Buzos</Link>
+            <Link to='/Hoodies' onClick={handleClose}>Hoodies</Link>
+            <Link to='/Accesorios' onClick={handleClose}>Accesorios</Link>
             
             <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
             <Link to='/cart' onClick={handleClose}>Carrito</Link>
             
-            {
-              isLogged &&
+            { 
+              user.rol == import.meta.env.VITE_ROLADMIN &&
               <>
                 <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
                 <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>

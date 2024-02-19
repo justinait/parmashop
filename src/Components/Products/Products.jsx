@@ -25,15 +25,14 @@ function Products() {
 
   return (
     <div className='productsContainer'>
-      {console.log(category)}
-      <h2 className=''>NUESTROS PRODUCTOS</h2>
+      <h2 className='categoryTitle'>{category} </h2>
 
       {
         productsList && productsList.slice().reverse().map((e, i) =>  {
           return(
             <Link to={`/item/${e.id}`} className='productContainer' key={i}>
               <img src={e.image} alt={e.title} className='imgProduct'/>
-              {!e.stock && <p className='stockProducts'>Sin Stock</p>}
+              {/* {!e.stock && <p className='stockProducts'>Sin Stock</p>} */}
               {/* en realidad tengo q hacer un map que revise el stock de todos los colores  */}
               <div className='productInfoContainer'>
                 <p className='productName'>{e.title}</p>

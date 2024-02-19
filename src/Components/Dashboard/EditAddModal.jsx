@@ -8,9 +8,18 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
 
   const [isLoading, setIsLoading] = useState(false);
   const [categorySelected, setCategorySelected] = useState('');
+  const [colorSelected, setColorSelected] = useState('');
+  const [sizeSelected, setSizeSelected] = useState('');
   const [file, setFile] = useState(null);
   const [sizes, setSizes] = useState([]);
-  const [colors, setColors] = useState(['']);
+  const [colors, setColors] = useState([]);
+  const [details, setDetails] = useState({
+    1: {
+      color:'',
+      size:'',
+      stock: false
+    }
+  });
 
 
   const [newProduct, setNewProduct] = useState({
@@ -19,7 +28,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     image:"",
     category:"",
     quantity:1,
-    colors: ['Blanco', 'Negro'],
+    colors: colors,
     details: {
       1: {
         color:'',
@@ -34,6 +43,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     let url = await uploadFile(file);
 
     if(productSelected) {
+      
       setProductSelected({
         ...productSelected, image: url
       })
@@ -43,16 +53,38 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
 
     setIsLoading(false);
   }
-   
+  
   const handleChange = (e) => {
-    if(productSelected) {
+    const { name, value } = e.target;
+    const updatedDetails = { ...details };
+    updatedDetails[i] = {
+      ...updatedDetails[i],
+      [name]: value
+    };
+  
+    setDetails(updatedDetails);
+    if (productSelected) {
       setProductSelected({
-        ...productSelected,  [e.target.name]: e.target.value
-      })
+        ...productSelected,
+        [name]: value
+      });
     } else {
-      setNewProduct({...newProduct, [e.target.name]: e.target.value})
+      if (name === 'category') {
+        setCategorySelected(value);
+      } else if (name === 'colors') {
+        const updatedColors = [...colors];
+        const colorIndex = Number(e.target.dataset.index);
+        updatedColors[colorIndex] = value;
+        setColors(updatedColors);
+      } else {
+        setNewProduct({
+          ...newProduct,
+          [name]: value
+        });
+      }
     }
-  }
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +94,9 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       let obj = {
         ...productSelected,
         unit_price: +productSelected.unit_price,
-        category: categorySelected
+        category: categorySelected,
+        colors: colors,
+        details: details
       }
 
       updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
@@ -75,6 +109,8 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
         ...newProduct,
         unit_price: +newProduct.unit_price,
         category: categorySelected,
+        colors: colors,
+        details: details
       }
       addDoc(productsCollection, obj).then(()=> {
         setIsChange(true);
@@ -84,9 +120,6 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     }
   }
 
-  const handleSelectChange = (event) => {
-    setCategorySelected(event.target.value);
-  };
   const handleSizes = () => {
     if(productSelected){
       if( productSelected.category !== 'Bermudas' && productSelected.category !== 'Pantalones'  ){
@@ -106,10 +139,27 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
   const addColorInput = () => {
     setColors([...colors, '']);
   };
+  const addNewProductButton =() =>{
+    const timestamp = Date.now();
+    setDetails(prevDetails => ({
+      ...prevDetails,
+      [timestamp]: {
+        color: null,
+        size: null,
+        stock: false
+      }
+    }));
+  }
+  const handleDeleteProduct = (i) => {
+    const { [i]: deletedProduct, ...restProducts } = details; // Eliminar el objeto con la clave especificada
+    setDetails(restProducts);
+  };
+
 
   useEffect(()=>{
     handleSizes()
-  }, [categorySelected])
+
+  }, [categorySelected, colors])
 
   return (
     <>
@@ -141,7 +191,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
             />
           </div>
           <div className="inputModal">
-            <select value={categorySelected} onChange={handleSelectChange}>
+            <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
               <option value="">Categorias..</option>
               <option value="Remeras">Remeras</option>
               <option value="Pantalones">Pantalones</option>
@@ -151,17 +201,14 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
               <option value="Hoodies">Hoodies</option>
               <option value="Accesorios">Accesorios</option>
             </select>
-            {categorySelected && (
-              <p>Has seleccionado: {categorySelected}</p>
-            )}
           </div>
           <p>Colores</p>
           <div className='colorsDiv'>
-            {colors.map((color, index) => (
+            {colors.map((e, index) => (
               <div key={index} className="inputModal">
                 <input
                   type="text"
-                  value={color}
+                  defaultValue={e}
                   onChange={(event) => handleColorChange(index, event)}
                   placeholder="Color"
                   className="inputModal"
@@ -183,21 +230,45 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
           }
 
           <p>Información Específica</p>
-          {/* <div className='colorsDiv'>
+          <div className='colorsDiv'>
             <p>Prenda</p>
-            {colors.map((color, index) => (
-              <div key={index} className="inputModal">
-                <input
-                  type="text"
-                  value={color}
-                  onChange={(event) => handleColorChange(index, event)}
-                  placeholder="Color"
-                  className="inputModal"
-                />
+            
+            {
+            Object.values(details).map((e, index) => (
+              <div key={index}>
+                <p>Prenda {index}</p>
+                  
+                <div className="inputModal">
+                  <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>
+                    <option value="">Colores..</option>
+                    {colors.map((e, i)=>{
+                      <option key={i} value={e}>{e}</option>  
+                    })}
+                  </select>
+                </div>
+              
+                <div className="inputModal">
+                  <select value={sizeSelected} onChange={(event)=>setSizeSelected(event.target.value)}>
+                    <option value="">Talles..</option>
+                    {sizes.map((e, i)=>{
+                      <option key={i} value={e}>{e}</option>  
+                    })}
+                  </select>
+                </div>
+                
+                <div className="inputModal">
+                  <input
+                    type="text"
+                    defaultValue={e?.stock}
+                    onChange={(event) => handleChange(index, event)}
+                    placeholder="Stock"
+                    className="inputModal"
+                  />
+                </div>
               </div>
             ))}
-            <p className='addMoreButton' onClick={addColorInput}>+</p>
-          </div> */}
+            <p className='addMoreButton' onClick={addNewProductButton}>+</p>
+          </div>
         </form>
          
       </Modal.Body>
