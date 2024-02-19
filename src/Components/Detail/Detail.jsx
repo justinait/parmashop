@@ -63,6 +63,7 @@ function Detail() {
       quantity: 1
     }
     addToCart(obj)
+    
   }
   
   const handleSizes = () => {
@@ -146,7 +147,8 @@ function Detail() {
             <button 
             onClick={()=>onAdd(product)} 
             className={`addToCartButton ${!stock ? 'disabledButton' : ''}`}
-            disabled={!stock} >Agregar al carrito</button>
+            disabled={!stock} 
+            >Agregar al carrito</button>
 
           </div>
         </div>

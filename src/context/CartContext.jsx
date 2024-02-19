@@ -7,8 +7,8 @@ function CartContextComponent({children}) {
   const [cart, setCart] = useState([]);
 
   const addToCart = (product) => {
+    
     const currentCount = cart.length + 1;
-
     const newId = `${product.id}_${currentCount}`;
 
     product.id = newId;

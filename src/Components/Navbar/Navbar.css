@@ -51,6 +51,23 @@ a:focus {
 a:hover {
     font-weight: 500;
 }
+.cartItemCount {
+    position: absolute;;
+    top: -8px;
+    right: -8px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cartContainer {
+    position: relative;
+}
 @media (min-width:639px){
     .logoNavbar {
         width: 150px;

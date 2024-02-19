@@ -35,7 +35,10 @@ function Navbar() {
       {
         !openMenu &&
         <div className='rightNavbar'>
-          < ShoppingCartOutlinedIcon className='iconsNavbar'/>
+          <div className='cartContainer'>
+            < ShoppingCartOutlinedIcon className='iconsNavbar'/>
+            <span className="cartItemCount">3</span>
+          </div>
           < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
         </div>
       }
