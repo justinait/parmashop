@@ -12,49 +12,49 @@ import { Link } from 'react-router-dom'
 function HomeProducts() {
   return (
     <div className='homeProductsContainer'>
-        <Link to='/tshirts' className='productHomeBox'>
+        <Link to='/Remeras' className='productHomeBox'>
             <img src={tshirts} alt="Remeras" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Remeras</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/category' className='productHomeBox'>
+        <Link to='/Pantalones' className='productHomeBox'>
             <img src={trausers} alt="Pantalones" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Pantalones</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/category' className='productHomeBox'>
+        <Link to='/Camisas' className='productHomeBox'>
             <img src={camisas} alt="Camisas" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Camisas</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/shorts' className='productHomeBox'>
+        <Link to='/Bermudas' className='productHomeBox'>
             <img src={shorts} alt="Bermudas" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Bermudas</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/category' className='productHomeBox'>
+        <Link to='/Buzos' className='productHomeBox'>
             <img src={buzos} alt="Buzos" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Buzos</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/category' className='productHomeBox'>
+        <Link to='/Hoodies' className='productHomeBox'>
             <img src={hoodies} alt="Hoodies" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Hoodies</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/category' className='productHomeBox'>
+        <Link to='/Accesorios' className='productHomeBox'>
             <img src={accesorios} alt="Accesorios" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Accesorios</p>

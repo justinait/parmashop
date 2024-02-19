@@ -4,6 +4,7 @@ import { db } from '../../firebaseConfig';
 import { useParams } from 'react-router-dom';
 import './Detail.css'
 import { CartContext } from '../../context/CartContext';
+import { Placeholder, Spinner } from 'react-bootstrap';
 
 function Detail() {
   
@@ -13,6 +14,7 @@ function Detail() {
   const [selectedSize, setSelectedSize] = useState(null);
   const [sizes, setSizes] = useState([]);
   const [stock, setStock] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const { addToCart } = useContext(CartContext);
 
@@ -27,6 +29,7 @@ function Detail() {
         } else {
           console.log('No such document!');
         }
+        setLoading(false); 
       } catch (error) {
         console.error('Error fetching document:', error);
       }
@@ -84,7 +87,7 @@ function Detail() {
       const detailsArray = Object.values(product.details);
       
       if(selectedColor && !selectedSize){
-        detailsArray.map((e, i)=>{
+        detailsArray.map((e)=>{
           if(selectedColor == e)  
             return true
           else  
@@ -106,9 +109,14 @@ function Detail() {
 
   return (
     <div>
-      {product && (
+      {loading ? 
+      <div className='spinner'>
+        <Spinner animation="border" role="status" >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+      : (
         <div className='detailContainer'>
-          {/* {console.log(stock)} */}
           <img src={product.image} alt={product.title} className='imageDetail'/>
           <div className='infoBasic'>
             <p className='nameDetail'>{product.title}</p>
