@@ -31,7 +31,9 @@ function Detail() {
         console.error('Error fetching document:', error);
       }
     };
-    fetchProduct();
+    setTimeout(() => {
+      fetchProduct();
+    }, 100);
   }, [id]);
   
   useEffect(()=>{
@@ -43,7 +45,7 @@ function Detail() {
       setTimeout(() => {
         setSizes([]);
         handleSizes();
-      }, 1000);
+      }, 100);
     };
   
     loadProductAndSizes();
