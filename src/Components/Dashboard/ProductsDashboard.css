@@ -38,7 +38,22 @@
     margin-left: 25%;
     margin-bottom: 15%;
 }
-
+.addMoreButton {
+    border: 1px solid grey;
+    width: 10%;
+}
+.colorsDiv {
+    display: flex;
+    flex-wrap: wrap;
+}
+.colorsDiv .input {
+    display: flex;
+    width: 40%;
+    flex-wrap: wrap;
+}
+.inputModal {
+    padding: 6px;
+}
 @media(min-width:1023px){
     .tableDiv {
         font-size: 16px;

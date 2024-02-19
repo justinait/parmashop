@@ -61,7 +61,8 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     if(productSelected){
       let obj = {
         ...productSelected,
-        unit_price: +productSelected.unit_price
+        unit_price: +productSelected.unit_price,
+        category: categorySelected
       }
 
       updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
@@ -72,7 +73,8 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     } else{
       let obj = {
         ...newProduct,
-        unit_price: +newProduct.unit_price
+        unit_price: +newProduct.unit_price,
+        category: categorySelected,
       }
       addDoc(productsCollection, obj).then(()=> {
         setIsChange(true);
@@ -87,7 +89,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
   };
   const handleSizes = () => {
     if(productSelected){
-      if( productSelected.category !== 'shorts' && productSelected.category !== 'jeans'  ){
+      if( productSelected.category !== 'Bermudas' && productSelected.category !== 'Pantalones'  ){
         setSizes(['S', 'M', 'L', 'XL'])
       } else {
         setSizes(['38', '40', '42', '44', '46'])
@@ -117,7 +119,8 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       <Modal.Body>
          
         <form className="form">
-          <div className="input">
+          <p>Información General</p>
+          <div className="inputModal">
             <input
               type="text"
               name="title"
@@ -127,7 +130,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
               defaultValue={productSelected?.title}
             />
           </div>
-          <div className="input">
+          <div className="inputModal">
             <input
               type="number"
               name="unit_price"
@@ -137,34 +140,37 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
               defaultValue={productSelected?.unit_price}
             />
           </div>
-          <div className="input">
+          <div className="inputModal">
             <select value={categorySelected} onChange={handleSelectChange}>
               <option value="">Categorias..</option>
-              <option value="opcion1">Remeras</option>
-              <option value="opcion2">Pantalones</option>
-              <option value="opcion4">Camisas</option>
-              <option value="opcion5">Bermudas</option>
-              <option value="opcion6">Buzo</option>
-              <option value="opcion7">Hoodies</option>
-              <option value="opcion8">Accesorios</option>
+              <option value="Remeras">Remeras</option>
+              <option value="Pantalones">Pantalones</option>
+              <option value="Camisas">Camisas</option>
+              <option value="Bermudas">Bermudas</option>
+              <option value="Buzo">Buzo</option>
+              <option value="Hoodies">Hoodies</option>
+              <option value="Accesorios">Accesorios</option>
             </select>
+            {categorySelected && (
+              <p>Has seleccionado: {categorySelected}</p>
+            )}
           </div>
-          <div>
-            <p>Colores</p>
+          <p>Colores</p>
+          <div className='colorsDiv'>
             {colors.map((color, index) => (
-              <div key={index} className="input">
+              <div key={index} className="inputModal">
                 <input
                   type="text"
                   value={color}
                   onChange={(event) => handleColorChange(index, event)}
                   placeholder="Color"
-                  className="input"
+                  className="inputModal"
                 />
               </div>
             ))}
-            <p onClick={addColorInput}>+</p>
+            <p className='addMoreButton' onClick={addColorInput}>+</p>
           </div>
-          <div className="input">
+          <div className="inputModal">
             <input
               type="file"
               onChange={(e)=>setFile(e.target.files[0])}
@@ -176,6 +182,22 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
             <button type='button' onClick={handleImage}>Confirmar imagen</button>
           }
 
+          <p>Información Específica</p>
+          {/* <div className='colorsDiv'>
+            <p>Prenda</p>
+            {colors.map((color, index) => (
+              <div key={index} className="inputModal">
+                <input
+                  type="text"
+                  value={color}
+                  onChange={(event) => handleColorChange(index, event)}
+                  placeholder="Color"
+                  className="inputModal"
+                />
+              </div>
+            ))}
+            <p className='addMoreButton' onClick={addColorInput}>+</p>
+          </div> */}
         </form>
          
       </Modal.Body>

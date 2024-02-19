@@ -62,7 +62,7 @@ function Detail() {
   
   const handleSizes = () => {
     if(product){
-      if( product.category !== 'shorts' && product.category !== 'jeans'  ){
+      if( product.category !== 'Bermudas' && product.category !== 'Pantalones'  ){
         setSizes(['S', 'M', 'L', 'XL'])
       } else {
         setSizes(['38', '40', '42', '44', '46'])
