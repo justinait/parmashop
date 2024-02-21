@@ -3,29 +3,25 @@
     margin: 8vh auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 90vh;
-}
-.productsContainer h2 {
-    margin: 10% 0;
-    width: 80%;
+    align-content: flex-start;
 }
 .productContainer {
+    height: 320px;
     width: 50%;
     display: flex;
     flex-direction: column;
 }
 .imgProduct{
     width: 90%;
-    margin: auto;
     height: 70%;
     object-fit: cover;
+    margin: 10px auto;
 }
 .productName{
     text-transform: capitalize;
     font-weight: 400;
-    width: 90%;
-    margin: auto;
     margin-bottom: 3%;
     font-size: 15px;
 }
@@ -34,7 +30,6 @@
 }
 .productInfoContainer {
     text-align: center;
-    margin-top: -25px;
 }
 .stockProducts {
     position: relative;
@@ -50,4 +45,70 @@
 }
 .categoryTitle{
     text-transform: uppercase;
+    text-align: center;
+    margin: 10% 0;
+    width: 100%;
+}
+
+@media (min-width: 600px) {
+    
+    .categoryTitle{
+        font-size: 35px;
+    }
+    .productInfoContainer{
+        text-align: left;
+        width: 90%;
+        margin: auto;
+    }
+    .productContainer {
+        height: 390px;
+    }
+    .productPrice {
+        font-size: 20px;
+    }
+}
+
+@media (min-width: 1000px) {
+    .productName{
+        font-size: 20px;
+    }
+    .categoryTitle{
+        margin: 7% 0;
+    }
+    
+    .productContainer {
+        height: 390px;
+        width: 33.3%;
+    }
+    .productPrice {
+        font-size: 22px;
+    }
+ 
+}
+@media (min-width: 1200px) {
+    .productName{
+        font-size: 20px;
+    }
+    
+    .productContainer {
+        height: 410px;
+        width: 25%;
+    }
+ 
+}
+@media (min-width: 1500px) {
+    .productName{
+        font-size: 22px;
+    }
+    .categoryTitle{
+        margin: 7% 0 6%;
+    }
+    
+    .productContainer {
+        height: 450px;
+    }
+    .productPrice {
+        font-size: 24px;
+    }
+ 
 }
