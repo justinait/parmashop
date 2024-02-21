@@ -141,6 +141,7 @@ function Detail() {
             </div>
 
             {
+              (selectedColor && selectedSize) &&
               !stock &&
               <p>No hay stock</p>
             }
