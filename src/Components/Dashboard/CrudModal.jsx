@@ -17,8 +17,10 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     1: {
       color:'',
       size:'',
+      stock: false
     }
   });
+
 
   const [newProduct, setNewProduct] = useState({
     title:"",
@@ -42,26 +44,54 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     if(productSelected) {
       
       setProductSelected({
-        ...productSelected, 
-        image: url,
+        ...productSelected, image: url
       })
-      
     } else {
       setNewProduct({...newProduct, image: url})
     }
 
     setIsLoading(false);
   }
+  // const handleChange = (e) => {
+  //   if(productSelected) {
+  //     setProductSelected({
+  //       ...productSelected,  [e.target.name]: e.target.value
+  //     })
+  //   } else {
+  //     setNewProduct({...newProduct, [e.target.name]: e.target.value})
+  //   }
+  // }
+  const handleChange = (e, index) => {
+    const { name, value } = e.target;
+    const updatedDetails = { ...details };
+    updatedDetails[i] = {
+      ...updatedDetails[i],
+      [name]: value
+    };
   
-  const handleChange = (e) => {
-    if(productSelected) {
+    setDetails(updatedDetails);
+    if (productSelected) {
       setProductSelected({
-        ...productSelected,  [e.target.name]: e.target.value
-      })
+        ...productSelected,
+        [name]: value
+      });
     } else {
-      setNewProduct({...newProduct, [e.target.name]: e.target.value})
+      if (name === 'category') {
+        setCategorySelected(value);
+      } else if (name === 'colors') {
+        const updatedColors = [...colors];
+        const colorIndex = Number(e.target.dataset.index);
+        updatedColors[colorIndex] = value;
+        setColors(updatedColors);
+      } else {
+        setNewProduct({
+          ...newProduct,
+          [name]: value
+        });
+      }
     }
-  }
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,7 +105,6 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
         colors: colors,
         details: details
       }
-      console.log(obj)
 
       updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
         setIsChange(true);
@@ -107,40 +136,26 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       }
     }
   }
-  //handleColorShow
-  //handleCategoryshow
+  
   const handleColorChange = (index, event) => {
-    
-    let newColors
-    let i;
-
-    if(productSelected){
-      
-      newColors = [... productSelected.colors ];
-      i = productSelected.colors.length
-      console.log(i);
-    } else{
-
-      newColors = [... colors ];
-      i =updatedNewProduct.colors[i] = event.target.value
-
-    }
-    newColors[i] = event.target.value;
+    const newColors = [...colors];
+    newColors[index] = event.target.value;
     setColors(newColors);
-
   };
 
   const addColorInput = () => {
-    setColors([...colors, '']);
+    let colorsToAdd = productSelected ? [...productSelected.colors, ''] : [...colors, ''];
+    setColors(colorsToAdd);
   };
-
+  
   const addNewProductButton =() =>{
     const timestamp = Date.now();
     setDetails(prevDetails => ({
       ...prevDetails,
       [timestamp]: {
-        color: null,
-        size: null
+        color: '',
+        size: '',
+        stock: false
       }
     }));
   }
@@ -185,7 +200,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
             />
           </div>
           <div className="inputModal">
-            <select defaultValue={productSelected?.category}  onChange={(event)=>setCategorySelected(event.target.value)}>
+            <select defaultValue={productSelected?.category} value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
               <option value="">Categorias..</option>
               <option value="Remeras">Remeras</option>
               <option value="Pantalones">Pantalones</option>
@@ -196,9 +211,11 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
               <option value="Accesorios">Accesorios</option>
             </select>
           </div>
+
           <p>Colores</p>
           <div className='colorsDiv'>
-            {productSelected?.colors.map((e, index) => (
+            {
+            (productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
               <div key={index} className="inputModal">
                 <input
                   type="text"
@@ -211,6 +228,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
             ))}
             <p className='addMoreButton' onClick={addColorInput}>+</p>
           </div>
+
           <div className="inputModal">
             <input
               type="file"
@@ -224,7 +242,45 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
           }
 
           <p>Información Específica</p>
-
+          <div className='colorsDiv'>
+            <p>Prenda</p>
+            
+            {
+            Object.values(details).map((e, index) => (
+              <div key={index}>
+                <p>Prenda {index}</p>
+                  
+                <div className="inputModal">
+                  <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>
+                    <option value="">Colores..</option>
+                    {colors.map((e, i)=>{
+                      <option key={i} value={e}>{e}</option>  
+                    })}
+                  </select>
+                </div>
+              
+                <div className="inputModal">
+                  <select value={sizeSelected} onChange={(event)=>setSizeSelected(event.target.value)}>
+                    <option value="">Talles..</option>
+                    {sizes.map((e, i)=>{
+                      <option key={i} value={e}>{e}</option>  
+                    })}
+                  </select>
+                </div>
+                
+                <div className="inputModal">
+                  <input
+                    type="text"
+                    defaultValue={e?.stock}
+                    onChange={(event) => handleChange(index, event)}
+                    placeholder="Stock"
+                    className="inputModal"
+                  />
+                </div>
+              </div>
+            ))}
+            <p className='addMoreButton' onClick={addNewProductButton}>+</p>
+          </div>
         </form>
          
       </Modal.Body>
