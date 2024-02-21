@@ -147,7 +147,7 @@ function Detail() {
             <button 
             onClick={()=>onAdd(product)} 
             className={`addToCartButton ${!stock ? 'disabledButton' : ''}`}
-            disabled={!stock} 
+            disabled={!stock || !selectedColor || !selectedSize}
             >Agregar al carrito</button>
 
           </div>
