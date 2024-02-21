@@ -7,6 +7,7 @@ function Home() {
   return (
     <div>
       <img src={hero} alt="" className='heroImage' />
+      <p className='sloganHero'>Invest In yourself</p>
 
       <HomeProducts/>
       

@@ -3,4 +3,17 @@
     height: 90vh;
     object-fit: cover;
     margin-top: 8vh;
+    position: relative;
+}
+
+.sloganHero {
+    
+    font-style: italic;
+    position: absolute;
+    bottom: 120px;
+    left: 20px;
+    z-index: 100;
+    color: white;
+    font-size: xx-large;
+    font-weight: 100;
 }
