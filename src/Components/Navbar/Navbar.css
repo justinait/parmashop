@@ -96,9 +96,13 @@ a:hover {
     .dropdownHeader {
         width: 50%;
         font-size: 20px;
+        /* padding: 4% 5% 4%; */
     }
     .dropdownItemsContainer {
         padding-top: 10%;
+    }
+    .closeIconNavbar{
+        margin: -4% 2%;
     }
 }
 @media (min-width:1239px){
@@ -113,7 +117,7 @@ a:hover {
         width: 45%;
     }
     .dropdownItemsContainer {
-        padding-top: 5%;
+        padding-top: 10%;
     }
     .dropdownItemsContainer a {
         margin-bottom: 0.9rem;
