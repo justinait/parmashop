@@ -112,6 +112,13 @@ a:hover {
         padding: 3% 5%;
         width: 45%;
     }
+    .dropdownItemsContainer {
+        padding-top: 5%;
+    }
+    .dropdownItemsContainer a {
+        margin-bottom: 0.9rem;
+        font-size: 19px;
+    }
 }
 @media (min-width:1439px){
     .logoNavbar{
@@ -125,5 +132,9 @@ a:hover {
     .dropdownHeader {
         width: 40%;
         font-size: 24px;
+    }
+    .dropdownItemsContainer a {
+        margin-bottom: 1rem;
+        font-size: 22px;
     }
 }
