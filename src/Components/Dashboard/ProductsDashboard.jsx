@@ -6,7 +6,7 @@ import EditAddModal from './EditAddModal';
 import Modal from 'react-bootstrap/Modal';
 import EditIcon from '@mui/icons-material/Edit';
 import './ProductsDashboard.css'
-import CrudModal from './crudModal';
+import CrudModal from './CrudModal';
 
 function ProductsDashboard({products, setIsChange}) {
 
