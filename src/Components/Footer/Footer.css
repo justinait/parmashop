@@ -1,6 +1,5 @@
-.footerBox {
+.footer {
     background-color: #222222;
-    height: 52vh;
     color: #ebebeb;
 }
 .logoFooter {
@@ -16,7 +15,7 @@
     justify-content: center;
 }
 .footerIcons {
-    font-size: 2rem !important;
+    font-size: 1.8rem !important;
     margin: 3px 10px;
     color: white;
 }
@@ -30,7 +29,7 @@
     font-weight: 300;
     font-size: 14px;
 }
-.footerBox h6 {
+.footer h6 {
     text-transform: uppercase;
     margin-bottom: 1rem;
     font-weight: 600;
@@ -41,6 +40,7 @@
     font-size: 10px;
     margin: 0;
     color:#656668;
+    background-color: #222222;
 }
 .location {
     font-size: 12px;
@@ -63,6 +63,7 @@
     }
     .location {
         font-size: 16px;
+        width: 50%;
     }
     .justina {
         font-size: 14px;
@@ -71,58 +72,61 @@
         font-size: 2.7rem !important;
         margin: 5px 25px;
     }
+    .footerLinksContainer {
+        width: 50%;
+    }
 }
 @media (min-width:1000px) {
     .logoFooter {
-        width: 40%;
-        margin: 7% 30%;
+        width: 60%;
+        margin: 7% 20%;
     }
     .location {
-        font-size: 18px;
+        width: 60%;
+        margin: 0 auto 4%;
     }
     .justina {
         font-size: 16px;
+        text-align: center;
     }
     .footerIcons {
-        font-size: 3.5rem !important;
-        margin: 5px 35px;
+        font-size: 2.7rem !important;
+    }
+    .footer {
+        display: flex;
+        align-items: baseline;
+    }
+    .footerLinksContainer{
+        width: 70%;
+        padding: 4% 0%;
+    }
+    .rightFooter .location {
+        width: 70%;
+    }
+    .rightFooter {
+        width: 40%;
+    }
+    .leftFooter {
+        width: 60%;
     }
 }
 
 @media (min-width:1200px) {
     .logoFooter {
-        width: 20%;
-        margin: 7% 15%;
-    }
-    .location {
-        position: relative;
-        top: -150px;
+        width: 40%;
+        margin: 7% 20%;
     }
     .justina {
-        margin-top: -23vh;
-    }
-    .footerIcons {
-        font-size: 3rem !important;
-        margin: 16px 0 0 25px;
+        font-size: 14px;
+        text-align: center;
     }
     .footerLinksContainer{
-        display: block;
-        flex-direction: column;
-        position: relative;
-        text-align: right;
-        top: -150px;
-        right: 5%;
+        width: 50%;
+        padding: 4% 0%;
     }
-    .footerBox{ 
-        height: 45vh;
+    .rightFooter .location {
+        width: 50%;
     }
-}
+    }
 @media (min-width:1439px){
-    .footerBox{ 
-        height: 59vh;
-    }
-    
-    .justina {
-        margin-top: -30vh;
-    }
 }

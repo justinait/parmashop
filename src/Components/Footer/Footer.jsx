@@ -10,23 +10,30 @@ import { Link } from 'react-router-dom';
 function Footer() {
 
   return (
-    <div className='footerBox'>
-      {/* Buscanos en Instagram <br /> */}
-      
-      <img src={logoFooter} alt="PARMA" className='logoFooter' />
-      <p className='location'>  Buenos Aires 60 | Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
-      
-      <div className='location'>
-        <p>CONTACTANOS</p>
-        <strong>Política de Cambio</strong>
-      </div>
+    <div>
+      <div className='footer'>
 
-      <div className='footerLinksContainer'>
-        <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
-        <Link> <WhatsAppIcon className='footerIcons'/> </Link>
-        <Link> <MailOutlineIcon className='footerIcons'/> </Link>
+        <div className='leftFooter'>
+
+          <img src={logoFooter} alt="PARMA" className='logoFooter' />
+          <p className='location'>  Buenos Aires 60 | Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
+          
+        </div>
+
+        <div className='rightFooter'>
+
+          <div className='location'>
+            <p>CONTACTANOS</p>
+            <strong>Política de Cambio</strong>
+          </div>
+          <div className='footerLinksContainer'>
+            <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
+            <Link> <WhatsAppIcon className='footerIcons'/> </Link>
+            <Link href="mailto:parmashop1@gmail.com" target='_blank'> <MailOutlineIcon className='footerIcons'/> </Link>
+          </div>
+        </div>
       </div>
-      <p className='justina'>Desarrollada por Justina Iturraspe</p>
+      <p className='justina'>Desarrollada por <Link target='_blank' to="https://justinaiturraspe.vercel.app/"><strong > Justina Iturraspe</strong></Link></p>
     </div>
   )
 }
