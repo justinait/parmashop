@@ -37,7 +37,7 @@ function Navbar() {
       {
         !openMenu &&
         <div className='rightNavbar'>
-          <div className='cartContainer'>
+          <div className='cartNavbar'>
             < ShoppingCartOutlinedIcon className='iconsNavbar'/>
             <span className="cartItemCount">{totalProducts}</span>
           </div>

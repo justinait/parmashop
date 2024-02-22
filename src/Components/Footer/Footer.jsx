@@ -4,6 +4,7 @@ import './Footer.css'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import PlaceIcon from '@mui/icons-material/Place';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { Link } from 'react-router-dom';
 
 function Footer() {
@@ -17,6 +18,7 @@ function Footer() {
         <div className='footerLinksContainer'>
           <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
           <Link> <WhatsAppIcon className='footerIcons'/> </Link>
+          <Link> <MailOutlineIcon className='footerIcons'/> </Link>
         </div>
         <p className='location'>  <strong>Buenos Aires 60</strong> - Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
         <p className='justina'>Desarrollada por Justina Iturraspe</p>

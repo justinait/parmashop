@@ -1,0 +1,35 @@
+.cartContainer {
+    margin-top: 10vh;
+    min-height: 80vh;
+}
+.cartEmptyIcon{
+    font-size: 110px !important;
+}
+.returnButtonCart {
+
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+    background: #222222;
+    border: 2px black solid;
+    border-radius: 35px;
+    padding: 3%;
+    margin: 5% 2%;
+    width: 50%;
+    transition: border 0.2s ease-in-out, color 0.2s ease-in-out, background-color 0.2s ease-in-out; 
+}
+.cartEmptyText {
+    text-transform: uppercase;   
+    font-size: 14px;
+    margin-top: 2%;
+}
+
+.emptyContainer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 45vh;
+    justify-content: flex-end;
+}
