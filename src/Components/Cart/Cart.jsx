@@ -15,8 +15,10 @@ function Cart() {
             
             <>
                 <h3>Tu carrito</h3>
-                <button className='clearCartButton' onClick={clearCart}>Vaciar carrito</button>
-                <Link to='/checkout' className='goToCheckoutButton'>Finalizar compra</Link>
+                <div className='buttonsContainer'>
+                    <button className='clearCartButton' onClick={clearCart}>Vaciar carrito</button>
+                    <Link to='/checkout' className='goToCheckoutButton'>Finalizar compra</Link>
+                </div>
                 {
                     cart.map((e, i)=>{
                         return (
@@ -28,10 +30,10 @@ function Cart() {
                                     <div className='infoCartItem'>
     
                                         <h6>{e.productData.title}</h6>
-                                        <h6>${e.productData.unit_price}</h6>
-                                        <p className='cartItemDetail' >Color: {e.color}</p>
-                                        <p className='cartItemDetail' >Talle: {e.size}</p>
+                                        <p className='cartItemDetail' >Color: <strong> {e.color}</strong></p>
+                                        <p className='cartItemDetail' >Talle: <strong>{e.size}</strong> </p>
                                         <button className='cartItemDelete' onClick={()=>deleteById(e.id)}> <DeleteOutlinedIcon/> </button>
+                                        <h6 className='cartItemPrice'> <strong> ${e.productData.unit_price}</strong></h6>
                                     </div>
                                 </div>
                                 <div className='separatorCart'></div>
