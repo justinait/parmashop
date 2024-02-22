@@ -153,10 +153,11 @@
 }
 @media(min-width: 1200px){
     .buttonsContainer {
-        margin-bottom: 7%;
+        margin-bottom: 1%;
+        text-align: left;
     }
     .cartContainer h3 {
-        padding: 10% 0 3%;
+        padding: 6.5% 0 0;
     }
     .infoCartItem p,.infoCartItem h6 {
         font-size: 17px;
@@ -171,5 +172,8 @@
     }
     .separatorCart{
         margin: 5% 2%;
+    }
+    .goToCheckoutButton, .clearCartButton {
+        padding: 1.5% 3%;
     }
 }
