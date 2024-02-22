@@ -15,28 +15,31 @@ function Cart() {
             
             <>
                 <h3>Tu carrito</h3>
-                <button className='' onClick={clearCart}>Vaciar carrito</button>
-                <Link to='/checkout' className=''>Finalizar compra</Link>
+                <button className='clearCartButton' onClick={clearCart}>Vaciar carrito</button>
+                <Link to='/checkout' className='goToCheckoutButton'>Finalizar compra</Link>
                 {
                     cart.map((e, i)=>{
                         return (
-                            <div key={i} className='cartItemContainer'>
-                                {console.log(e)}
-                                <img className='cartItemImage' src={e.productData.image} alt={e.title} />
-                                <div className='infoCartItem'>
+                            <div>
 
-                                    <h5 className='cartItemTitle' >{e.title}</h5>
-                                    <h5 className='cartItemColor' >{e.color}</h5>
-                                    <h5 className='cartItemSize' >{e.size}</h5>
-                                    <p>{e.productData.title}</p>
-                                    <p>{e.productData.unit_price}</p>
-                                    <button className='cartItemDelete' onClick={()=>deleteById(e.id)}> <DeleteOutlinedIcon/> </button>
+                                <div key={i} className='cartItemContainer'>
+                                    {console.log(e)}
+                                    <img className='cartItemImage' src={e.productData.image} alt={e.title} />
+                                    <div className='infoCartItem'>
+    
+                                        <h6>{e.productData.title}</h6>
+                                        <h6>${e.productData.unit_price}</h6>
+                                        <p className='cartItemDetail' >Color: {e.color}</p>
+                                        <p className='cartItemDetail' >Talle: {e.size}</p>
+                                        <button className='cartItemDelete' onClick={()=>deleteById(e.id)}> <DeleteOutlinedIcon/> </button>
+                                    </div>
                                 </div>
+                                <div className='separatorCart'></div>
                             </div>
                         )
                     })
                 }
-                <p>${total}</p>
+                <p className='subtotalCart'>Subtotal: ${total}</p>
             </>
             :
             <div className='emptyContainer'>

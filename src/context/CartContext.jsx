@@ -34,7 +34,6 @@ function CartContextComponent({children}) {
     setTotalProducts(totalProducts-1)
   }
   const getTotalPrice =()=>{
-    console.log(cart[0].productData.unit_price );
     const total= cart.reduce((acc, el)=>{
       return acc + (el.productData.unit_price)
     }, 0);
