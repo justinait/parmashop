@@ -3,6 +3,7 @@ import { CartContext } from '../../context/CartContext'
 import { Link } from 'react-router-dom';
 import './Cart.css'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 function Cart() {
     const { cart, clearCart, deleteById, getTotalPrice } = useContext(CartContext);
@@ -10,22 +11,27 @@ function Cart() {
     let total = getTotalPrice()
     return (
         <div className='cartContainer'>
-            {!cart ?
+            {cart.length !== 0 ?
             
             <>
-                <p>Tu carrito</p>
-                <button onClick={clearCart}>Vaciar carrito</button>
-                <Link to='/checkout'>Finalizar compra</Link>
+                <h3>Tu carrito</h3>
+                <button className='' onClick={clearCart}>Vaciar carrito</button>
+                <Link to='/checkout' className=''>Finalizar compra</Link>
                 {
                     cart.map((e, i)=>{
                         return (
-                            <div key={i}>
+                            <div key={i} className='cartItemContainer'>
                                 {console.log(e)}
-                                <h5>{e.color}</h5>
-                                <h5>{e.size}</h5>
-                                <p>{e.productData.title}</p>
-                                <p>{e.id}</p>
-                                <button onClick={()=>deleteById(e.id)}>Eliminar</button>
+                                <img className='cartItemImage' src={e.productData.image} alt={e.title} />
+                                <div className='infoCartItem'>
+
+                                    <h5 className='cartItemTitle' >{e.title}</h5>
+                                    <h5 className='cartItemColor' >{e.color}</h5>
+                                    <h5 className='cartItemSize' >{e.size}</h5>
+                                    <p>{e.productData.title}</p>
+                                    <p>{e.productData.unit_price}</p>
+                                    <button className='cartItemDelete' onClick={()=>deleteById(e.id)}> <DeleteOutlinedIcon/> </button>
+                                </div>
                             </div>
                         )
                     })

@@ -4,7 +4,8 @@ import { db } from '../../firebaseConfig';
 import { useParams } from 'react-router-dom';
 import './Detail.css'
 import { CartContext } from '../../context/CartContext';
-import { Placeholder, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
+import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
 
 function Detail() {
   
