@@ -1,25 +1,27 @@
 .footerBox {
     background-color: #222222;
-    
-    height: 37vh;
+    height: 52vh;
     color: #ebebeb;
 }
 .logoFooter {
-    width: 50%;
-    margin: 10% 25%;
+    width: 60%;
+    margin: 10% 20%;
 }
 .footerLinksContainer {
     display: flex;
-    flex-direction: column;
-    position: absolute;
+    border-top: white 1px solid;
+    padding: 6% 0%;
+    margin: 0 auto;
+    width: 60%;
+    justify-content: center;
 }
 .footerIcons {
     font-size: 2rem !important;
     margin: 3px 10px;
-    color: lightgrey;
+    color: white;
 }
 .footerIcons:hover {
-    color: white;
+    color: lightgrey;
 }
 .footerItemLinks {
     text-decoration: none;
@@ -38,19 +40,20 @@
     text-align: right;
     font-size: 10px;
     margin: 0;
-    margin-top: 5vh;
     color:#656668;
-    font-family: 'Poppins';
 }
 .location {
-    text-align: right;
-    margin: 5%;
-    font-family: 'poppins';
     font-size: 12px;
     font-weight: 300;
-    position: relative;
-    top: 18px;
-    color: lightgrey;
+    color: white;
+    width: 60%;
+    margin: 0 auto 6%;
+}
+.location p{
+    margin: 7% 0 2%;
+}
+.location strong {
+    font-weight: 500;
 }
 
 @media (min-width:639px) {

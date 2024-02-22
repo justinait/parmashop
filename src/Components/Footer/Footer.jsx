@@ -11,17 +11,22 @@ function Footer() {
 
   return (
     <div className='footerBox'>
+      {/* Buscanos en Instagram <br /> */}
+      
+      <img src={logoFooter} alt="PARMA" className='logoFooter' />
+      <p className='location'>  Buenos Aires 60 | Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
+      
+      <div className='location'>
+        <p>CONTACTANOS</p>
+        <strong>Política de Cambio</strong>
+      </div>
 
-        {/* Buscanos en Instagram <br /> */}
-        
-        <img src={logoFooter} alt="PARMA" className='logoFooter' />
-        <div className='footerLinksContainer'>
-          <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
-          <Link> <WhatsAppIcon className='footerIcons'/> </Link>
-          <Link> <MailOutlineIcon className='footerIcons'/> </Link>
-        </div>
-        <p className='location'>  <strong>Buenos Aires 60</strong> - Paseo de las Luces. <br /> Paraná, Entre Ríos.</p>
-        <p className='justina'>Desarrollada por Justina Iturraspe</p>
+      <div className='footerLinksContainer'>
+        <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
+        <Link> <WhatsAppIcon className='footerIcons'/> </Link>
+        <Link> <MailOutlineIcon className='footerIcons'/> </Link>
+      </div>
+      <p className='justina'>Desarrollada por Justina Iturraspe</p>
     </div>
   )
 }
