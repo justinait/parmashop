@@ -9,6 +9,7 @@ function CartWidget() {
 
     const { cart, clearCart, deleteById, getTotalPrice } = useContext(CartContext);
     const [openCartDropdown, setOpenCartDropdown] = useState(false)
+    const [prevTotal, setPrevTotal] = useState(0);
     let total = getTotalPrice()
 
     const handleOpenCart =()=> {
@@ -18,7 +19,11 @@ function CartWidget() {
             setOpenCartDropdown(false)
     }
     useEffect(()=> {
-        setOpenCartDropdown(true)
+        if (total > prevTotal) {
+            setOpenCartDropdown(true);
+        }
+
+        setPrevTotal(total);
     }, [total])
   return (
     <div>
@@ -48,7 +53,7 @@ function CartWidget() {
                 })
             }
             <p className='subtotalCart'>Subtotal: <strong>${total}</strong> </p>
-            <Link className='cartWidgetButton' to='/cart'>Ver carrito</Link>
+            <Link className='cartWidgetButton' to='/cart' onClick={handleOpenCart}>Ver carrito</Link>
             </div>
         }
         
