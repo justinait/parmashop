@@ -71,6 +71,10 @@ a:hover {
 .cartNavbar {
     position: relative;
 }
+
+.menuIcon:hover {
+    cursor: pointer;
+}
 @media (min-width:600px){
     .logoNavbar {
         width: 150px;
@@ -130,6 +134,9 @@ a:hover {
 @media (min-width:1400px){
     .logoNavbar{
         width: 170px;
+    }
+    .closeIconNavbar{
+        left: 87%;
     }
 }
 @media (min-width:1700px){

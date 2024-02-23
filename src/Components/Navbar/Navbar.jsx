@@ -60,14 +60,14 @@ function Navbar() {
             <CartWidget />
             <span className="cartItemCount">{totalProducts}</span>
           </div>
-          < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
+          < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar menuIcon'/>
         </div>
       }
       
       {openMenu &&
         <div className='dropdownHeader'>
           
-          <CloseIcon onClick={handleClose} className='closeIconNavbar iconsNavbar'/>
+          <CloseIcon onClick={handleClose} className='closeIconNavbar iconsNavbar menuIcon'/>
           <div className='dropdownItemsContainer'>
             <Link to='/' onClick={()=>handleClose('home')} className={selectedCategory == 'home'? 'activeNavbar': ''}>INICIO</Link>
             {categorys.map((e, i)=> {
