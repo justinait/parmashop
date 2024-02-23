@@ -57,7 +57,7 @@ function Checkout() {
             console.log(cart);
             console.log('create p ok');
             let response = await axios.post(
-            "http://localhost:8080/create_preference", 
+            "https://backend-parmashop-5plchh3mc-justinait.vercel.app/create_preference", 
             {
                 items: newArr,
                 shipment_cost: shipmentCost
