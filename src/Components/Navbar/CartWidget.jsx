@@ -12,7 +12,10 @@ function CartWidget() {
     let total = getTotalPrice()
 
     const handleOpenCart =()=> {
-        setOpenCartDropdown(true)
+        if(openCartDropdown == false)
+            setOpenCartDropdown(true)
+        else
+            setOpenCartDropdown(false)
     }
   return (
     <div>
