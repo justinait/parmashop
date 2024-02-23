@@ -40,7 +40,7 @@
     margin: auto;
 }
 
-@media (min-width:639px){
+@media (min-width:600px){
     .seeInfoHome {
         font-size: 14px;
     }
@@ -65,7 +65,7 @@
         background-color: black;
     }
 }
-@media (min-width:1239px){
+@media (min-width:1200px){
     .imageProductHome {
         padding: 2% 0 0;
     }
@@ -73,12 +73,12 @@
         top: -200px;
     }
 }
-@media (min-width:1439px){
+@media (min-width:1400px){
     .homeProductInfo {
         top: -250px;
     }
 }
-@media (min-width:1439px){
+@media (min-width:1700px){
     .productTitleHome {
         font-size: 38px;
         margin-bottom: 2rem;

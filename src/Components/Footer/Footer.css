@@ -56,7 +56,7 @@
     font-weight: 500;
 }
 
-@media (min-width:639px) {
+@media (min-width:600px) {
     .logoFooter {
         width: 50%;
         margin: 7% 25%;

@@ -71,7 +71,7 @@ a:hover {
 .cartNavbar {
     position: relative;
 }
-@media (min-width:639px){
+@media (min-width:600px){
     .logoNavbar {
         width: 150px;
     }
@@ -89,7 +89,7 @@ a:hover {
         padding-top: 13%;
     }
 }
-@media (min-width:1023px){
+@media (min-width:1000px){
     .logoNavbar {
         width: 150px;
     }
@@ -108,7 +108,7 @@ a:hover {
         margin: -4% 2%;
     }
 }
-@media (min-width:1239px){
+@media (min-width:1200px){
     .header{
         height: 10vh;
     }
@@ -127,7 +127,7 @@ a:hover {
         font-size: 19px;
     }
 }
-@media (min-width:1439px){
+@media (min-width:1400px){
     .logoNavbar{
         width: 170px;
     }
