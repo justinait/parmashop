@@ -5,7 +5,7 @@ import './Checkout.css'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
-import {addDoc, collection, doc, updateDoc, serverTimestamp} from "firebase/firestore"
+import {addDoc, collection, doc, updateDoc, serverTimestamp, getDoc} from "firebase/firestore"
 
 function Checkout() {
    
