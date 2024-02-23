@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../context/CartContext';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
@@ -17,6 +17,9 @@ function CartWidget() {
         else
             setOpenCartDropdown(false)
     }
+    useEffect(()=> {
+        setOpenCartDropdown(true)
+    }, [total])
   return (
     <div>
         <ShoppingCartOutlinedIcon className='iconsNavbar' onClick={handleOpenCart} />
