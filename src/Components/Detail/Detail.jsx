@@ -153,9 +153,10 @@ function Detail() {
             >Agregar al carrito</button>
 
           </div>
+          <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
         </div>
       )}
-      <Link to={`/${product.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
+      {console.log(product)}
     </div>
   )
 }
