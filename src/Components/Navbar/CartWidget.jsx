@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react'
 import { CartContext } from '../../context/CartContext';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import './cartWidget.css'
+import './CartWidget.css'
+import { Link } from 'react-router-dom';
 
 function CartWidget() {
 
@@ -40,7 +41,8 @@ function CartWidget() {
                     )
                 })
             }
-            <p className='subtotalCart'>Subtotal: ${total}</p>
+            <p className='subtotalCart'>Subtotal: <strong>${total}</strong> </p>
+            <Link className='cartWidgetButton' to='/cart'>Ver carrito</Link>
             </div>
         }
         

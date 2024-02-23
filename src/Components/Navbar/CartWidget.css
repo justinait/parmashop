@@ -14,7 +14,6 @@
 .cartWidgetContainerInfo {
     display: flex;
     justify-content: space-around;
-
 }
 .cartWidgetItemContainer {
     display: flex;
@@ -28,5 +27,11 @@
     font-size: 14px;
     margin: 5% 9% 5% 0;
     font-weight: 600;
+}
 
+.cartWidgetButton {
+    text-align: left;
+    margin: 1% auto 7%;
+    text-transform: uppercase;
+    font-weight: 800;
 }

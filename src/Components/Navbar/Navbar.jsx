@@ -58,7 +58,6 @@ function Navbar() {
         <div className='rightNavbar'>
           <div className='cartNavbar'>
             <CartWidget />
-            
             <span className="cartItemCount">{totalProducts}</span>
           </div>
           < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
@@ -80,7 +79,7 @@ function Navbar() {
               <>
                 <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
                 <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>
-              </> 
+              </>
             }
             
           </div>
