@@ -1,5 +1,5 @@
 import React from 'react'
-import logoFooter from '/public/logowhite.png'
+import logoFooter from '/logowhite.png'
 import './Footer.css'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
