@@ -27,9 +27,9 @@ function Footer() {
             <strong>Política de Cambio</strong>
           </div>
           <div className='footerLinksContainer'>
-            <Link to='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </Link>
-            <Link> <WhatsAppIcon className='footerIcons'/> </Link>
-            <Link href="mailto:parmashop1@gmail.com" target='_blank'> <MailOutlineIcon className='footerIcons'/> </Link>
+            <a href='https://www.instagram.com/parmashop_' target='blank'> <InstagramIcon className='footerIcons'/> </a>
+            <a href='https://wa.link/jwid11' target='blank'> <WhatsAppIcon className='footerIcons'/> </a>
+            <a href="mailto:parmashop1@gmail.com" target='_blank'> <MailOutlineIcon className='footerIcons'/> </a>
           </div>
         </div>
       </div>
@@ -39,15 +39,3 @@ function Footer() {
 }
 
 export default Footer
-
-{/* <ul>
-    <h6>Categorías</h6>
-    <p className='footerItemLinks'><Link>Remeras</Link></p>
-    <p className='footerItemLinks'><Link>Camisas</Link></p>
-    <p className='footerItemLinks'><Link>Pantalones</Link></p>
-    <p className='footerItemLinks'><Link>Bermudas</Link></p>
-    <p className='footerItemLinks'><Link>Accesorios</Link></p>
-    <p className='footerItemLinks'><Link>Hoodies</Link></p>
-    <p className='footerItemLinks'><Link>Abrigos</Link></p>
-</ul> */}
-        
