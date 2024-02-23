@@ -144,7 +144,7 @@ function Detail() {
             {
               (selectedColor && selectedSize) &&
               !stock &&
-              <p>No hay stock</p>
+              <p className='noStock'>Sin stock</p>
             }
             <button 
             onClick={()=>onAdd(product)} 

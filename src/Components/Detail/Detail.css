@@ -79,17 +79,25 @@
 }
 .addToCartButton:hover, .disabledButton{
     background-color: white;
-    color: black;
-    border: 2px solid black;
+    color: grey;
+    border: 2px solid grey;
 }
 .sizeActive{
     background-color: black;
     color: white !important;
     font-weight: 500;
 }
+.noStock {
+    text-transform: uppercase;
+    color: grey;
+    font-weight: 700;
+    margin: 5% 2%;
+    font-size: larger;
+}
 @media(min-width: 1000px){
     .imageDetail{
         width: 50%;
+        height: 60vh;
         margin: unset;
     }
     .nameDetail {
@@ -120,6 +128,10 @@
     .addToCartButton{
         font-size: 18px;
         font-weight: 500;
+        margin: 3% 2%;
+    }
+    .noStock {
+        margin: 3.5% 2.5% 0% 2%;
     }
 }
 
