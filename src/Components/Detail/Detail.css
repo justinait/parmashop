@@ -144,6 +144,12 @@
     }
     
 }
+
+@media(min-width: 1200px){
+    .separatorLine{
+        margin: 5% 1% 6%;
+    }
+}
 @media (min-width: 1700px){
     .infoBasic {
         width: 40%;

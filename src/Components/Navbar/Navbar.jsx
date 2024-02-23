@@ -10,6 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../context/AuthContext';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import { CartContext } from '../../context/CartContext';
+import CartWidget from './CartWidget';
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -18,6 +19,7 @@ function Navbar() {
 
   const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
   const {totalProducts} = useContext(CartContext);
+  
 
   const handleOpen = () => {
     return setOpenMenu(true);
@@ -47,7 +49,7 @@ function Navbar() {
     { name: 'Política de cambios', id: 'changes', className: ''},
     { name: 'Carrito', id: 'cart', className: ''}
   ]
-            
+
   return (
     <div className='header'>
       <Link to='/' style={{display: 'flex'}}> <img src={logo} alt="PARMA" className='logoNavbar' onClick={handleClose}/></Link>
@@ -55,7 +57,8 @@ function Navbar() {
         !openMenu &&
         <div className='rightNavbar'>
           <div className='cartNavbar'>
-            < ShoppingCartOutlinedIcon className='iconsNavbar'/>
+            <CartWidget />
+            
             <span className="cartItemCount">{totalProducts}</span>
           </div>
           < MenuRoundedIcon onClick={handleOpen} className='iconsNavbar'/>
