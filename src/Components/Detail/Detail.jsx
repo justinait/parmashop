@@ -1,7 +1,7 @@
 import { collection, doc, getDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './Detail.css'
 import { CartContext } from '../../context/CartContext';
 import { Spinner } from 'react-bootstrap';
@@ -155,6 +155,7 @@ function Detail() {
           </div>
         </div>
       )}
+      <Link to={`/${product.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
     </div>
   )
 }
