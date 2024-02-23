@@ -51,6 +51,9 @@ a:focus {
 a:hover {
     font-weight: 500;
 }
+.activeNavbar {
+    font-weight: 600;
+}
 .cartItemCount {
     position: absolute;;
     top: -8px;

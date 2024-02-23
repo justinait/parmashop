@@ -13,7 +13,8 @@ import { CartContext } from '../../context/CartContext';
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
-  const navigate = useNavigate()
+  const [selectedCategory, setSelectedCategory] = useState('home')
+  const navigate = useNavigate();
 
   const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
   const {totalProducts} = useContext(CartContext);
@@ -22,8 +23,11 @@ function Navbar() {
     return setOpenMenu(true);
   }
   
-  const handleClose = () => {
-    return setOpenMenu(false);
+  const handleClose = (id) => {
+    setOpenMenu(false);
+    if(id){
+      setSelectedCategory(id);
+    }
   }
   const logoutButton = ()=>{
     onLogOut();
@@ -31,6 +35,19 @@ function Navbar() {
     navigate("/login")
   }
 
+  const categorys = [
+    { name: 'Todos los productos', id: 'category', className: '' },
+    { name: 'NUEVO', id: 'category', className: ''},
+    { name: 'Remeras', id: 'Remeras', className: '' },
+    { name: 'Camisas', id: 'Camisas', className: ''},
+    { name: 'Pantalones', id: 'Pantalones', className: ''},
+    { name: 'Buzos', id: 'Buzos', className: ''},
+    { name: 'Hoodies', id: 'Hoodies', className: ''},
+    { name: 'Accesorios', id: 'Accesorios', className: ''},
+    { name: 'Política de cambios', id: 'changes', className: ''},
+    { name: 'Carrito', id: 'cart', className: ''}
+  ]
+            
   return (
     <div className='header'>
       <Link to='/' style={{display: 'flex'}}> <img src={logo} alt="PARMA" className='logoNavbar' onClick={handleClose}/></Link>
@@ -50,20 +67,10 @@ function Navbar() {
           
           <CloseIcon onClick={handleClose} className='closeIconNavbar iconsNavbar'/>
           <div className='dropdownItemsContainer'>
-            <Link to='/' onClick={handleClose}>INICIO</Link>
-
-            <Link to='/category' onClick={handleClose}>Todos los productos</Link>
-            <Link to='/category' onClick={handleClose}>NEW</Link>
-            <Link to='/Remeras' onClick={handleClose}>Remeras</Link>
-            <Link to='/Camisas' onClick={handleClose}>Camisas</Link>
-            <Link to='/Pantalones' onClick={handleClose}>Pantalones</Link>
-            <Link to='/Bermudas' onClick={handleClose}>Bermudas</Link>
-            <Link to='/Buzos' onClick={handleClose}>Buzos</Link>
-            <Link to='/Hoodies' onClick={handleClose}>Hoodies</Link>
-            <Link to='/Accesorios' onClick={handleClose}>Accesorios</Link>
-            
-            <Link to='/changes' onClick={handleClose}>Política de cambios</Link>
-            <Link to='/cart' onClick={handleClose}>Carrito</Link>
+            <Link to='/' onClick={()=>handleClose('home')} className={selectedCategory == 'home'? 'activeNavbar': ''}>INICIO</Link>
+            {categorys.map((e, i)=> {
+              return <Link key={i} to={`/${e.id}`} onClick={()=>handleClose(e.id)} className={selectedCategory == e.id? 'activeNavbar': ''}>{e.name}</Link>
+            })}
             
             { 
               user.rol == import.meta.env.VITE_ROLADMIN &&
