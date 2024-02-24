@@ -29,7 +29,10 @@ function Checkout() {
         let order = JSON.parse(localStorage.getItem("order"))
         if(paramValue === "approved"){
             let ordersCollections = collection(db, "orders")
-            addDoc(ordersCollections, {...order, date: serverTimestamp()}).then(res => {
+            addDoc(ordersCollections, {
+                ...order, 
+                date: serverTimestamp()
+            }).then(res => {
                 setOrderId(res.id)
             })   
         }
@@ -55,13 +58,13 @@ function Checkout() {
         })
         try {
             console.log(cart);
-            console.log('create p ok');
             let response = await axios.post(
-            "https://backend-parmashop.vercel.app/create_preference", 
-            {
-                items: newArr,
-                shipment_cost: shipmentCost
-            })
+                "https://backend-parmashop.vercel.app/create_preference", 
+                {
+                    items: newArr,
+                    shipment_cost: shipmentCost
+                })
+            console.log('create p ok');
             const {id}= response.data
             return id
         } catch (error) {
@@ -77,9 +80,15 @@ function Checkout() {
             total: total + shipmentCost
         }
         localStorage.setItem("order", JSON.stringify(order))
-        const id = await createPreference();
-        if(id){
-            setPreferenceId(id)
+        // const id = await createPreference();
+        // if(id){
+        //     setPreferenceId(id)
+        // }
+        try {
+            const id = await createPreference();
+        if (id) {        setPreferenceId(id);      }
+        } catch (error) {
+            console.error(error);
         }
     }
     const handleChange =(e)=>{
@@ -119,6 +128,10 @@ function Checkout() {
                     />
                 </div>
                 <button onClick={handleBuy} >Seleccionar método de pago</button>
+                {
+                    preferenceId &&
+                    <Wallet initialization={{preferenceId, redirectMode:"self"}}/>
+                }
             </> :
             <>
                 <h2>El pago se realizó con éxito!</h2>
@@ -126,10 +139,6 @@ function Checkout() {
             </>
         }
         
-        {
-            preferenceId &&
-            <Wallet initialization={{preferenceId, redirectMode:"self"}}/>
-        }
     </div>
   )
 }
