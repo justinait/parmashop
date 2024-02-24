@@ -11,19 +11,19 @@ function Checkout() {
    
     const {cart, getTotalPrice, clearCart} = useContext(CartContext)
     initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale: "es-AR"})
+    
     const [preferenceId, setPreferenceId] = useState(null)
-    let total = getTotalPrice();
     const [userData, setUserData]= useState({
         cp: "",
         phone:""
     })
     const [orderId, setOrderId] = useState(null);
     const [shipmentCost, setShipmentCost] = useState(0);
-
-
+    
     const location = useLocation()
-    const queryParams = new URLSearchParams(location.search)
+    const queryParams = new URLSearchParams(location)
     const paramValue = queryParams.get("status")
+    let total = getTotalPrice();
 
     useEffect(()=> {
         let order = JSON.parse(localStorage.getItem("order"))
