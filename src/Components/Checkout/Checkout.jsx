@@ -9,7 +9,7 @@ import {addDoc, collection, doc, updateDoc, serverTimestamp, getDoc} from "fireb
 
 function Checkout() {
    
-    const {cart, getTotalPrice, clearCart} = useContext(CartContext)
+    const [cart, getTotalPrice, clearCart] = useContext(CartContext)
     const [preferenceId, setPreferenceId] = useState(null)
     let total = getTotalPrice();
     const [userData, setUserData]= useState({
