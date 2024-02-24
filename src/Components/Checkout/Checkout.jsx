@@ -10,6 +10,7 @@ import {addDoc, collection, doc, updateDoc, serverTimestamp, getDoc} from "fireb
 function Checkout() {
    
     const {cart, getTotalPrice, clearCart} = useContext(CartContext)
+    initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale: "es-AR"})
     const [preferenceId, setPreferenceId] = useState(null)
     let total = getTotalPrice();
     const [userData, setUserData]= useState({
@@ -19,7 +20,6 @@ function Checkout() {
     const [orderId, setOrderId] = useState(null);
     const [shipmentCost, setShipmentCost] = useState(0);
 
-    initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale: "es-AR"})
 
     const location = useLocation()
     const queryParams = new URLSearchParams(location.search)
