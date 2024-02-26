@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import logo from '/public/logo.png'
+import logo from '/logo.png'
 import './Navbar.css'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';

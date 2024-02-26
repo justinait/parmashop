@@ -58,7 +58,6 @@ function Checkout() {
         })
         console.log(newArr);
         try {
-            // console.log('cart', cart);
             // console.log(shipmentCost);
             
             let response = await axios.post(
