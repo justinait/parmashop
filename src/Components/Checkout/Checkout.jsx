@@ -58,11 +58,13 @@ function Checkout() {
         })
         try {
             console.log(cart);
+            console.log(shipmentCost);
+            
             let response = await axios.post(
                 "https://backend-parmashop-ait94ii7u-justinait.vercel.app/create_preference", 
                 {
                     items: newArr,
-                    shipment_cost: shipmentCost
+                    shipment_cost: 10
                 })
             console.log('create p ok');
             const {id}= response.data
