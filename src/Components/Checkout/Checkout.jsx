@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../context/CartContext'
-import { Wallet, initMercadoPago } from '@mercadopago/sdk-react'
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import './Checkout.css'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
 import { db } from '../../firebaseConfig'
-import {addDoc, collection, doc, updateDoc, serverTimestamp, getDoc} from "firebase/firestore"
+import {addDoc, collection, doc, serverTimestamp, getDoc} from "firebase/firestore"
 
 function Checkout() {
    
