@@ -37,7 +37,7 @@ function Checkout() {
             })   
         }
         localStorage.removeItem("order");
-        clearCart();
+        // clearCart();
     }, [paramValue])
 
     useEffect(()=>{
@@ -56,6 +56,7 @@ function Checkout() {
                 quantity: e.quantity
             }
         })
+        console.log(newArr);
         try {
             // console.log('cart', cart);
             // console.log(shipmentCost);
