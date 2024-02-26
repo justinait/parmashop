@@ -12,13 +12,13 @@ function Checkout() {
     const {cart, getTotalPrice, clearCart} = useContext(CartContext)
     initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale: "es-AR"})
     
+    const [shipmentCost, setShipmentCost] = useState(0);
     const [preferenceId, setPreferenceId] = useState(null)
     const [userData, setUserData]= useState({
         cp: "",
         phone:""
     })
     const [orderId, setOrderId] = useState(null);
-    const [shipmentCost, setShipmentCost] = useState(0);
     
     const location = useLocation()
     const queryParams = new URLSearchParams(location)
@@ -37,7 +37,7 @@ function Checkout() {
             })   
         }
         localStorage.removeItem("order");
-        // clearCart();
+        clearCart();
     }, [paramValue])
 
     useEffect(()=>{
