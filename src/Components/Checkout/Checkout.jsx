@@ -57,8 +57,8 @@ function Checkout() {
             }
         })
         try {
-            console.log(cart);
-            console.log(shipmentCost);
+            // console.log('cart', cart);
+            // console.log(shipmentCost);
             
             let response = await axios.post(
                 "https://backend-parmashop-ait94ii7u-justinait.vercel.app/create_preference", 
