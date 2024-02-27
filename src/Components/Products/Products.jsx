@@ -6,14 +6,17 @@ import { ProductsContext } from '../../context/ProductsProvider';
 function Products() {
   const { dataProducts } = useContext(ProductsContext);
   const {category} = useParams();
+  const [title, setTitle] = useState()
   const [productsList, setProductsList] = useState(dataProducts);
 
   const getProducts = () => {
     let filteredProducts
     if (category && category!='category') {
       filteredProducts = dataProducts?.filter((e) => e?.category === category);
+      setTitle(category)
       setProductsList(filteredProducts)
     } else {
+      setTitle('Todos los productos')
       setProductsList(dataProducts)
     }
     return productsList;
@@ -25,7 +28,7 @@ function Products() {
 
   return (
     <div className='productsContainer'>
-      <h2 className='categoryTitle'>{category} </h2>
+      <h2 className='categoryTitle'>{title} </h2>
 
       {
         productsList && productsList.slice().reverse().map((e, i) =>  {
