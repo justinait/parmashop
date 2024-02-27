@@ -23,9 +23,9 @@ function Products() {
   };
   
   useEffect(() => {
-    getProducts();
-  }, [category]);
-
+    getProducts()
+  }, [category, dataProducts]);
+  
   return (
     <div className='productsContainer'>
       <h2 className='categoryTitle'>{title} </h2>
