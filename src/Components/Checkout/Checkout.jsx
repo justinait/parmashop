@@ -70,8 +70,10 @@ function Checkout() {
             const {id}= response.data
             return id
         } catch (error) {
-            console.log(error);
+            console.log('Error al hacer la solicitud:', error);
+            console.log('Respuesta completa:', error.response);
         }
+        
     }
     const handleBuy = async()=> {
         let order = {
