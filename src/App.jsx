@@ -3,7 +3,6 @@ import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home'
 import Navbar from './Components/Navbar/Navbar'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductsContainer from './Components/Products/ProductsContainer';
 import CheckScroll from './CheckScroll'
 import Products from './Components/Products/Products';
 import ProductsProvider from './context/ProductsProvider';
