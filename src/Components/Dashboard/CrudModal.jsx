@@ -7,8 +7,6 @@ import {addDoc, collection, updateDoc, doc} from "firebase/firestore"
 
 const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelected}) => {
   
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
   const [showSecondScreen, setShowSecondScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categorySelected, setCategorySelected] = useState('');
@@ -16,16 +14,24 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [sizeSelected, setSizeSelected] = useState('');
   const [file, setFile] = useState(null);
   const [sizes, setSizes] = useState([]);
-  const [colors, setColors] = useState([]);
+  const [colors, setColors] = useState(['']);
+  const [specificInfo, setSpecificInfo] = useState([])
+  const [checkboxes, setCheckboxes] = useState([])
+  const [detailsPack, setDetailsPack] = useState({})
   const [details, setDetails] = useState({
-    1: {
-      color:'',
-      size:'',
-    }
+    color:'',
+    size:'',
+    stock: ''
   });
 
   const handleNext = () => {
     setShowSecondScreen(true);
+    if(productSelected){
+      setSpecificInfo(productSelected)
+    }
+    else{
+      setSpecificInfo(newProduct)
+    }
   };
   const [newProduct, setNewProduct] = useState({
     title:"",
@@ -38,8 +44,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       1: {
         color:'',
         size:'',
+        stock: ''
       }
-    }
+    },
+    sale:0
   })
 
   const handleImage = async () => {
@@ -109,10 +117,43 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         setSizes(['38', '40', '42', '44', '46'])
       }
     }
+    
+    const initialState = {};
+    sizes.forEach(e => {
+      initialState[e] = false;
+    });
+    return initialState;
   }
   const addColorInput = () => {
     setColors([...colors, '']);
   };
+
+  useEffect(()=>{
+    handleSizes()
+  }, [categorySelected, colors])
+
+  useEffect(()=>{
+    if(productSelected){
+      setColors(productSelected?.colors)
+      setCategorySelected(productSelected?.category)
+    }
+    else{
+      setColors([''])
+    }
+  }, [])
+  const handleColorChange =(index, e)=> {
+    const newColors = [...colors];
+    newColors[index] = e.target.value;
+    setColors(newColors);
+  }
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+    setCheckboxes({ ...checkboxes, [name]: checked });
+  };
+  const handleDetails = (i) => {
+    setDetailsPack({...detailsPack, [i]: details});
+  };
+  
   const addNewProductButton =() =>{
     const timestamp = Date.now();
     setDetails(prevDetails => ({
@@ -124,13 +165,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       }
     }));
   }
-
-  useEffect(()=>{
-    handleSizes()
-
-  }, [categorySelected, colors])
-
-
   
   return (
     <>
@@ -139,83 +173,116 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       </Modal.Header>
       <Modal.Body>
          
-      {!showSecondScreen && (
         <form className="form">
-        <p>Información General</p>
-        <div className="inputModal">
-          <input
-            type="text"
-            name="title"
-            onChange={handleChange}
-            placeholder="Nombre"
-            className="input"
-            defaultValue={productSelected?.title}
-          />
-        </div>
-        <div className="inputModal">
-          <input
-            type="number"
-            name="unit_price"
-            onChange={handleChange}
-            placeholder="Precio"
-            className="input"
-            defaultValue={productSelected?.unit_price}
-          />
-        </div>
-        <div className="inputModal">
-          <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
-            {/* <select defaultValue={productSelected?.category} value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}> */}
-            <option value="">Categorias..</option>
-            <option value="Remeras">Remeras</option>
-            <option value="Pantalones">Pantalones</option>
-            <option value="Camisas">Camisas</option>
-            <option value="Bermudas">Bermudas</option>
-            <option value="Buzo">Buzo</option>
-            <option value="Hoodies">Hoodies</option>
-            <option value="Accesorios">Accesorios</option>
-          </select>
-        </div>
-        <p>Colores</p>
-        <div className='colorsDiv'>
-          {/* {colors.map((e, index) => ( */}
-          {(productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
-            <div key={index} className="inputModal">
+          {!showSecondScreen && (
+          <div>
+            <p>Información General</p>
+            <div className="inputModal">
               <input
                 type="text"
-                defaultValue={e}
-                onChange={(event) => handleColorChange(index, event)}
-                placeholder="Color"
-                className="inputModal"
+                name="title"
+                onChange={handleChange}
+                placeholder="Nombre"
+                className="input"
+                defaultValue={productSelected?.title}
               />
             </div>
-          ))}
-          <p className='addMoreButton' onClick={addColorInput}>+</p>
-        </div>
-        <div className="inputModal">
-          <input
-            type="file"
-            onChange={(e)=>setFile(e.target.files[0])}
-            className="input"
-          />
-        </div>
-        {
-          file &&
-          <button type='button' onClick={handleImage}>Confirmar imagen</button>
-        }
+            <div className="inputModal">
+              <input
+                type="number"
+                name="unit_price"
+                onChange={handleChange}
+                placeholder="Precio"
+                className="input"
+                defaultValue={productSelected?.unit_price}
+              />
+            </div>
+            <div className="inputModal">
+              <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
+                <option value="">Categorias..</option>
+                <option value="Remeras">Remeras</option>
+                <option value="Pantalones">Pantalones</option>
+                <option value="Camisas">Camisas</option>
+                <option value="Bermudas">Bermudas</option>
+                <option value="Buzo">Buzo</option>
+                <option value="Hoodies">Hoodies</option>
+                <option value="Accesorios">Accesorios</option>
+              </select>
+            </div>
+            <p>Colores</p>
+            <div className='colorsDiv'>
+              {colors.map((e, index) => (
+                <div key={index} className="inputModal">
+                  <input
+                    type="text"
+                    defaultValue={e}
+                    onChange={(event) => handleColorChange(index, event)}
+                    placeholder="Color"
+                    className="inputModal"
+                  />
+                </div>
+              ))}
+              <p className='addMoreButton' onClick={addColorInput}>+</p>
+            </div>
+            <div className="inputModal">
+              <input
+                type="file"
+                onChange={(e)=>setFile(e.target.files[0])}
+                className="input"
+              />
+            </div>
+            {
+              file &&
+              <button type='button' onClick={handleImage}>Confirmar imagen</button>
+            }
+            {
+              !isLoading &&
+              <p onClick={handleNext}>Siguiente</p>
+            }
+          </div>
+          )}
+          
+          {showSecondScreen && (
+          <div>
+            <p>Información específica</p>
+            
+            <div>
+              
+              {/* <p>Prenda {i+1}</p> */}
 
-        <button onClick={handleNext}>Siguiente</button>
-      </form>
-       
-      )}
-      {showSecondScreen && (
-        <div>
-          <p>Datos ingresados:</p>
-          <p>Input 1: {input1}</p>
-          <p>Input 2: {input2}</p>
-          <br />
+              <div className="inputModal">
+                <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>
+                  <option value="">Colores..</option>
+                  {specificInfo.colors.map((e, i)=>{
+                    return <option key={i} value={e}>{e}</option>  
+                  })}
+                </select>
+              </div>
+
+              
+              <div className="inputModal">
+                {sizes.map((e, i)=>{
+                  return (
+                  <div key={i}>
+                    <input
+                      type="checkbox"
+                      name={e}
+                      checked={checkboxes.e}
+                      onChange={handleCheckboxChange}
+                    />
+                    <label>{e}</label>
+                  </div>)
+                })}
+              </div>
+              <p className='addMoreButton' onClick={addNewProductButton}>+</p>
+
+            </div>
+            
+
           <button onClick={handleSubmit}>Guardar</button>
         </div>
-      )}
+        )}
+      </form>
       
       </Modal.Body>
     </>
