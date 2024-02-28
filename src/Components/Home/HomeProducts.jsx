@@ -1,8 +1,6 @@
 import React from 'react'
 import './HomeProducts.css'
-// import tshirts from '/images/reme7.png'
 import tshirts from '/images/remes.png'
-// import trausers from '/images/pants.png'
 import trausers from '/images/panta.png'
 import buzos from '/images/buzos.png'
 import shorts from '/images/shorts.png'
