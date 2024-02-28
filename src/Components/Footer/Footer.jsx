@@ -33,7 +33,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <p className='justina'>Desarrollada por <Link target='_blank' to="https://justinaiturraspe.vercel.app/"><strong > Justina Iturraspe</strong></Link></p>
+      <p className='justina'>Powered by <Link target='_blank' to="https://justinaiturraspe.vercel.app/"><strong > I'mJustWebs</strong></Link></p>
     </div>
   )
 }
