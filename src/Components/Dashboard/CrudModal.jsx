@@ -11,18 +11,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [isLoading, setIsLoading] = useState(false);
   const [categorySelected, setCategorySelected] = useState('');
   const [colorSelected, setColorSelected] = useState('');
-  const [sizeSelected, setSizeSelected] = useState('');
   const [file, setFile] = useState(null);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState([])
+  const [details, setDetails] = useState({})
   const [detailsPack, setDetailsPack] = useState({})
-  const [details, setDetails] = useState({
-    color:'',
-    size:'',
-    stock: ''
-  });
+  const [stockArray, setStockArray] = useState([])
 
   const handleNext = () => {
     setShowSecondScreen(true);
@@ -41,7 +37,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     quantity:1,
     colors: colors,
     details: {
-      1: {
+      0: {
         color:'',
         size:'',
         stock: ''
@@ -78,7 +74,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const handleSubmit = (e) => {
     e.preventDefault();
     const productsCollection = collection(db, "products")
-    
+    handleDetails();
     if(productSelected){
       let obj = {
         ...productSelected,
@@ -101,6 +97,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         colors: colors,
         details: details
       }
+      
       addDoc(productsCollection, obj).then(()=> {
         setIsChange(true);
         handleClose();
@@ -116,6 +113,16 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       } else {
         setSizes(['38', '40', '42', '44', '46'])
       }
+      const newDetails = {};
+      sizes.forEach((size, i) => {
+        newDetails[i] = {
+          color: '',
+          size: size,
+          stock: false
+        };
+      });
+      setDetails(newDetails)
+      
     }
     
     const initialState = {};
@@ -130,7 +137,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
   useEffect(()=>{
     handleSizes()
-  }, [categorySelected, colors])
+  }, [categorySelected])
 
   useEffect(()=>{
     if(productSelected){
@@ -141,17 +148,60 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setColors([''])
     }
   }, [])
+
   const handleColorChange =(index, e)=> {
     const newColors = [...colors];
     newColors[index] = e.target.value;
     setColors(newColors);
   }
   const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
+
+    const { name, checked } = event.target;    
     setCheckboxes({ ...checkboxes, [name]: checked });
+
   };
-  const handleDetails = (i) => {
-    setDetailsPack({...detailsPack, [i]: details});
+
+  const handleDetails = () => {
+
+    let updatedDetails = {};
+    let checksArray = Object.keys(checkboxes)
+    let stocksArray = [false, false, false, false]
+    
+    for (let i = 0; i < sizes.length; i++) {
+      checksArray.push('')
+    }
+
+    sizes.map((j, i) => {
+      checksArray.map(e=>{
+        console.log(e);
+        console.log(j);
+        if(j==e){
+          return stocksArray[i] = true
+          // setStockArray(prevState => [...prevState, true ]);
+        }
+        else{
+          return stocksArray[i] = false
+          // setStockArray(prevState => [...prevState, false ]);
+        }
+      })
+    })
+    // setStockArray(stocksArray)
+    console.log(stocksArray);
+    let detailsArray = Object.keys(details)
+    detailsArray.forEach((e, i) => {
+
+      updatedDetails[i] = {
+        ...details[i], // Copiamos el tamaño intacto
+        color: colorSelected, // Establecemos el nuevo color
+        stock: stocksArray[i]
+        // stock: ((details[key].size==checkboxes[i] )? true : false)
+      };
+      
+      setDetails(e);
+    });
+    
+    console.log(updatedDetails);  
+    console.log(details);
   };
   
   const addNewProductButton =() =>{
@@ -267,7 +317,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     <input
                       type="checkbox"
                       name={e}
-                      checked={checkboxes.e}
+                      checked={!!checkboxes[e]}
                       onChange={handleCheckboxChange}
                     />
                     <label>{e}</label>
@@ -278,7 +328,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
             </div>
             
-
           <button onClick={handleSubmit}>Guardar</button>
         </div>
         )}
