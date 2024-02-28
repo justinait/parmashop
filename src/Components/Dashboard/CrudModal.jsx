@@ -177,8 +177,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         </div>
         <p>Colores</p>
         <div className='colorsDiv'>
-          {colors.map((e, index) => (
-      // (productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
+          {/* {colors.map((e, index) => ( */}
+          {(productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
             <div key={index} className="inputModal">
               <input
                 type="text"
