@@ -17,10 +17,8 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     1: {
       color:'',
       size:'',
-      stock: false
     }
   });
-
 
   const [newProduct, setNewProduct] = useState({
     title:"",
@@ -33,7 +31,6 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       1: {
         color:'',
         size:'',
-        stock: false
       }
     }
   })
@@ -54,6 +51,15 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     setIsLoading(false);
   }
   
+  // const handleChange = (e) => {
+  //   if(productSelected) {
+  //     setProductSelected({
+  //       ...productSelected,  [e.target.name]: e.target.value
+  //     })
+  //   } else {
+  //     setNewProduct({...newProduct, [e.target.name]: e.target.value})
+  //   }
+  // }
   const handleChange = (e) => {
     const { name, value } = e.target;
     const updatedDetails = { ...details };
@@ -192,6 +198,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
           </div>
           <div className="inputModal">
             <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
+              {/* <select defaultValue={productSelected?.category} value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}> */}
               <option value="">Categorias..</option>
               <option value="Remeras">Remeras</option>
               <option value="Pantalones">Pantalones</option>
@@ -205,6 +212,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
           <p>Colores</p>
           <div className='colorsDiv'>
             {colors.map((e, index) => (
+        // (productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
               <div key={index} className="inputModal">
                 <input
                   type="text"
@@ -231,12 +239,11 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
 
           <p>Información Específica</p>
           <div className='colorsDiv'>
-            <p>Prenda</p>
             
             {
             Object.values(details).map((e, index) => (
               <div key={index}>
-                <p>Prenda {index}</p>
+                <p>Prenda {index+1}</p>
                   
                 <div className="inputModal">
                   <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>

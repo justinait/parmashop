@@ -72,7 +72,7 @@ function ProductsDashboard({products, setIsChange}) {
                         backdrop="static"
                         keyboard={false}
                     >
-                        <EditAddModal handleClose={handleClose} setIsChange={setIsChange} productSelected={productSelected} setProductSelected={setProductSelected} />
+                        <CrudModal handleClose={handleClose} setIsChange={setIsChange} productSelected={productSelected} setProductSelected={setProductSelected} />
                         
                     </Modal>
                         

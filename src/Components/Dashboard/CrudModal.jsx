@@ -4,8 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import { db, uploadFile } from '../../firebaseConfig';
 import {addDoc, collection, updateDoc, doc} from "firebase/firestore"
 
-function EditAddModal({handleClose, setIsChange, productSelected, setProductSelected}) {
 
+const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelected}) => {
+  
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [showSecondScreen, setShowSecondScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categorySelected, setCategorySelected] = useState('');
   const [colorSelected, setColorSelected] = useState('');
@@ -17,11 +21,12 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     1: {
       color:'',
       size:'',
-      stock: false
     }
   });
 
-
+  const handleNext = () => {
+    setShowSecondScreen(true);
+  };
   const [newProduct, setNewProduct] = useState({
     title:"",
     unit_price:0,
@@ -32,7 +37,7 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
     details: {
       1: {
         color:'',
-        size:''
+        size:'',
       }
     }
   })
@@ -52,47 +57,16 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
 
     setIsLoading(false);
   }
-  // const handleChange = (e) => {
-  //   if(productSelected) {
-  //     setProductSelected({
-  //       ...productSelected,  [e.target.name]: e.target.value
-  //     })
-  //   } else {
-  //     setNewProduct({...newProduct, [e.target.name]: e.target.value})
-  //   }
-  // }
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    const updatedDetails = { ...details };
-    updatedDetails[i] = {
-      ...updatedDetails[i],
-      [name]: value
-    };
-  
-    setDetails(updatedDetails);
-    if (productSelected) {
+  const handleChange = (e) => {
+    if(productSelected) {
       setProductSelected({
-        ...productSelected,
-        [name]: value
-      });
+        ...productSelected,  [e.target.name]: e.target.value
+      })
     } else {
-      if (name === 'category') {
-        setCategorySelected(value);
-      } else if (name === 'colors') {
-        const updatedColors = [...colors];
-        const colorIndex = Number(e.target.dataset.index);
-        updatedColors[colorIndex] = value;
-        setColors(updatedColors);
-      } else {
-        setNewProduct({
-          ...newProduct,
-          [name]: value
-        });
-      }
+      setNewProduct({...newProduct, [e.target.name]: e.target.value})
     }
-  };
+  }
   
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const productsCollection = collection(db, "products")
@@ -136,40 +110,28 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       }
     }
   }
-  
-  const handleColorChange = (index, event) => {
-    const newColors = [...colors];
-    newColors[index] = event.target.value;
-    setColors(newColors);
-  };
-
   const addColorInput = () => {
-    let colorsToAdd = productSelected ? [...productSelected.colors, ''] : [...colors, ''];
-    setColors(colorsToAdd);
+    setColors([...colors, '']);
   };
-  
   const addNewProductButton =() =>{
     const timestamp = Date.now();
     setDetails(prevDetails => ({
       ...prevDetails,
       [timestamp]: {
-        color: '',
-        size: '',
+        color: null,
+        size: null,
         stock: false
       }
     }));
   }
-  const handleDeleteProduct = (i) => {
-    const { [i]: deletedProduct, ...restProducts } = details; // Eliminar el objeto con la clave especificada
-    setDetails(restProducts);
-  };
-
 
   useEffect(()=>{
     handleSizes()
 
   }, [categorySelected, colors])
 
+
+  
   return (
     <>
       <Modal.Header closeButton>
@@ -177,126 +139,87 @@ function EditAddModal({handleClose, setIsChange, productSelected, setProductSele
       </Modal.Header>
       <Modal.Body>
          
+      {!showSecondScreen && (
         <form className="form">
-          <p>Información General</p>
-          <div className="inputModal">
-            <input
-              type="text"
-              name="title"
-              onChange={handleChange}
-              placeholder="Nombre"
-              className="input"
-              defaultValue={productSelected?.title}
-            />
-          </div>
-          <div className="inputModal">
-            <input
-              type="number"
-              name="unit_price"
-              onChange={handleChange}
-              placeholder="Precio"
-              className="input"
-              defaultValue={productSelected?.unit_price}
-            />
-          </div>
-          <div className="inputModal">
-            <select defaultValue={productSelected?.category} value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
-              <option value="">Categorias..</option>
-              <option value="Remeras">Remeras</option>
-              <option value="Pantalones">Pantalones</option>
-              <option value="Camisas">Camisas</option>
-              <option value="Bermudas">Bermudas</option>
-              <option value="Buzo">Buzo</option>
-              <option value="Hoodies">Hoodies</option>
-              <option value="Accesorios">Accesorios</option>
-            </select>
-          </div>
-
-          <p>Colores</p>
-          <div className='colorsDiv'>
-            {
-            (productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
-              <div key={index} className="inputModal">
-                <input
-                  type="text"
-                  defaultValue={e}
-                  onChange={(event) => handleColorChange(index, event)}
-                  placeholder="Color"
-                  className="inputModal"
-                />
-              </div>
-            ))}
-            <p className='addMoreButton' onClick={addColorInput}>+</p>
-          </div>
-
-          <div className="inputModal">
-            <input
-              type="file"
-              onChange={(e)=>setFile(e.target.files[0])}
-              className="input"
-            />
-          </div>
-          {
-            file &&
-            <button type='button' onClick={handleImage}>Confirmar imagen</button>
-          }
-
-          <p>Información Específica</p>
-          <div className='colorsDiv'>
-            <p>Prenda</p>
-            
-            {
-            Object.values(details).map((e, index) => (
-              <div key={index}>
-                <p>Prenda {index}</p>
-                  
-                <div className="inputModal">
-                  <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>
-                    <option value="">Colores..</option>
-                    {colors.map((e, i)=>{
-                      <option key={i} value={e}>{e}</option>  
-                    })}
-                  </select>
-                </div>
-              
-                <div className="inputModal">
-                  <select value={sizeSelected} onChange={(event)=>setSizeSelected(event.target.value)}>
-                    <option value="">Talles..</option>
-                    {sizes.map((e, i)=>{
-                      <option key={i} value={e}>{e}</option>  
-                    })}
-                  </select>
-                </div>
-                
-                <div className="inputModal">
-                  <input
-                    type="text"
-                    defaultValue={e?.stock}
-                    onChange={(event) => handleChange(index, event)}
-                    placeholder="Stock"
-                    className="inputModal"
-                  />
-                </div>
-              </div>
-            ))}
-            <p className='addMoreButton' onClick={addNewProductButton}>+</p>
-          </div>
-        </form>
-         
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Cancelar
-        </Button>
-        
+        <p>Información General</p>
+        <div className="inputModal">
+          <input
+            type="text"
+            name="title"
+            onChange={handleChange}
+            placeholder="Nombre"
+            className="input"
+            defaultValue={productSelected?.title}
+          />
+        </div>
+        <div className="inputModal">
+          <input
+            type="number"
+            name="unit_price"
+            onChange={handleChange}
+            placeholder="Precio"
+            className="input"
+            defaultValue={productSelected?.unit_price}
+          />
+        </div>
+        <div className="inputModal">
+          <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
+            {/* <select defaultValue={productSelected?.category} value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}> */}
+            <option value="">Categorias..</option>
+            <option value="Remeras">Remeras</option>
+            <option value="Pantalones">Pantalones</option>
+            <option value="Camisas">Camisas</option>
+            <option value="Bermudas">Bermudas</option>
+            <option value="Buzo">Buzo</option>
+            <option value="Hoodies">Hoodies</option>
+            <option value="Accesorios">Accesorios</option>
+          </select>
+        </div>
+        <p>Colores</p>
+        <div className='colorsDiv'>
+          {colors.map((e, index) => (
+      // (productSelected.colors.length !== 0 ? productSelected?.colors : colors).map((e, index) => (
+            <div key={index} className="inputModal">
+              <input
+                type="text"
+                defaultValue={e}
+                onChange={(event) => handleColorChange(index, event)}
+                placeholder="Color"
+                className="inputModal"
+              />
+            </div>
+          ))}
+          <p className='addMoreButton' onClick={addColorInput}>+</p>
+        </div>
+        <div className="inputModal">
+          <input
+            type="file"
+            onChange={(e)=>setFile(e.target.files[0])}
+            className="input"
+          />
+        </div>
         {
-          !isLoading &&
-          <Button type='submit' onClick={handleSubmit} variant="primary">Guardar</Button>
+          file &&
+          <button type='button' onClick={handleImage}>Confirmar imagen</button>
         }
-        
-    </Modal.Footer>
+
+        <button onClick={handleNext}>Siguiente</button>
+      </form>
+       
+      )}
+      {showSecondScreen && (
+        <div>
+          <p>Datos ingresados:</p>
+          <p>Input 1: {input1}</p>
+          <p>Input 2: {input2}</p>
+          <br />
+          <button onClick={handleSubmit}>Guardar</button>
+        </div>
+      )}
+      
+      </Modal.Body>
     </>
   );
-}
+};
 
-export default EditAddModal;
+export default CrudModal;
