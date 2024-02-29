@@ -60,6 +60,7 @@
 @media(min-width:1000px){
     .heroContainer{
         padding-top: 75%;
+        padding-bottom: 1%;
     }
     .heroLogo{
         width: 30vw;
@@ -83,10 +84,17 @@
     }
     .sloganHero{
         text-align: left;
+        font-size: 30px;
     }
 }
 @media(min-width:1400px){
     .heroContainer{
         padding-top: 20%;
+    }
+}
+
+@media(min-width:1700px){
+    .heroContainer{
+        padding-top: 30%;
     }
 }

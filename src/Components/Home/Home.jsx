@@ -11,7 +11,7 @@ function Home() {
         <div style={{zIndex:'1'}}>
 
           <img src={logo} alt="" className='heroLogo' />
-          <p className='sloganHero'>Invest In yourself</p>
+          <p className='sloganHero'>Invest in yourself</p>
         </div>
         <p className='cuotasHero'>3 cuotas sin interés</p>
       </div>
