@@ -3,7 +3,7 @@ import './HomeProducts.css'
 import tshirts from '/images/remes.png'
 import trausers from '/images/panta3.png'
 import buzos from '/images/buzos1.png'
-import shorts from '/images/shorts.png'
+import shorts from '/images/bermu.png'
 import camisas from '/images/camisa.png'
 import hoodies from '/images/hoodie.png'
 import accesorios from '/images/accesoriosfinal.png'
@@ -40,10 +40,10 @@ function HomeProducts() {
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/Buzos' className='productHomeBox'>
+        <Link to='/Abrigos' className='productHomeBox'>
             <img src={buzos} alt="Buzos" className='imageProductHome' />
             <div className='homeProductInfo'>
-                <p className='productTitleHome'>Buzos</p>
+                <p className='productTitleHome'>Abrigos</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
