@@ -7,7 +7,6 @@
 }
 
 .sloganHero {
-    
     font-style: italic;
     position: absolute;
     bottom: 120px;
@@ -16,4 +15,14 @@
     color: white;
     font-size: xx-large;
     font-weight: 100;
+}
+.parmaHero {
+    position: absolute;
+    bottom: 180px;
+    left: 20px;
+    z-index: 1;
+    color: white;
+    font-size: 30px;
+    font-size: xx-large;
+    font-weight: 800;
 }

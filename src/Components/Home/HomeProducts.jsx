@@ -1,7 +1,7 @@
 import React from 'react'
 import './HomeProducts.css'
 import tshirts from '/images/remes.png'
-import trausers from '/images/panta2.png'
+import trausers from '/images/panta3.png'
 import buzos from '/images/buzos1.png'
 import shorts from '/images/shorts.png'
 import camisas from '/images/camisa.png'
