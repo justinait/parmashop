@@ -1,28 +1,41 @@
-.heroImage {
-    width: 100%;
-    height: 90vh;
-    object-fit: cover;
+.heroContainer { 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 8vh;
-    position: relative;
+    height: 90vh;
+    background-image: url(/hero/3.jpg);
+    background-position: unset;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+    background-size: 100vh;
+    justify-content: space-between;
+    padding-top: 120%;
 }
-
-.sloganHero {
+.heroContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 98%;
+    background-color: rgba(0, 0, 0, 0.2); /* Color de fondo negro con transparencia */
+}
+.heroLogo  {
+    width: 200px;
+    margin-bottom: 1em;
+}
+.sloganHero{
+    line-height: 24px;
+    text-align: center;
     font-style: italic;
-    position: absolute;
-    bottom: 120px;
-    left: 20px;
-    z-index: 1;
-    color: white;
-    font-size: xx-large;
-    font-weight: 100;
+    font-size: 20px;
+    font-weight: 200;
 }
-.parmaHero {
-    position: absolute;
-    bottom: 180px;
-    left: 20px;
-    z-index: 1;
-    color: white;
-    font-size: 30px;
-    font-size: xx-large;
-    font-weight: 800;
+.cuotasHero {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
 }
