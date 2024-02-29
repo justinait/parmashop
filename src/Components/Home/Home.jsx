@@ -1,5 +1,5 @@
 import React from 'react'
-import hero from '/heroeditado3.png'
+import hero from '/hero/heroeditado3.png'
 import './Home.css'
 import HomeProducts from './HomeProducts'
 
