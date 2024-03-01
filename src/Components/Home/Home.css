@@ -1,19 +1,100 @@
-.heroImage {
-    width: 100%;
-    height: 90vh;
-    object-fit: cover;
+.heroContainer { 
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 8vh;
-    position: relative;
+    height: 90vh;
+    background-image: url(/hero/2.jpg);
+    background-position: unset;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+    background-size: cover;
+    justify-content: space-between;
+    padding-top: 120%;
+}
+.heroContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 98%;
+    background-color: rgba(0, 0, 0, 0.2); /* Color de fondo negro con transparencia */
+}
+.heroLogo  {
+    width: 200px;
+    margin-bottom: 1em;
+}
+.sloganHero{
+    line-height: 24px;
+    text-align: center;
+    font-style: italic;
+    font-size: 20px;
+    font-weight: 200;
+}
+.cuotasHero {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;        
+    z-index: 1;
 }
 
-.sloganHero {
-    
-    font-style: italic;
-    position: absolute;
-    bottom: 120px;
-    left: 20px;
-    z-index: 1;
-    color: white;
-    font-size: xx-large;
-    font-weight: 100;
+@media(min-width:600px){
+    .heroContainer{
+        padding-top: 110%;
+    }
+    .heroLogo{
+        width: 250px;
+        margin-bottom: 1.5em;
+    }
+    .sloganHero{
+        font-size: 26px;
+    }
+    .cuotasHero{
+        font-size: 19px;
+    }
+}
+
+@media(min-width:1000px){
+    .heroContainer{
+        padding-top: 75%;
+        padding-bottom: 1%;
+    }
+    .heroLogo{
+        width: 30vw;
+        margin-bottom: 2.2em;
+    }
+    .sloganHero{
+        font-size: 32px;
+        font-weight: 300;
+    }
+    .cuotasHero {
+        font-size: 20px;
+        font-weight: 500;
+    }
+}
+@media(min-width:1200px){
+    .heroContainer{
+        padding-top: 34%;
+        align-items: flex-start;
+        padding-left: 5%;
+        text-align: left;
+    }
+    .sloganHero{
+        text-align: left;
+        font-size: 30px;
+    }
+}
+@media(min-width:1400px){
+    .heroContainer{
+        padding-top: 20%;
+    }
+}
+
+@media(min-width:1700px){
+    .heroContainer{
+        padding-top: 30%;
+    }
 }

@@ -1,10 +1,23 @@
 import React from 'react'
+import './Changes.css'
 
 function Changes() {
   return (
-    <div>
-      <p>Políticas de cambio y devoluciones</p>
-      <p>EL COSTO DE ENVIO Y REENVIO ESTARAN A CARGO DEL CLIENTE, EXCEPTO CUANDO SE TRATE DE UN CAMBIO POR UN DEFECTO DE LA PRENDA. LOS PRODUCTOS DE LA CATEGORÍA SALE SOLO DE PODRÁN CAMBIAR POR PRODUCTOS DE LA MISMA CATEGORÍA. </p>
+    <div className='changesContainer'>
+      <p className='changesTitle'>Políticas de cambio y devoluciones</p>
+      
+      <p className='changesText'>El costo de envío y reenvío estarán a cargo del cliente, 
+      excepto cuando se trate de un cambio por un defecto de la prenda <br /> <br /> 
+      Los productos de la categoría <strong> SALE </strong> 
+      solo se podrán cambiar por productos de la misma categoría.
+      <br /><br />
+      Ante cualquier duda comunicate con nosotros. <br />
+      <strong>
+      Parmashop1@gmail.com
+
+      </strong>
+      
+      </p>
     </div>
   )
 }

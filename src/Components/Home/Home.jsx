@@ -1,16 +1,19 @@
 import React from 'react'
-import hero from '/hero2.jpeg'
 import './Home.css'
 import HomeProducts from './HomeProducts'
+import logo from '/logowhite.png'
 
 function Home() {
   return (
     <div>
-      <img src={hero} alt="" className='heroImage' />
-      <p className='sloganHero'>Invest In yourself</p>
-
+      <div className='heroContainer'>
+        <div style={{zIndex:'1'}}>
+          <img src={logo} alt="PARMA" className='heroLogo' />
+          <p className='sloganHero'>Invest in yourself</p>
+        </div>
+        <p className='cuotasHero'>3 cuotas sin interés</p>
+      </div>
       <HomeProducts/>
-      
     </div>
   )
 }

@@ -55,6 +55,7 @@
     .productHomeBox {
         width: 50%;
         display: block;
+        height: 60vh;
     }
     .homeProductInfo {
         top: -280px;
@@ -62,7 +63,7 @@
     .homeProductsContainer {
         display: flex;
         flex-wrap: wrap;
-        background-color: black;
+        /* background-color: black; */
     }
 }
 @media (min-width:1200px){
