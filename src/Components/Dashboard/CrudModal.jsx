@@ -175,8 +175,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     sizes.forEach((key, i) => {
 
       updatedDetails[i] = {
-        // ...details[i], // Copiamos el tamaño intacto
-        color: colorSelected, // Establecemos el nuevo color
+        color: colorSelected, 
         size: detailsSizes[i].size,
         stock: stockArray[i],
       };
@@ -187,13 +186,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     })).reduce((acc, obj) => ({...acc, ...obj}), {});
         
 
-    setDetails(
-      'hola'
-    );
-
-    console.log(updatedDetails);
-    // setDetails(updatedDetails)
-    console.log(details);
     return updatedDetails
   };
   
@@ -312,7 +304,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                       name={e}
                       checked={checkboxes[e] || false}
                       id={`checkbox-${i}`}
-                      // checked={handleChecks}
                       onChange={handleCheckboxChange}
                     />
                     <label>{e}</label>
