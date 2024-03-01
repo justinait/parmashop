@@ -16,7 +16,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [colors, setColors] = useState(['']);
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState([])
-  const [details, setDetails] = useState({})
+  const [details, setDetails] = useState({
+    0: { color: '', size: '', stock: '' }
+  });
   const [stockArray, setStockArray] = useState([])
 
   const handleNext = () => {
@@ -35,13 +37,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     category:"",
     quantity:1,
     colors: colors,
-    details: {
-      0: {
-        color:'',
-        size:'',
-        stock: ''
-      }
-    },
+    details: details,
     sale:0
   })
 
@@ -70,7 +66,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
   }
   
-  const handleSubmit = (e) => {
+  const handleSubmit = (e, updatedDetails) => {
     e.preventDefault();
     const productsCollection = collection(db, "products")
     handleDetails();
@@ -80,7 +76,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         unit_price: +productSelected.unit_price,
         category: categorySelected,
         colors: colors,
-        details: details
+        details: updatedDetails
       }
 
       updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
@@ -94,7 +90,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         unit_price: +newProduct.unit_price,
         category: categorySelected,
         colors: colors,
-        details: details
+        details: updatedDetails
       }
       
       addDoc(productsCollection, obj).then(()=> {
@@ -104,7 +100,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
     }
   }
-
+  const handleFormSubmit = (event) => {
+    const updatedDetails = handleDetails(); // Obtener los detalles actualizados
+    handleSubmit(event, updatedDetails); // Llamar a handleSubmit con los detalles actualizados
+  }
   const handleSizes = () => {
     if(productSelected){
       if( productSelected.category !== 'Bermudas' && productSelected.category !== 'Pantalones'  ){
@@ -112,23 +111,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       } else {
         setSizes(['38', '40', '42', '44', '46'])
       }
-      const updatedDetails = {};
-      console.log(details);
-      sizes.forEach((e, i) => {
-        updatedDetails[i] = {
-          ...details[i], // Copiamos el tamaño intacto
-          size: e
-        };
-      });
-      setDetails(updatedDetails)
-      
     }
-    
-    const initialState = {};
-    sizes.forEach(e => {
-      initialState[e] = false;
-    });
-    return initialState;
   }
   const addColorInput = () => {
     setColors([...colors, '']);
@@ -159,6 +142,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setCheckboxes({ ...checkboxes, [name]: checked });
     handleChecks()
   };
+
   const handleChecks = ()=>{
   
     let stocksArray = [];
@@ -177,23 +161,40 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     
 
   const handleDetails = () => {
-
-    let updatedDetails = {};
     
-    let detailsArray = Object.keys(details)
-    detailsArray.forEach((e, i) => {
+    let updatedDetails = {};
+    let detailsSizes = {};
+
+    sizes.forEach((e, i) => {
+      detailsSizes[i] = {
+        size: e
+      };
+    });
+
+
+    sizes.forEach((key, i) => {
 
       updatedDetails[i] = {
-        ...details[i], // Copiamos el tamaño intacto
+        // ...details[i], // Copiamos el tamaño intacto
         color: colorSelected, // Establecemos el nuevo color
-        stock: stockArray[i]
+        size: detailsSizes[i].size,
+        stock: stockArray[i],
       };
       
-      setDetails({...details, e});
     });
-    
-    console.log(updatedDetails);  
+    const newDetails = Object.keys(updatedDetails).map(key => ({
+      [key]: updatedDetails[key]
+    })).reduce((acc, obj) => ({...acc, ...obj}), {});
+        
+
+    setDetails(
+      'hola'
+    );
+
+    console.log(updatedDetails);
+    // setDetails(updatedDetails)
     console.log(details);
+    return updatedDetails
   };
   
   const addNewProductButton =() =>{
@@ -322,7 +323,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
             </div>
             
-          <button onClick={handleSubmit}>Guardar</button>
+          <button onClick={handleFormSubmit}>Guardar</button>
         </div>
         )}
       </form>
