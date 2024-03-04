@@ -25,6 +25,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setShowSecondScreen(true);
     if(productSelected){
       setSpecificInfo(productSelected)
+      // setColorSelected(productSelected.)
     }
     else{
       setSpecificInfo(newProduct)
@@ -181,25 +182,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       };
       
     });
-    const newDetails = Object.keys(updatedDetails).map(key => ({
-      [key]: updatedDetails[key]
-    })).reduce((acc, obj) => ({...acc, ...obj}), {});
         
 
     return updatedDetails
   };
-  
-  const addNewProductButton =() =>{
-    const timestamp = Date.now();
-    setDetails(prevDetails => ({
-      ...prevDetails,
-      [timestamp]: {
-        color: null,
-        size: null,
-        stock: false
-      }
-    }));
-  }
 
   return (
     <>
@@ -282,36 +268,36 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             <p>Información específica</p>
             
             <div>
-              
-              {/* <p>Prenda {i+1}</p> */}
+              {
+                Object.values(specificInfo.colors).map((element, index) => {
+                  // {console.log(element)}
+                  return(
+                  <div>
 
-              <div className="inputModal">
-                <select value={colorSelected} onChange={(event)=>setColorSelected(event.target.value)}>
-                  <option value="">Colores..</option>
-                  {specificInfo.colors.map((e, i)=>{
-                    return <option key={i} value={e}>{e}</option>  
-                  })}
-                </select>
-              </div>
+                    <h5>Prenda {index+1}</h5>
+                    <h6>{element}</h6>
+                    
+                    <div className="inputModal">
+                      {sizes.map((e, i)=>{
+                        return (
+                        <div key={i}>
+                          <input
+                            type="checkbox"
+                            name={e}
+                            checked={checkboxes[e] || false}
+                            id={`checkbox${element}-${i}`}
+                            onChange={handleCheckboxChange}
+                          />
+                          <label>{e}</label>
+                        </div>)
+                      })}
+                    </div>
 
-              
-              <div className="inputModal">
-                {sizes.map((e, i)=>{
-                  return (
-                  <div key={i}>
-                    <input
-                      type="checkbox"
-                      name={e}
-                      checked={checkboxes[e] || false}
-                      id={`checkbox-${i}`}
-                      onChange={handleCheckboxChange}
-                    />
-                    <label>{e}</label>
                   </div>)
-                })}
-              </div>
-              <p className='addMoreButton' onClick={addNewProductButton}>+</p>
+                })
+              }
 
+            
             </div>
             
           <button onClick={handleFormSubmit}>Guardar</button>
