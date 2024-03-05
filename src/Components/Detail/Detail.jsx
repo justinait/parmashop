@@ -6,6 +6,7 @@ import './Detail.css'
 import { CartContext } from '../../context/CartContext';
 import { Spinner } from 'react-bootstrap';
 import KeyboardBackspaceOutlinedIcon from '@mui/icons-material/KeyboardBackspaceOutlined';
+import Carousel from 'react-bootstrap/Carousel';
 
 function Detail() {
   
@@ -18,7 +19,11 @@ function Detail() {
   const [loading, setLoading] = useState(true);
 
   const { addToCart } = useContext(CartContext);
+  const [index, setIndex] = useState(0);
 
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -119,7 +124,17 @@ function Detail() {
       </div>
       : (
         <div className='detailContainer'>
-          <img src={product.image} alt={product.title} className='imageDetail'/>
+          <Carousel activeIndex={index} onSelect={handleSelect}>
+            <Carousel.Item>
+              <img src={product.image} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            {product.imageTwo &&
+            <Carousel.Item>
+              <img src={product.imageTwo} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            }
+          </Carousel>
+          {/* <img src={product.image} alt={product.title} className='imageDetail'/> */}
           <div className='infoBasic'>
             <p className='nameDetail'>{product.title}</p>
             <p className='brandDetail'>Shato</p>

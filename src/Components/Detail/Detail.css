@@ -10,7 +10,8 @@
 }
 .imageDetail {
     width: 100%;
-    height: 70vh;
+    height: 70vh;    
+    min-height: 70vh;
     margin: auto;
     object-fit: cover;
 }
@@ -98,6 +99,7 @@
     .imageDetail{
         width: 50%;
         height: 60vh;
+        min-height: 60vh;
         margin: unset;
     }
     .nameDetail {
@@ -138,6 +140,7 @@
 @media(min-width: 1200px){
     .imageDetail{
         height: 90vh;
+        min-height: 90vh;
     }
     .addToCartButton {
         padding: 2%;
