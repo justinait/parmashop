@@ -151,4 +151,8 @@ a:hover {
         margin-bottom: 1rem;
         font-size: 22px;
     }
+    .iconsNavbar {
+        width: 1.5em !important;
+        height: 1.5em !important;
+    }
 }

@@ -69,9 +69,6 @@
         font-size: 20px;
         margin: 8% 17% 5% 0;
     }
-    .cartWidgetImage {
-        height: 100px;
-    }
     .cartItemDetail{
         font-size: 18px;
     }
@@ -109,5 +106,8 @@
     }
     .cartWidgetButton {
         font-size: 26px;
+    }
+    .cartWidgetImage {
+        height: 130px;
     }
 }

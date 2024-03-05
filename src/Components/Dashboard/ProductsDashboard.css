@@ -2,6 +2,10 @@
     font-size: 12px;
     margin-bottom: 10vh;
 }
+.dashboardItemContainer{
+    display: flex;
+    justify-content: space-evenly;
+}
 .dashboardContainer {
     min-height: 90vh;
     padding: 10vh 0;
@@ -70,5 +74,17 @@
         padding: 1%;
         margin-left: 5%;
         margin-bottom: 5%;
+    }
+}
+
+@media(min-width:1200px){
+    .dashboardItemContainer{
+        justify-content: space-around;
+        width: 90%;
+        height: 180px;
+        margin: 2% auto;
+    }
+    .dashboardImagesContainer {
+        width: 40%;
     }
 }

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react'
 import logo from '/logo.png'
 import './Navbar.css'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
