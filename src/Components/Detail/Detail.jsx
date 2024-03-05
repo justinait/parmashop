@@ -73,10 +73,10 @@ function Detail() {
   }
   
   const handleSizes = () => {
-    if (productSelected) {
-      if (productSelected.category === 'Bermudas' || productSelected.category === 'Pantalones') {
+    if (product) {
+      if (product.category === 'Bermudas' || product.category === 'Pantalones') {
         setSizes(['38', '40', '42', '44', '46']);
-      } else if (productSelected.category === 'Accesorios' && !boxer) {
+      } else if (product.category === 'Accesorios' && !boxer) {
         setSizes([]);
       } else {
         setSizes(['S', 'M', 'L', 'XL']);
