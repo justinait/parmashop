@@ -73,14 +73,16 @@ function Detail() {
   }
   
   const handleSizes = () => {
-    if(product){
-      if( product.category !== 'Bermudas' && product.category !== 'Pantalones'  ){
-        setSizes(['S', 'M', 'L', 'XL'])
+    if (productSelected) {
+      if (productSelected.category === 'Bermudas' || productSelected.category === 'Pantalones') {
+        setSizes(['38', '40', '42', '44', '46']);
+      } else if (productSelected.category === 'Accesorios' && !boxer) {
+        setSizes([]);
       } else {
-        setSizes(['38', '40', '42', '44', '46'])
+        setSizes(['S', 'M', 'L', 'XL']);
       }
     }
-  }
+  };
   
   const handleColorPick = (e) => {
     setSelectedColor(e);

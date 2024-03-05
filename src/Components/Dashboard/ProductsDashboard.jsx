@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { db } from '../../firebaseConfig';
 import {deleteDoc, doc} from "firebase/firestore"
-import EditAddModal from './EditAddModal';
 import Modal from 'react-bootstrap/Modal';
 import EditIcon from '@mui/icons-material/Edit';
 import './ProductsDashboard.css'

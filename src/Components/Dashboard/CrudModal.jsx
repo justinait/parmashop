@@ -110,14 +110,17 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     handleSubmit(event, updatedDetails); // Llamar a handleSubmit con los detalles actualizados
   }
   const handleSizes = () => {
-    if(productSelected){
-      if( productSelected.category !== 'Bermudas' && productSelected.category !== 'Pantalones'  ){
-        setSizes(['S', 'M', 'L', 'XL'])
+    if (productSelected) {
+      if (productSelected.category === 'Bermudas' || productSelected.category === 'Pantalones') {
+        setSizes(['38', '40', '42', '44', '46']);
+      } else if (productSelected.category === 'Accesorios' && !boxer) {
+        setSizes([]);
       } else {
-        setSizes(['38', '40', '42', '44', '46'])
+        setSizes(['S', 'M', 'L', 'XL']);
       }
     }
-  }
+  };
+  
   const addColorInput = () => {
     setColors([...colors, '']);
   };
