@@ -40,8 +40,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     quantity:1,
     colors: colors,
     details: details,
-    sale:0,
-    brand:""
+    sale:0
   })
 
   const handleImage = async () => {
@@ -223,16 +222,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 defaultValue={productSelected?.unit_price}
               />
             </div>
-            <div className="inputModal">
-              <p>Marca</p>
-              <input
-                type="text"
-                name="title"
-                onChange={handleChange}
-                className="input"
-                defaultValue={productSelected?.brand}
-              />
-            </div>
+            
             <div className="inputModal">
               <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
                 <option value="">Categorias..</option>

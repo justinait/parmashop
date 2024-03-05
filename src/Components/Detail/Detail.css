@@ -36,10 +36,6 @@
     color: #353535;
 }
 
-.brandDetail {
-    color: #878787;
-    font-size: 18px;
-}
 .sizesBox {
     display: flex;
 }
@@ -114,9 +110,6 @@
     }
     .infoBasic p {
         margin-bottom: 0.7rem;
-    }
-    .brandDetail {
-        font-size: 20px;
     }
     .selectDetail {
         font-size: 17px;

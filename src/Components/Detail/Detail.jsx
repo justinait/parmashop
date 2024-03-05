@@ -109,9 +109,6 @@ function Detail() {
       return setStock(foundDetail)
     
     }
-    else {
-      return console.error('El producto aún no cargó.');
-    }
   }
 
   return (
@@ -137,7 +134,6 @@ function Detail() {
           {/* <img src={product.image} alt={product.title} className='imageDetail'/> */}
           <div className='infoBasic'>
             <p className='nameDetail'>{product.title}</p>
-            <p className='brandDetail'>Shato</p>
             <p className='priceDetail'>${product.unit_price}</p>
             
             <div className='separatorLine'></div>
@@ -171,7 +167,6 @@ function Detail() {
           <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
         </div>
       )}
-      {console.log(product)}
     </div>
   )
 }
