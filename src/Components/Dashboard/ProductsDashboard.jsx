@@ -43,6 +43,7 @@ function ProductsDashboard({products, setIsChange}) {
                         
                         <th>$</th>
                         <th>Foto</th>
+                        <th>Colores</th>
 
                         <th>Acción</th>
                     
@@ -56,7 +57,20 @@ function ProductsDashboard({products, setIsChange}) {
                                 <td>{e.title}</td>
                                 
                                 <td>{e.unit_price}</td>
-                                <td><img src={e.image} width={80} alt={e.name} /></td>
+                                <td>
+                                    <img src={e.image} width={80} alt={e.name} />
+                                    {
+                                    e.imageTwo &&
+                                    <img src={e.imageTwo} width={80} alt={e.name} />
+                                    }
+                                </td>
+                                <td>
+                                {
+                                    e.colors.map(color=>{
+                                        return  <>{color} <br /></>
+                                    })
+                                }
+                                </td>
                                 
                                 <td>
                                     <button className='dashboardButton editButton' onClick={()=> handleOpen(e) }> <EditIcon/> </button>
