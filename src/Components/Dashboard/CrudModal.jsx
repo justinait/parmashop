@@ -17,6 +17,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [colors, setColors] = useState(['']);
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState([])
+  const [boxer, setBoxer] = useState(false)
   const [details, setDetails] = useState({
     0: { color: '', size: '', stock: '' }
   });
@@ -46,17 +47,31 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const handleImage = async () => {
     setIsLoading(true);
     let url = await uploadFile(file);
-    let urlTwo = await uploadFile(fileTwo);
 
     if(productSelected) {
       
       setProductSelected({
         ...productSelected, 
         image: url,
+      })
+    } else {
+      setNewProduct({...newProduct, image: url})
+    }
+
+    setIsLoading(false);
+  }
+  const handleImageTwo = async () => {
+    setIsLoading(true);
+    let urlTwo = await uploadFile(fileTwo);
+
+    if(productSelected) {
+      
+      setProductSelected({
+        ...productSelected, 
         imageTwo: urlTwo
       })
     } else {
-      setNewProduct({...newProduct, image: url, imageTwo: urlTwo})
+      setNewProduct({...newProduct, imageTwo: urlTwo})
     }
 
     setIsLoading(false);
@@ -236,6 +251,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Buzo">Buzo</option>
                 <option value="Abrigos">Abrigos</option>
                 <option value="Accesorios">Accesorios</option>
+                <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
               </select>
             </div>
             <p>Colores</p>
@@ -288,7 +304,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               fileTwo &&
-              <button type='button' onClick={handleImage}>Confirmar imagen secundaria</button>
+              <button type='button' onClick={handleImageTwo}>Confirmar imagen secundaria</button>
             }
             {
               !isLoading &&
