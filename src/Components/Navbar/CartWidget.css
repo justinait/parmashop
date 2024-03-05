@@ -44,8 +44,12 @@
     .subtotalCart {
         margin: auto;
     }
+    
+    .cartWidgetBox{    
+        right: -17vw;
+    }
 }
-@media(min-width:600px) {
+@media(min-width:1000px) {
     .cartWidgetItemContainer h6 {
         font-size: 18px;
         margin: 8% 18% 5% 0;
@@ -58,5 +62,52 @@
     }
     .cartItemPrice {
         font-size: 19px;
+    }
+}
+@media(min-width:1200px) {
+    .cartWidgetItemContainer h6 {
+        font-size: 20px;
+        margin: 8% 17% 5% 0;
+    }
+    .cartWidgetImage {
+        height: 100px;
+    }
+    .cartItemDetail{
+        font-size: 18px;
+    }
+    .cartItemPrice {
+        font-size: 20px;
+    }
+    .cartWidgetBox{
+        right: -12vw;
+        width: 45vw;
+    }
+    .cartWidgetButton {
+        font-size: 20px;
+    }
+}   
+@media(min-width:1200px) {
+    .cartWidgetBox{
+        right: -13vw;
+    }
+}
+
+@media(min-width:1600px) {
+    .cartWidgetBox{
+        right: -13vw;
+        width: 35vw;
+    }
+    .cartWidgetItemContainer h6 {
+        font-size: 24px;
+        margin: 8% 18% 5% 0;
+    }
+    .infoCartItem p {   
+        font-size: 22px;
+    }
+    .subtotalCart {
+        font-size: 26px;
+    }
+    .cartWidgetButton {
+        font-size: 26px;
     }
 }
