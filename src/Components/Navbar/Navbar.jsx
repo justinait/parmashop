@@ -43,7 +43,7 @@ function Navbar() {
     { name: 'Camisas', id: 'Camisas', className: ''},
     { name: 'Pantalones', id: 'Pantalones', className: ''},
     { name: 'Abrigos', id: 'Abrigos', className: ''},
-    { name: 'Hoodies', id: 'Hoodies', className: ''},
+    { name: 'Buzos', id: 'Buzos', className: ''},
     { name: 'Accesorios', id: 'Accesorios', className: ''},
     { name: 'Política de cambios', id: 'changes', className: ''},
     { name: 'Carrito', id: 'cart', className: ''}

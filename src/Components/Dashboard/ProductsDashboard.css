@@ -45,8 +45,7 @@
 }
 .addButton {
     padding: 1%;
-    margin-left: 25%;
-    margin-bottom: 15%;
+    margin: 5% 0 10% 25%;
 }
 .addMoreButton {
     border: 1px solid grey;
@@ -64,6 +63,26 @@
 .inputModal {
     padding: 6px;
 }
+.dashboardCategory {
+    border: none;
+    background: transparent;    
+    color: #000;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -0.26px;
+    padding: 2%;
+    padding: 1% 2%;
+    font-size: 12px;
+    border-radius: 25px;
+}
+.dashboardCategoryActive{
+    /* text-decoration-line: underline; */
+    background-color: black;
+    color: white;
+}
+.dashboardCategoryBox{
+    margin-bottom: 15%;
+}
 @media(min-width:1000px){
     .tableDiv {
         font-size: 16px;
@@ -74,6 +93,12 @@
         padding: 1%;
         margin-left: 5%;
         margin-bottom: 5%;
+    }
+    .dashboardCategoryBox {
+        margin: 2% 5%;
+    }
+    .dashboardCategory {
+        font-size: 16px;
     }
 }
 

@@ -12,12 +12,12 @@ function ProductsDashboard({products, setIsChange}) {
 
     const [productSelected, setProductSelected] = useState(null)
     const [show, setShow] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('Todos los productos');
 
     const handleClose = () => setShow(false);
   
     const handleOpen = (product) => {
         if(!show){
-
             setShow(true);
             setProductSelected(product);
         }
@@ -28,29 +28,42 @@ function ProductsDashboard({products, setIsChange}) {
         setIsChange(true);
     }
     
+    const categories = [     'Todos los productos' , 'Remeras', 'Pantalones', 'Camisas', 'Bermudas', 'Buzos' , 'Abrigos', 'Accesorios'    ]
+
     return (
         <div>
         
         <button className='dashboardButton addButton' onClick={()=>handleOpen(null)}>Agregar Nuevo Producto</button>
-        
+
+        <div className='dashboardCategoryBox' >
+            {categories.map((e, i) => (
+                <button
+                    key={i}
+                    className={`dashboardCategory ${selectedCategory === e ? 'dashboardCategoryActive' : ''}`}
+                    onClick={() => setSelectedCategory(e)}
+                >
+                    {e}
+                </button>
+            ))}
+        </div>
+
         {
             products.length > 1 ? 
             <table className='tableDiv'>
                 <thead>
                     <tr>
-
                         <th>Título</th>
-                        
                         <th>$</th>
                         <th>Foto</th>
                         <th>Colores</th>
-
                         <th>Acción</th>
-                    
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((e, i)=>{
+                    {
+                    products
+                    .filter((e) => selectedCategory === 'Todos los productos' || (selectedCategory === e.category))
+                    .map((e, i)=>{
                         return (
                             <tr key={e.id} className='tableRowDashboard'>
                                 
@@ -79,7 +92,8 @@ function ProductsDashboard({products, setIsChange}) {
 
                             </tr>
                         )
-                    })}
+                    })
+                    }
                     <Modal
                         show={show}
                         onHide={handleClose}
@@ -93,7 +107,6 @@ function ProductsDashboard({products, setIsChange}) {
 
                 </tbody>
             </table>    :    
-            
             <p>No hay productos.</p>
         
         }
