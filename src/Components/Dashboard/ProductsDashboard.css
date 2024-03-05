@@ -6,6 +6,10 @@
     min-height: 90vh;
     padding: 10vh 0;
 }
+.dashboardContainer h2 {
+    text-align: center;
+    margin: 5% 0;
+}
 .tableRowDashboard{
     width: 100vw;
 }
@@ -30,8 +34,10 @@
     border: 2px yellow solid;
 }
 .addButton:hover {
-    background-color: greenyellow;
-    border: 2px greenyellow solid;
+    background-color: black;
+    border: 2px black solid;
+    color: white;
+    font-weight: 400;
 }
 .addButton {
     padding: 1%;
@@ -63,6 +69,6 @@
     .addButton {
         padding: 1%;
         margin-left: 5%;
-        margin-bottom: 10%;
+        margin-bottom: 5%;
     }
 }

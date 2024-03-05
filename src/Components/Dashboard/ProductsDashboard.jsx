@@ -40,7 +40,7 @@ function ProductsDashboard({products, setIsChange}) {
                     <tr>
 
                         <th>Título</th>
-                        <th>Descrip.</th>
+                        
                         <th>$</th>
                         <th>Foto</th>
 
@@ -54,7 +54,7 @@ function ProductsDashboard({products, setIsChange}) {
                             <tr key={e.id} className='tableRowDashboard'>
                                 
                                 <td>{e.title}</td>
-                                <td>{e.description}</td>
+                                
                                 <td>{e.unit_price}</td>
                                 <td><img src={e.image} width={80} alt={e.name} /></td>
                                 

@@ -12,6 +12,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [categorySelected, setCategorySelected] = useState('');
   const [colorSelected, setColorSelected] = useState('');
   const [file, setFile] = useState(null);
+  const [fileTwo, setFileTwo] = useState(null);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
   const [specificInfo, setSpecificInfo] = useState([])
@@ -25,7 +26,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setShowSecondScreen(true);
     if(productSelected){
       setSpecificInfo(productSelected)
-      // setColorSelected(productSelected.)
     }
     else{
       setSpecificInfo(newProduct)
@@ -35,24 +35,29 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     title:"",
     unit_price:0,
     image:"",
+    imageTwo:"",
     category:"",
     quantity:1,
     colors: colors,
     details: details,
-    sale:0
+    sale:0,
+    brand:""
   })
 
   const handleImage = async () => {
     setIsLoading(true);
     let url = await uploadFile(file);
+    let urlTwo = await uploadFile(fileTwo);
 
     if(productSelected) {
       
       setProductSelected({
-        ...productSelected, image: url
+        ...productSelected, 
+        image: url,
+        imageTwo: urlTwo
       })
     } else {
-      setNewProduct({...newProduct, image: url})
+      setNewProduct({...newProduct, image: url, imageTwo: urlTwo})
     }
 
     setIsLoading(false);
@@ -171,18 +176,17 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         size: e
       };
     });
-
-
-    sizes.forEach((key, i) => {
-
-      updatedDetails[i] = {
-        color: colorSelected, 
-        size: detailsSizes[i].size,
-        stock: stockArray[i],
-      };
-      
-    });
+    Object.values(specificInfo.colors).map((color, index) => {
+      sizes.forEach((key, i) => {
+        let indexAux = index*4 + i;
+        updatedDetails[indexAux] = {
+          color: color, 
+          size: detailsSizes[i].size,
+          stock: stockArray[color][detailsSizes[i].size],
+        };
         
+      });
+    })
 
     return updatedDetails
   };
@@ -197,25 +201,36 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         <form className="form">
           {!showSecondScreen && (
           <div>
-            <p>Información General</p>
+            <h5>Información General</h5>
             <div className="inputModal">
+              <p>Nombre de la prenda</p>
               <input
                 type="text"
                 name="title"
                 onChange={handleChange}
-                placeholder="Nombre"
+                // placeholder="Nombre"
                 className="input"
                 defaultValue={productSelected?.title}
               />
             </div>
             <div className="inputModal">
+              <p>Precio</p>
               <input
                 type="number"
                 name="unit_price"
                 onChange={handleChange}
-                placeholder="Precio"
                 className="input"
                 defaultValue={productSelected?.unit_price}
+              />
+            </div>
+            <div className="inputModal">
+              <p>Marca</p>
+              <input
+                type="text"
+                name="title"
+                onChange={handleChange}
+                className="input"
+                defaultValue={productSelected?.brand}
               />
             </div>
             <div className="inputModal">
@@ -245,7 +260,21 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               ))}
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
+            
             <div className="inputModal">
+              <p>Porcentaje de descuento</p>
+              <input
+                type="number"
+                name="sale"
+                placeholder='25'
+                onChange={handleChange}
+                className="input"
+                defaultValue={productSelected?.sale}
+              />
+            </div>
+
+            <div className="inputModal">
+              <p>Imagen Principal</p>
               <input
                 type="file"
                 onChange={(e)=>setFile(e.target.files[0])}
@@ -254,7 +283,19 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               file &&
-              <button type='button' onClick={handleImage}>Confirmar imagen</button>
+              <button type='button' onClick={handleImage}>Confirmar imagen principal</button>
+            }
+            <div className="inputModal">
+              <p>Imagen Secundaria</p>
+              <input
+                type="file"
+                onChange={(e)=>setFileTwo(e.target.files[0])}
+                className="input"
+              />
+            </div>
+            {
+              fileTwo &&
+              <button type='button' onClick={handleImage}>Confirmar imagen secundaria</button>
             }
             {
               !isLoading &&
@@ -265,12 +306,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           
           {showSecondScreen && (
           <div>
-            <p>Información específica</p>
+            <h5>Información específica</h5>
             
             <div>
               {
                 Object.values(specificInfo.colors).map((element, index) => {
-                  // {console.log(element)}
+                  
                   return(
                   <div>
 
