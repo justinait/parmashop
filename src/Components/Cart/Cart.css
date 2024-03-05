@@ -8,7 +8,7 @@
 .returnButtonCart {
     color: white;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     text-transform: uppercase;
     background: #222222;
     border: 2px black solid;
@@ -131,6 +131,13 @@
         font-weight: 600;
         font-size: 18px;
     }
+    .returnButtonCart {
+        font-size: 16px;
+        width: 40%;
+    }
+    .cartEmptyText{
+        font-size: 16px;
+    }
 }
 @media(min-width: 1000px){
     .cartItemImage {
@@ -149,6 +156,15 @@
     }
     .cartItemImage {
         height: 250px;
+    }
+    .returnButtonCart {
+        font-size: 18px;
+        width: 30%;
+        padding: 2%;
+        margin: 3% 2%;
+    }
+    .cartEmptyText{
+        font-size: 18px;
     }
 }
 @media(min-width: 1200px){
@@ -175,5 +191,37 @@
     }
     .goToCheckoutButton, .clearCartButton {
         padding: 1.5% 3%;
+    }
+    .emptyContainer{
+        height: 60vh;
+    }
+}
+@media(min-width: 1200px){
+    
+    .emptyContainer{
+        height: 65vh;
+    }
+    .cartContainer {
+        min-height: 90vh;
+    }
+    .returnButtonCart {
+        width: 20%;
+        padding: 1.2%;
+    }
+}
+@media(min-width: 1600px){
+    .cartEmptyText{
+        font-size: 21px;
+    }
+    .emptyContainer{
+        height: 65vh;
+    }
+    .cartContainer {
+        min-height: 90vh;
+    }
+    .returnButtonCart {
+        width: 18%;
+        padding: 1%;
+        font-size: 21px;
     }
 }

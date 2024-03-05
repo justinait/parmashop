@@ -128,5 +128,9 @@
         width: 50%;
     }
     }
-@media (min-width:1439px){
+@media (min-width:1600px){
+    .logoFooter {
+        width: 35%;
+        margin: 7% 20%;
+    }
 }
