@@ -12,9 +12,15 @@ function Products() {
   const getProducts = () => {
     let filteredProducts
     if (category && category!='category') {
+      
       filteredProducts = dataProducts?.filter((e) => e?.category === category);
       setTitle(category)
       setProductsList(filteredProducts)
+      if(category == 'NUEVO'){
+        filteredProducts = dataProducts.sort((a, b) => b.timestamp - a.timestamp);
+        setProductsList(filteredProducts)
+      } 
+      
     } else {
       setTitle('Todos los productos')
       setProductsList(dataProducts)
