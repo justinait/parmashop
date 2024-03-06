@@ -165,8 +165,8 @@ function Detail() {
             disabled={!stock || !selectedColor || !selectedSize}
             >Agregar al carrito</button>
 
-          </div>
           <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
+          </div>
         </div>
       )}
     </div>

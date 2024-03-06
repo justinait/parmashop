@@ -93,7 +93,8 @@
 }
 @media(min-width: 1000px){
     .imageDetail{
-        width: 50%;
+        width: 50vw;
+        min-width: 50%;
         height: 60vh;
         min-height: 60vh;
         margin: unset;
@@ -106,7 +107,7 @@
         display: flex;
     }
     .infoBasic{
-        width: 50%;
+        width: 50vw;
     }
     .infoBasic p {
         margin-bottom: 0.7rem;

@@ -75,8 +75,10 @@
     font-size: 12px;
     border-radius: 25px;
 }
+.dashboardCategory:hover {
+    text-decoration-line: underline;
+}
 .dashboardCategoryActive{
-    /* text-decoration-line: underline; */
     background-color: black;
     color: white;
 }
@@ -91,8 +93,7 @@
     }
     .addButton {
         padding: 1%;
-        margin-left: 5%;
-        margin-bottom: 5%;
+        margin: 0 0 2% 5%;
     }
     .dashboardCategoryBox {
         margin: 2% 5%;

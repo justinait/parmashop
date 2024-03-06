@@ -25,6 +25,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
   const handleNext = () => {
     setShowSecondScreen(true);
+    console.log(newProduct);
     if(productSelected){
       setSpecificInfo(productSelected)
     }
@@ -154,13 +155,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
   }, [])
 
-  const handleColorChange =(index, e)=> {
+  const handleColorChange =(index, event)=> {
     const newColors = [...colors];
-    newColors[index] = e.target.value;
+    newColors[index] = event.target.value;
     setColors(newColors);
+    console.log(colors);
   }
-  const handleCheckboxChange = (event) => {
 
+  const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;    
     setCheckboxes({ ...checkboxes, [name]: checked });
     handleChecks()
@@ -316,13 +318,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           {showSecondScreen && (
           <div>
             <h5>Información específica</h5>
-            
             <div>
               {
                 Object.values(specificInfo.colors).map((element, index) => {
                   
                   return(
-                  <div>
+                  <div key={index}>
 
                     <h5>Prenda {index+1}</h5>
                     <h6>{element}</h6>
