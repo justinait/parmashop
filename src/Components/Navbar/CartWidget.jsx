@@ -7,7 +7,13 @@ import { Link } from 'react-router-dom';
 
 function CartWidget() {
 
-    const { cart, clearCart, deleteById, getTotalPrice } = useContext(CartContext);
+    const { 
+        cart,
+        addToCart,
+        clearCart,
+        deleteById,
+        getTotalPrice,
+        totalProducts } = useContext(CartContext);
     const [openCartDropdown, setOpenCartDropdown] = useState(false)
     const [prevTotal, setPrevTotal] = useState(0);
     let total = getTotalPrice()
