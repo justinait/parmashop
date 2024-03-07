@@ -28,6 +28,7 @@ function Checkout() {
     useEffect(()=> {
         let order = JSON.parse(localStorage.getItem("order"))
         if(paramValue === "approved"){
+
             let ordersCollections = collection(db, "orders")
             addDoc(ordersCollections, {
                 ...order, 
@@ -49,11 +50,11 @@ function Checkout() {
     }, [])
 
     const createPreference = async ()=>{
-        const newArr = cart?.map (e =>{
+        const newArr = cart.map (e =>{
             return {
                 title: e.productData.title, 
                 unit_price: e.productData.unit_price, 
-                quantity: e.quantity
+                quantity: 1
             }
         })
         console.log(newArr);
@@ -80,7 +81,7 @@ function Checkout() {
             phone: userData.phone,
             items: cart,
             email:userData.email,
-            total: total + shipmentCost
+            total: getTotalPrice + shipmentCost
         }
         localStorage.setItem("order", JSON.stringify(order))
         // const id = await createPreference();
@@ -102,7 +103,7 @@ function Checkout() {
     <div className='checkoutContainer'>
         {
             !orderId ?
-            <>
+            <div>
                 <div className="inputModal">
                     <input
                     type="text"
@@ -131,15 +132,16 @@ function Checkout() {
                     />
                 </div>
                 <button onClick={handleBuy} >Seleccionar método de pago</button>
-                {
-                    preferenceId &&
-                    <Wallet initialization={{preferenceId, redirectMode:"self"}}/>
-                }
-            </> :
-            <>
+            </div> 
+            :
+            <div>
                 <h2>El pago se realizó con éxito!</h2>
                 <h2>Este es el ID de tu compra: {orderId}</h2>
-            </>
+            </div>
+        }
+        {
+            preferenceId &&
+            <Wallet initialization={{preferenceId, redirectMode:"self"}}/>
         }
         
     </div>
