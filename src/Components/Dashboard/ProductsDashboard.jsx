@@ -64,7 +64,7 @@ function ProductsDashboard({products, setIsChange}) {
                     .filter((e) => selectedCategory === 'Todos los productos' || (selectedCategory === e.category))
                     .map((e, i)=>{
                         return (
-                            <tr key={e.id} className='tableRowDashboard'>
+                            <tr key={i} className='tableRowDashboard'>
                                 
                                 <td>{e.title}</td>
                                 
