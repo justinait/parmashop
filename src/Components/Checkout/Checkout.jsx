@@ -57,7 +57,7 @@ function Checkout() {
         }
       })
     try {
-      let response = await axios.post("http://localhost:8080/create_preference", {
+      let response = await axios.post("https://back-parma.vercel.app/create_preference", {
         items: newArray,
         shipment_cost: 100
       })
