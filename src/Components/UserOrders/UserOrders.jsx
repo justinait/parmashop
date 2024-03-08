@@ -12,8 +12,8 @@ function UserOrders() {
                     ...e.data(), id: e.id
                 }
             })
+            setOrders(newArr)
         })
-        setOrders(newArr)
     }, [ ])
 
   return (
