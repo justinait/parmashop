@@ -13,7 +13,7 @@ function Checkout() {
   
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
   
-  const [shipmentCost, setShipmentCost] = useState(100);
+  const [shipmentCost, setShipmentCost] = useState(10);
   const [preferenceId, setPreferenceId]= useState(null);
   const [orderId, setOrderId] = useState(null)
   const [userData, setUserData] = useState({
@@ -21,27 +21,37 @@ function Checkout() {
     cp: "",
     phone: ""
   })
+  
+  let total = getTotalPrice()
+  const [orderDB, setOrderDB] = useState({
+    userData: userData,
+    items: cart,
+    date: new Date().toLocaleString(),
+    total: total
+  })
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
   const paramValue = queryParams.get("status")
 
-  let total = getTotalPrice()
 
+  const pushData = async(order)=>{
+
+    let ordersCollections = collection(db, "orders");
+    addDoc(ordersCollections, {
+      ...order,
+      date: serverTimestamp()
+    }).then(res=>{
+      setOrderId(res.id)
+    })
+  }
 
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
-    console.log('hola');
     console.log(order);
     if(paramValue === "approved"){
       
-      let ordersCollections = collection(db, "orders");
-      addDoc(ordersCollections, {
-        ...order,
-        date: serverTimestamp()
-      }).then(res=>{
-        setOrderId(res.id)
-      })
-      
+      pushData(orderDB);
+
       localStorage.removeItem("order");
       clearCart();
     }
@@ -50,12 +60,12 @@ function Checkout() {
 
   const createPreference = async()=> {
     const newArray = cart.map ( e=>{
-        return {
-          title: e.title,
-          unit_price: +e.productData.unit_price,
-          quantity: e.quantity
-        }
-      })
+      return {
+        title: e.title,
+        unit_price: +e.productData.unit_price,
+        quantity: e.quantity
+      }
+    })
     try {
       let response = await axios.post("https://back-parma.vercel.app/create_preference", {
         items: newArray,
@@ -70,14 +80,18 @@ function Checkout() {
   }
 
   const handleBuy = async () => {
-    console.log(cart)
+
     let order = {
-      email: userData.email,
-      cp: userData.cp,
-      phone: userData.phone,
+      userData: userData,
       items: cart,
       total: total + shipmentCost
     }
+    // setOrderDB({
+    //   userData: userData,
+    //   items: cart,
+    //   total: total + shipmentCost
+    // })
+
     console.log(order);
     localStorage.setItem("order", JSON.stringify(order))
     
@@ -92,9 +106,19 @@ function Checkout() {
 
   return (
     <div className='checkoutContainer'>
-      {/* {
+      {
         !orderId ?
         <div className="form">
+          <p>Detalle de la compra</p>
+          {cart.map((e, i)=>{
+            return(
+              <div key={i}>
+                {e.productData.title}
+                {e.productData.unit_price}
+              </div>
+            )
+          })}
+          <p>DATOS DE CONTACTO</p>
           <div className="input">
             <input
               type="text"
@@ -107,6 +131,16 @@ function Checkout() {
           <div className="input">
             <input
               type="number"
+              name="phone"
+              onChange={handleChange}
+              placeholder="Número de Celular"
+              className="input"
+            />
+          </div>
+          <p>DATOS DE ENVÍO</p>
+          <div className="input">
+            <input
+              type="string"
               name="cp"
               onChange={handleChange}
               placeholder="Código Postal"
@@ -116,16 +150,26 @@ function Checkout() {
           <div className="input">
             <input
               type="number"
-              name="phone"
+              name="city"
               onChange={handleChange}
-              placeholder="Número de Celular"
+              placeholder="Ciudad"
               className="input"
             />
           </div>
+          <div className="input">
+            <input
+              type="string"
+              name="adress"
+              onChange={handleChange}
+              placeholder="Dirección de entrega"
+              className="input"
+            />
+          </div>
+          
         </div>
         :
         <h2>El pago se realizó con éxito. {orderId}</h2>
-    } */}
+    }
     <button onClick={handleBuy}>Seleccionar método de pago</button>
       {
         preferenceId && <Wallet initialization={{preferenceId, redirectMode:"self"}} />

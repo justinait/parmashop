@@ -122,8 +122,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
   }
   const handleFormSubmit = (event) => {
-    const updatedDetails = handleDetails(); // Obtener los detalles actualizados
-    handleSubmit(event, updatedDetails); // Llamar a handleSubmit con los detalles actualizados
+    const updatedDetails = handleDetails();
+    handleSubmit(event, updatedDetails);
   }
   const handleSizes = () => {
     if (productSelected) {

@@ -1,7 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
+import './UserOrders.css'
 
 function UserOrders() {
+
     const [orders, setOrders] = useState([]);
 
     useEffect(()=> {
@@ -17,18 +20,21 @@ function UserOrders() {
     }, [ ])
 
   return (
-    <div>
+    <div className='userOrdersContainer'>
         <p>ORDENES</p>
         {orders.map(e => {
-            {
-                e?.items?.map(item => {
-                    return <div>
-                        <h2>{item.title}</h2>
-                    </div>
-                })
-            }
+            
             return <div key={e.id}>
                 <h4>{e.title}</h4>
+                <p>{e.total}</p>
+                {console.log(e.items)}
+                {(e.items).map(element => {
+                    return <div>
+                        <h2>{element.title}</h2>
+                        <p>{element.size}</p>
+                        <p>{element.color}</p>
+                    </div>
+                })}
             </div>
         })
         }
