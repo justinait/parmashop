@@ -19,7 +19,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
   const [details, setDetails] = useState({
-    0: { color: '', size: '', stock: '' }
+    // 0: { color: '', size: '', stock: '' }
   });
   const [stockArray, setStockArray] = useState({})
 
@@ -161,6 +161,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     console.log(colors);
   }
 
+  useEffect(()=> {
+    setDetails({})
+  }, [productSelected])
 
   const handleCheckboxChange = (event, color, size) => {
     const { name, checked } = event.target;
@@ -203,16 +206,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   };
   
   const handleDetails = () => {
-    const stockArray = handleChecks()
+    // const stockArray = handleChecks()
     let updatedDetails = {};
     
     (specificInfo.colors).forEach((color, colorIndex) => {
       sizes.forEach((size, sizeIndex) => {
         
-        let auxStock = false
-        if (typeof color === 'string') {
-          auxStock =checkboxes[color]?.[size]
-        }
+        let auxStock=checkboxes[color]?.[size]
+        if(auxStock == undefined)
+          auxStock= false
         const index = colorIndex * sizes.length + sizeIndex;
         updatedDetails[index] = {
           color: color,
