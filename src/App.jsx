@@ -15,6 +15,7 @@ import CartContextComponent from './context/CartContext';
 import AuthContextComponent from './context/AuthContext';
 import Dashboard from './Components/Dashboard/Dashboard';
 import ProtectedAdmin from './ProtectedAdmin';
+import UserOrders from './Components/UserOrders/UserOrders';
 
 function App() {
 
@@ -39,6 +40,8 @@ function App() {
                 
                 <Route element={<ProtectedAdmin/>} >
                   <Route path="/dashboard" element={<Dashboard/>} />
+                  <Route path="/orders" element={<UserOrders/>} />
+                  
                 </Route>
                 
               </Routes>

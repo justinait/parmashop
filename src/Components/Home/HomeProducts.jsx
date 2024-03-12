@@ -47,10 +47,10 @@ function HomeProducts() {
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>
-        <Link to='/Hoodies' className='productHomeBox'>
-            <img src={hoodies} alt="Hoodies" className='imageProductHome' />
+        <Link to='/Buzos' className='productHomeBox'>
+            <img src={hoodies} alt="Buzos" className='imageProductHome' />
             <div className='homeProductInfo'>
-                <p className='productTitleHome'>Hoodies</p>
+                <p className='productTitleHome'>Buzos</p>
                 <p className='seeInfoHome'>Ver</p>
             </div>
         </Link>

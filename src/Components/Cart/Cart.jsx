@@ -22,9 +22,9 @@ function Cart() {
                 {
                     cart.map((e, i)=>{
                         return (
-                            <div>
+                            <div key={i}>
 
-                                <div key={i} className='cartItemContainer'>
+                                <div className='cartItemContainer'>
                                     {console.log(e)}
                                     <img className='cartItemImage' src={e.productData.image} alt={e.title} />
                                     <div className='infoCartItem'>
