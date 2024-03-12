@@ -6,6 +6,9 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 function Checkout() {
   
@@ -109,6 +112,14 @@ function Checkout() {
       {
         !orderId ?
         <div className="form">
+          <div>
+            carrito
+            <ShoppingCartOutlinedIcon/>
+            envio
+            <LocalShippingIcon/>
+            pagar
+            <CreditCardIcon/>
+          </div>
           <p>Detalle de la compra</p>
           {cart.map((e, i)=>{
             return(
