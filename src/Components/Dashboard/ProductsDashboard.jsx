@@ -78,8 +78,8 @@ function ProductsDashboard({products, setIsChange}) {
                                 </td>
                                 <td>
                                 {
-                                    e.colors.map(color=>{
-                                        return  <>{color} <br /></>
+                                    e.colors.map((color, i)=>{
+                                        return  <div key={i}>{color} <br /></div>
                                     })
                                 }
                                 </td>

@@ -16,12 +16,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
   const [specificInfo, setSpecificInfo] = useState([])
-  const [checkboxes, setCheckboxes] = useState([])
+  const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
   const [details, setDetails] = useState({
     0: { color: '', size: '', stock: '' }
   });
-  const [stockArray, setStockArray] = useState([])
+  const [stockArray, setStockArray] = useState({})
 
   const handleNext = () => {
     setShowSecondScreen(true);
@@ -90,7 +90,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const handleSubmit = (e, updatedDetails) => {
     e.preventDefault();
     const productsCollection = collection(db, "products")
-    handleDetails();
     if(productSelected){
       let obj = {
         ...productSelected,
@@ -162,53 +161,71 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     console.log(colors);
   }
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;    
-    setCheckboxes({ ...checkboxes, [name]: checked });
-    handleChecks()
-  };
 
-  const handleChecks = ()=>{
-  
-    let stocksArray = [];
-  
-    sizes.forEach((e, i) => {
-      const checkbox = document.getElementById(`checkbox-${i}`);
-      if (checkbox && checkbox.checked) {
-        stocksArray[i] = true;
-      } else {
-        stocksArray[i] = false;
+  const handleCheckboxChange = (event, color, size) => {
+    const { name, checked } = event.target;
+    const isChecked = event.target.checked;
+      
+    setCheckboxes(prevState => ({
+      ...prevState,
+      [color]: {
+        ...prevState[color],
+        [size]: isChecked
       }
-    });
-  
-    setStockArray(stocksArray)
+    }));
+
+    if (typeof color === 'string') {
+      console.log(checkboxes[color]?.[size]);
+    }
+    
   };
-    
 
-  const handleDetails = () => {
-    
-    let updatedDetails = {};
-    let detailsSizes = {};
-
-    sizes.forEach((e, i) => {
-      detailsSizes[i] = {
-        size: e
-      };
+  const handleChecks = (e) => {
+    e.preventDefault()
+    const newStockArray = {};
+  
+    sizes.forEach((size) => {
+      newStockArray[size] = {};
+      (specificInfo.colors).map((color) => {
+        // const checkbox = checkboxes[`${color}-${size}`];
+        const checkbox = document.getElementById(`checkbox${element}-${e}`);
+        console.log(checkbox);
+        // if (checkbox && checkbox.checked){
+        //   return  newStockArray[size][color] = true
+        // }else {
+        //   return  newStockArray[size][color] = false
+        // }
+        newStockArray[size][color] = true
+      });
     });
-    Object.values(specificInfo.colors).map((color, index) => {
-      sizes.forEach((key, i) => {
-        let indexAux = index*4 + i;
-        updatedDetails[indexAux] = {
-          color: color, 
-          size: detailsSizes[i].size,
-          stock: stockArray[color][detailsSizes[i].size],
+    console.log(newStockArray);
+    return newStockArray
+  };
+  
+  const handleDetails = () => {
+    const stockArray = handleChecks()
+    let updatedDetails = {};
+    
+    (specificInfo.colors).forEach((color, colorIndex) => {
+      sizes.forEach((size, sizeIndex) => {
+        
+        let auxStock = false
+        if (typeof color === 'string') {
+          auxStock =checkboxes[color]?.[size]
+        }
+        const index = colorIndex * sizes.length + sizeIndex;
+        updatedDetails[index] = {
+          color: color,
+          size: size,
+          stock: auxStock
         };
         
       });
-    })
-
-    return updatedDetails
+    });
+  
+    return updatedDetails;
   };
+  
 
   return (
     <>
@@ -320,26 +337,26 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             <h5>Información específica</h5>
             <div>
               {
-                Object.values(specificInfo.colors).map((element, index) => {
+                Object.values(specificInfo.colors).map((color, index) => {
                   
                   return(
                   <div key={index}>
 
                     <h5>Prenda {index+1}</h5>
-                    <h6>{element}</h6>
+                    <h6>{color}</h6>
                     
                     <div className="inputModal">
-                      {sizes.map((e, i)=>{
+                      {sizes.map((size, i)=>{
                         return (
                         <div key={i}>
                           <input
                             type="checkbox"
-                            name={e}
-                            checked={checkboxes[e] || false}
-                            id={`checkbox${element}-${i}`}
-                            onChange={handleCheckboxChange}
+                            name={size}
+                            checked={checkboxes[color]?.[size] || false}
+                            id={`checkbox${color}-${size}`}
+                            onChange={(event)=>handleCheckboxChange(event, color, size)}
                           />
-                          <label>{e}</label>
+                          <label>{size}</label>
                         </div>)
                       })}
                     </div>
