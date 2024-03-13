@@ -10,7 +10,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [showSecondScreen, setShowSecondScreen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [categorySelected, setCategorySelected] = useState('');
-  const [colorSelected, setColorSelected] = useState('');
   const [file, setFile] = useState(null);
   const [fileTwo, setFileTwo] = useState(null);
   const [sizes, setSizes] = useState([]);
@@ -21,29 +20,21 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [details, setDetails] = useState({
     // 0: { color: '', size: '', stock: '' }
   });
-  const [stockArray, setStockArray] = useState({})
 
   const handleNext = () => {
+    
     setShowSecondScreen(true);
-    console.log(newProduct);
-    if(productSelected){
+    if(productSelected.id){
       setSpecificInfo(productSelected)
     }
-    else{
-      setSpecificInfo(newProduct)
+    else {
+      setProductSelected({
+        ...productSelected,
+        category: categorySelected,
+        colors: colors
+      })
     }
   };
-  const [newProduct, setNewProduct] = useState({
-    title:"",
-    unit_price:0,
-    image:"",
-    imageTwo:"",
-    category:"",
-    quantity:1,
-    colors: colors,
-    details: details,
-    sale:0
-  })
 
   const handleImage = async () => {
     setIsLoading(true);
@@ -55,9 +46,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         ...productSelected, 
         image: url,
       })
-    } else {
-      setNewProduct({...newProduct, image: url})
-    }
+    } 
 
     setIsLoading(false);
   }
@@ -71,10 +60,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         ...productSelected, 
         imageTwo: urlTwo
       })
-    } else {
-      setNewProduct({...newProduct, imageTwo: urlTwo})
     }
-
     setIsLoading(false);
   }
   const handleChange = (e) => {
@@ -82,48 +68,59 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setProductSelected({
         ...productSelected,  [e.target.name]: e.target.value
       })
-    } else {
-      setNewProduct({...newProduct, [e.target.name]: e.target.value})
-    }
+    } 
   }
   
   const handleSubmit = (e, updatedDetails) => {
-    e.preventDefault();
-    const productsCollection = collection(db, "products")
-    if(productSelected){
-      let obj = {
-        ...productSelected,
-        unit_price: +productSelected.unit_price,
-        category: categorySelected,
-        colors: colors,
-        details: updatedDetails
-      }
+    e.preventDefault()
+    console.log(productSelected.id);
+    try {
+      const productsCollection = collection(db, "products")
+      if(productSelected.id !== undefined){
+        let obj = {
+          ...productSelected,
+          unit_price: +productSelected.unit_price,
+          category: categorySelected,
+          colors: colors,
+          details: updatedDetails
+        }
 
-      updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
-        setIsChange(true);
-        handleClose();
-      })
-      
-    } else{
-      let obj = {
-        ...newProduct,
-        unit_price: +newProduct.unit_price,
-        category: categorySelected,
-        colors: colors,
-        details: updatedDetails
-      }
-      
-      addDoc(productsCollection, obj).then(()=> {
-        setIsChange(true);
-        handleClose();
-      })
+        updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
+          setIsChange(true);
+          handleClose();
+        })
+        
+      } 
+      else{
+        let obj = {
+          ...productSelected,
+          unit_price: +productSelected.unit_price,
+          category: categorySelected,
+          colors: productSelected.colors,
+          details: updatedDetails
+        }
+        console.log(obj);
+        addDoc(productsCollection, obj).then(()=> {
+          setIsChange(true);
+          handleClose();
+        })
 
+      }
+    } catch (error) {
+      console.error("Error en handleSubmit:", error);
     }
+    
   }
+
   const handleFormSubmit = (event) => {
+    event.preventDefault();
     const updatedDetails = handleDetails();
     handleSubmit(event, updatedDetails);
+    console.log(updatedDetails);      
+    console.log(productSelected.id);
+
   }
+
   const handleSizes = () => {
     if (productSelected) {
       if (productSelected.category === 'Bermudas' || productSelected.category === 'Pantalones') {
@@ -142,23 +139,33 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
   useEffect(()=>{
     handleSizes()
-  }, [categorySelected, productSelected, newProduct])
+  }, [categorySelected, productSelected])
 
   useEffect(()=>{
-    if(productSelected){
+    if(productSelected.id){
       setColors(productSelected?.colors)
       setCategorySelected(productSelected?.category)
+      
+      console.log(productSelected);
+      console.log(checkboxes);
+      //TRAER CHECKS
+      // colors.map(color=> {
+      //   productSelected.details.map(e=> {
+      //     if(e.color ==color){
+      //       checkboxes[color]?.[e.size]= e.stock
+      //     }
+      //   })
+      // })
     }
     else{
-      setColors([''])
+      // setColors([.colors])
     }
-  }, [])
+  }, [productSelected])
 
   const handleColorChange =(index, event)=> {
     const newColors = [...colors];
     newColors[index] = event.target.value;
     setColors(newColors);
-    console.log(colors);
   }
 
   useEffect(()=> {
@@ -176,11 +183,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         [size]: isChecked
       }
     }));
-
-    if (typeof color === 'string') {
-      console.log(checkboxes[color]?.[size]);
-    }
-    
+    console.log(checkboxes);
   };
 
   const handleChecks = (e) => {
@@ -190,14 +193,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     sizes.forEach((size) => {
       newStockArray[size] = {};
       (specificInfo.colors).map((color) => {
-        // const checkbox = checkboxes[`${color}-${size}`];
         const checkbox = document.getElementById(`checkbox${element}-${e}`);
         console.log(checkbox);
-        // if (checkbox && checkbox.checked){
-        //   return  newStockArray[size][color] = true
-        // }else {
-        //   return  newStockArray[size][color] = false
-        // }
         newStockArray[size][color] = true
       });
     });
@@ -209,12 +206,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     // const stockArray = handleChecks()
     let updatedDetails = {};
     
-    (specificInfo.colors).forEach((color, colorIndex) => {
+    (colors).forEach((color, colorIndex) => {
       sizes.forEach((size, sizeIndex) => {
         
         let auxStock=checkboxes[color]?.[size]
-        if(auxStock == undefined)
+        if (auxStock == undefined){
           auxStock= false
+        }
         const index = colorIndex * sizes.length + sizeIndex;
         updatedDetails[index] = {
           color: color,
@@ -263,7 +261,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             
             <div className="inputModal">
-              <select value={categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
+              <select value={categorySelected&& categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
                 <option value="">Categorias..</option>
                 <option value="Remeras">Remeras</option>
                 <option value="Pantalones">Pantalones</option>
@@ -339,7 +337,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             <h5>Información específica</h5>
             <div>
               {
-                Object.values(specificInfo.colors).map((color, index) => {
+                (colors).map((color, index) => {
                   
                   return(
                   <div key={index}>
@@ -349,6 +347,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     
                     <div className="inputModal">
                       {sizes.map((size, i)=>{
+                        
                         return (
                         <div key={i}>
                           <input
@@ -359,6 +358,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                             onChange={(event)=>handleCheckboxChange(event, color, size)}
                           />
                           <label>{size}</label>
+                          {console.log(productSelected)}
+                          {console.log(categorySelected)}
+                          {console.log(colors)}
                         </div>)
                       })}
                     </div>
@@ -367,7 +369,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 })
               }
 
-            
             </div>
             
           <button onClick={handleFormSubmit}>Guardar</button>

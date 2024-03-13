@@ -9,11 +9,24 @@ import CrudModal from './CrudModal';
 
 function ProductsDashboard({products, setIsChange}) {
 
-    const [productSelected, setProductSelected] = useState(null)
+    const [productSelected, setProductSelected] = useState({
+        title:"",
+        unit_price:0,
+        image:"",
+        imageTwo:"",
+        category:"",
+        quantity:1,
+        colors: [''],
+        details: {},
+        sale:0
+    })
     const [show, setShow] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('Todos los productos');
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setShow(false);
+        setProductSelected({})
+    }
   
     const handleOpen = (product) => {
         if(!show){
@@ -32,7 +45,7 @@ function ProductsDashboard({products, setIsChange}) {
     return (
         <div>
         
-        <button className='dashboardButton addButton' onClick={()=>handleOpen(null)}>Agregar Nuevo Producto</button>
+        <button className='dashboardButton addButton' onClick={()=>handleOpen(productSelected)}>Agregar Nuevo Producto</button>
 
         <div className='dashboardCategoryBox' >
             {categories.map((e, i) => (
