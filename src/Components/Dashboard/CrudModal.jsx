@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { db, uploadFile } from '../../firebaseConfig';
 import {addDoc, collection, updateDoc, doc} from "firebase/firestore"
+import Alert from 'react-bootstrap/Alert';
 
 
 const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelected}) => {
@@ -17,9 +18,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
-  const [details, setDetails] = useState({
-    // 0: { color: '', size: '', stock: '' }
-  });
+  const [details, setDetails] = useState({});
+  const [errors, setErrors] = useState(null)
 
   const handleNext = () => {
     
@@ -247,7 +247,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 className="input"
                 defaultValue={productSelected?.title}
               />
+              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de nombre             </Alert>
             </div>
+            
             <div className="inputModal">
               <p>Precio</p>
               <input
@@ -257,6 +259,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 className="input"
                 defaultValue={productSelected?.unit_price}
               />
+              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Precio             </Alert>
             </div>
             
             <div className="inputModal">
@@ -271,6 +274,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Accesorios">Accesorios</option>
                 <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
               </select>
+              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Categoría             </Alert>
             </div>
             <p>Colores</p>
             <div className='colorsDiv'>
@@ -283,6 +287,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
+                  <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de colores             </Alert>
                 </div>
               ))}
               <p className='addMoreButton' onClick={addColorInput}>+</p>
@@ -307,6 +312,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 onChange={(e)=>setFile(e.target.files[0])}
                 className="input"
               />
+              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de imagen             </Alert>
             </div>
             {
               file &&
