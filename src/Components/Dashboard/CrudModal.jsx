@@ -24,6 +24,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const handleNext = () => {
     
     setShowSecondScreen(true);
+    // if(productSelected.id !== undefined){
+    //deberia ir esto pero creo q asi funciona
     if(productSelected.id){
       setSpecificInfo(productSelected)
     }
@@ -73,7 +75,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   
   const handleSubmit = (e, updatedDetails) => {
     e.preventDefault()
-    console.log(productSelected.id);
+
     try {
       const productsCollection = collection(db, "products")
       if(productSelected.id !== undefined){
@@ -116,9 +118,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     event.preventDefault();
     const updatedDetails = handleDetails();
     handleSubmit(event, updatedDetails);
-    console.log(updatedDetails);      
-    console.log(productSelected.id);
-
   }
 
   const handleSizes = () => {
@@ -142,7 +141,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   }, [categorySelected, productSelected])
 
   useEffect(()=>{
-    if(productSelected.id){
+    if(productSelected.id !== undefined){
       setColors(productSelected?.colors)
       setCategorySelected(productSelected?.category)
       
