@@ -18,6 +18,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
+  const [itsOnSale, setItsOnSale] = useState(false)
   const [details, setDetails] = useState({});
   const [errorsArray, setErrorsArray] = useState([])
   const [imageValidation, setImageValidation]=useState(false);
@@ -148,7 +149,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         setSizes(['38', '40', '42', '44', '46']);
       } else if (productSelected.category === 'Accesorios' && !boxer) {
         setSizes([]);
-      } else {
+      } else if(productSelected.category === 'Accesorios' && boxer){
+        setSizes(['S', 'M', 'L']);
+      }
+      else {
         setSizes(['S', 'M', 'L', 'XL']);
       }
     }
@@ -247,7 +251,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     return updatedDetails;
   };
   
-
+  const handleBoxerChange = (event) => {
+    setBoxer(event.target.checked);
+  };
+  const handleSaleChange = (event) => {
+    setItsOnSale(event.target.checked);
+  };
   return (
     <>
       <Modal.Header closeButton>
@@ -301,6 +310,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               {errorsArray.category && <p>{errorsArray.category}</p>}
               {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Categoría             </Alert> */}
             </div>
+            {
+              categorySelected == 'Accesorios' &&
+              <>
+                <p>El producto es un BOXER?</p>
+                <input type="checkbox" name='boxer' checked={boxer} onChange={handleBoxerChange} />
+              </>
+            }
+
             <p>Colores</p>
             <div className='colorsDiv'>
               {colors.map((e, index) => (
@@ -318,18 +335,23 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               ))}
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
-            
-            <div className="inputModal">
-              <p>Porcentaje de descuento</p>
-              <input
-                type="number"
-                name="sale"
-                placeholder='25'
-                onChange={handleChange}
-                className="input"
-                defaultValue={productSelected?.sale}
-              />
-            </div>
+
+            <p>El producto está en SALE?</p>
+            <input type="checkbox" name='itsOnSale' checked={itsOnSale} onChange={handleSaleChange} />
+            {
+              itsOnSale &&
+              <div className="inputModal">
+                <p>Porcentaje de descuento</p>
+                <input
+                  type="number"
+                  name="sale"
+                  placeholder='25'
+                  onChange={handleChange}
+                  className="input"
+                  defaultValue={productSelected?.sale}
+                />
+              </div>
+            }
 
             <div className="inputModal">
               <p>Imagen Principal</p>
