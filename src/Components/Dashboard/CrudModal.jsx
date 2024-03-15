@@ -19,22 +19,43 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
   const [details, setDetails] = useState({});
-  const [errors, setErrors] = useState(null)
+  const [errorsArray, setErrorsArray] = useState([])
+  const [imageValidation, setImageValidation]=useState(false);
 
-  const handleNext = () => {
-    
-    setShowSecondScreen(true);
-    // if(productSelected.id !== undefined){
-    //deberia ir esto pero creo q asi funciona
-    if(productSelected.id){
-      setSpecificInfo(productSelected)
+  const validate = (values) => {
+    const errors = {}
+    if(!values.title){
+      errors.title = 'Este campo es obligatorio'
     }
-    else {
-      setProductSelected({
-        ...productSelected,
-        category: categorySelected,
-        colors: colors
-      })
+    if(!values.unit_price){
+      errors.unit_price = 'Este campo es obligatorio'
+    }
+    if(!categorySelected){
+      errors.category = 'Este campo es obligatorio'
+    }
+    if(colors.length < 1){
+      errors.colors = 'Este campo es obligatorio'
+    }
+    if(imageValidation ==false){
+      errors.firstImage = 'Este campo es obligatorio'
+    }
+    setErrorsArray(errors)
+    return errors
+  }
+
+  const handleNext = (e) => {
+    e.preventDefault();
+    
+    setProductSelected({
+      ...productSelected,
+      category: categorySelected,
+      colors: colors
+    })
+
+    const result = validate(productSelected)
+    
+    if(!Object.keys(result).length){
+      setShowSecondScreen(true);
     }
   };
 
@@ -48,6 +69,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         ...productSelected, 
         image: url,
       })
+      setImageValidation(true);
     } 
 
     setIsLoading(false);
@@ -247,7 +269,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 className="input"
                 defaultValue={productSelected?.title}
               />
-              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de nombre             </Alert>
+              {errorsArray.title && <p>{errorsArray.title}</p>}
+              {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de nombre             </Alert> */}
             </div>
             
             <div className="inputModal">
@@ -259,7 +282,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 className="input"
                 defaultValue={productSelected?.unit_price}
               />
-              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Precio             </Alert>
+              {errorsArray.unit_price && <p>{errorsArray.unit_price}</p>}
+              {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Precio             </Alert> */}
             </div>
             
             <div className="inputModal">
@@ -274,7 +298,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Accesorios">Accesorios</option>
                 <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
               </select>
-              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Categoría             </Alert>
+              {errorsArray.category && <p>{errorsArray.category}</p>}
+              {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de Categoría             </Alert> */}
             </div>
             <p>Colores</p>
             <div className='colorsDiv'>
@@ -287,7 +312,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
-                  <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de colores             </Alert>
+                  {errorsArray.colors && <p>{errorsArray.colors}</p>}
+                  {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de colores             </Alert> */}
                 </div>
               ))}
               <p className='addMoreButton' onClick={addColorInput}>+</p>
@@ -312,7 +338,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 onChange={(e)=>setFile(e.target.files[0])}
                 className="input"
               />
-              <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de imagen             </Alert>
+              {errorsArray.firstImage && <p>{errorsArray.firstImage}</p>}
+              {/* <Alert key={'danger'} variant={'danger'} className='p-1'>                Error en el campo de imagen             </Alert> */}
             </div>
             {
               file &&
