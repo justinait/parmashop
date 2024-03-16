@@ -18,10 +18,18 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
-  const [itsOnSale, setItsOnSale] = useState(false)
   const [details, setDetails] = useState({});
   const [errorsArray, setErrorsArray] = useState([])
   const [imageValidation, setImageValidation]=useState(false);
+
+  const [itsOnSale, setItsOnSale] = useState(false)
+  const [oldPrice, setOldPrice] = useState();
+  const [newUnitPrice, setNewUnitPrice] = useState()
+  const [initialIsOnSale, setInitialIsOnSale] = useState(false);
+  const [unitPriceAux, setUnitPriceAux] = useState()
+
+  const [salePercentageAux, setSalePercentageAux] = useState()
+  const [handleNextExecuted, setHandleNextExecuted] = useState(false)
 
   const validate = (values) => {
     const errors = {}
@@ -40,19 +48,38 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(imageValidation ==false){
       errors.firstImage = 'Este campo es obligatorio'
     }
+
+    if(itsOnSale == true){
+      if(!values.sale){
+        errors.sale = 'Este campo es obligatorio'
+      }
+    }
+
     setErrorsArray(errors)
+    
     return errors
   }
+  useEffect(() => {
+    // initialIsOnSale !==
+    if ( itsOnSale && handleNextExecuted) {
+      calculateSale();
+    }
+  }, [itsOnSale, initialIsOnSale, handleNextExecuted]);
 
   const handleNext = (e) => {
     e.preventDefault();
-    
+    setInitialIsOnSale(itsOnSale);
+    setHandleNextExecuted(true);
+
+    console.log(newUnitPrice);
     setProductSelected({
       ...productSelected,
       category: categorySelected,
-      colors: colors
+      colors: colors,
+      unit_price: newUnitPrice,
+      oldPrice: oldPrice,
+      sale: salePercentageAux
     })
-
     const result = validate(productSelected)
     
     if(!Object.keys(result).length){
@@ -94,6 +121,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         ...productSelected,  [e.target.name]: e.target.value
       })
     } 
+    if(e.target.name === 'unit_price'){
+      setUnitPriceAux(e.target.value)
+    }
   }
   
   const handleSubmit = (e, updatedDetails) => {
@@ -124,7 +154,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           colors: productSelected.colors,
           details: updatedDetails
         }
-        console.log(obj);
         addDoc(productsCollection, obj).then(()=> {
           setIsChange(true);
           handleClose();
@@ -170,9 +199,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(productSelected.id !== undefined){
       setColors(productSelected?.colors)
       setCategorySelected(productSelected?.category)
-      
-      console.log(productSelected);
-      console.log(checkboxes);
+      setOldPrice(productSelected.oldPrice)
+      setUnitPriceAux(productSelected.unit_price)
+      setSalePercentageAux(productSelected.sale)
+      // setNewUnitPrice(0)
+
+      // console.log(productSelected);
+      // console.log(checkboxes);
       //TRAER CHECKS
       // colors.map(color=> {
       //   productSelected.details.map(e=> {
@@ -208,24 +241,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         [size]: isChecked
       }
     }));
-    console.log(checkboxes);
   };
 
-  const handleChecks = (e) => {
-    e.preventDefault()
-    const newStockArray = {};
-  
-    sizes.forEach((size) => {
-      newStockArray[size] = {};
-      (specificInfo.colors).map((color) => {
-        const checkbox = document.getElementById(`checkbox${element}-${e}`);
-        console.log(checkbox);
-        newStockArray[size][color] = true
-      });
-    });
-    console.log(newStockArray);
-    return newStockArray
-  };
   
   const handleDetails = () => {
     // const stockArray = handleChecks()
@@ -254,9 +271,29 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const handleBoxerChange = (event) => {
     setBoxer(event.target.checked);
   };
+  
   const handleSaleChange = (event) => {
     setItsOnSale(event.target.checked);
   };
+  
+
+  const calculateSale =()=> {
+    if(itsOnSale== true){
+      const newPriceAux = +(unitPriceAux - (unitPriceAux * (salePercentageAux/100)));
+      console.log(unitPriceAux);
+      console.log(salePercentageAux);
+      console.log();
+      console.log(newPriceAux);
+      setOldPrice(unitPriceAux);
+      setNewUnitPrice(newPriceAux);
+      console.log(newUnitPrice);
+    } else {
+      setNewUnitPrice(oldPrice);
+      setOldPrice(null);
+    }
+  }
+  
+  
   return (
     <>
       <Modal.Header closeButton>
@@ -345,11 +382,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <input
                   type="number"
                   name="sale"
-                  placeholder='25'
-                  onChange={handleChange}
+                  placeholder='%'
+                  // onChange={handleChange}
+                  onChange={(event) => setSalePercentageAux(event.target.value)}
                   className="input"
                   defaultValue={productSelected?.sale}
                 />
+                {errorsArray.sale && <p>{errorsArray.sale}</p>}
               </div>
             }
 
@@ -412,9 +451,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                             onChange={(event)=>handleCheckboxChange(event, color, size)}
                           />
                           <label>{size}</label>
-                          {console.log(productSelected)}
-                          {console.log(categorySelected)}
-                          {console.log(colors)}
                         </div>)
                       })}
                     </div>
