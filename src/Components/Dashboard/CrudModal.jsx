@@ -71,7 +71,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setInitialIsOnSale(itsOnSale);
     setHandleNextExecuted(true);
 
-    console.log(newUnitPrice);
     setProductSelected({
       ...productSelected,
       category: categorySelected,
@@ -280,13 +279,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const calculateSale =()=> {
     if(itsOnSale== true){
       const newPriceAux = +(unitPriceAux - (unitPriceAux * (salePercentageAux/100)));
-      console.log(unitPriceAux);
-      console.log(salePercentageAux);
-      console.log();
-      console.log(newPriceAux);
+      
       setOldPrice(unitPriceAux);
       setNewUnitPrice(newPriceAux);
-      console.log(newUnitPrice);
+      
     } else {
       setNewUnitPrice(oldPrice);
       setOldPrice(null);
