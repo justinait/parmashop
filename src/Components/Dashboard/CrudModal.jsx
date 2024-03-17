@@ -208,12 +208,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setSalePercentageAux(productSelected.sale)
       //so wrongggg
       setNewUnitPrice(productSelected.unit_price)
-
+      
+      //TRAER CHECKS
       colors.forEach((color, colorIndex)=> {
         sizes.forEach((size, sizeIndex) =>{
           
           const index = colorIndex * sizes.length + sizeIndex;
-          
           let auxStock=productSelected.details[index].stock
 
           if (auxStock == undefined){
