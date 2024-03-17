@@ -42,12 +42,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!categorySelected){
       errors.category = 'Este campo es obligatorio'
     }
-    if(colors.length < 1){
+    if(colors[0] == ''){
       errors.colors = 'Este campo es obligatorio'
     }
-    if(imageValidation ==false){
-      errors.firstImage = 'Este campo es obligatorio'
-    }
+    // if(!productSelected.id){
+
+    //   if(imageValidation ==false){
+    //     errors.firstImage = 'Este campo es obligatorio'
+    //   }
+    // }
 
     if(itsOnSale == true){
       if(!values.sale){
@@ -85,6 +88,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!Object.keys(result).length){
       setShowSecondScreen(true);
     }
+    console.log(colors[0]);
   };
 
   const handleImage = async () => {
