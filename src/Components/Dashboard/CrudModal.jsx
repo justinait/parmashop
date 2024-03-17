@@ -23,7 +23,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [imageValidation, setImageValidation]=useState(false);
 
   const [itsOnSale, setItsOnSale] = useState(false)
-  const [oldPrice, setOldPrice] = useState();
+  const [oldPrice, setOldPrice] = useState(0);
   const [newUnitPrice, setNewUnitPrice] = useState()
   const [initialIsOnSale, setInitialIsOnSale] = useState(false);
   const [unitPriceAux, setUnitPriceAux] = useState()
@@ -76,6 +76,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       category: categorySelected,
       colors: colors,
       unit_price: newUnitPrice,
+      //so wronggggggggggggggggggg
       oldPrice: oldPrice,
       sale: salePercentageAux
     })
@@ -198,21 +199,31 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(productSelected.id !== undefined){
       setColors(productSelected?.colors)
       setCategorySelected(productSelected?.category)
-      setOldPrice(productSelected.oldPrice)
+      setOldPrice(productSelected.oldPrice? productSelected.oldPrice : productSelected.unit_price)
       setUnitPriceAux(productSelected.unit_price)
       setSalePercentageAux(productSelected.sale)
-      // setNewUnitPrice(0)
+      //so wrongggg
+      setNewUnitPrice(productSelected.unit_price)
 
-      // console.log(productSelected);
-      // console.log(checkboxes);
-      //TRAER CHECKS
-      // colors.map(color=> {
-      //   productSelected.details.map(e=> {
-      //     if(e.color ==color){
-      //       checkboxes[color]?.[e.size]= e.stock
-      //     }
-      //   })
-      // })
+      colors.forEach((color, colorIndex)=> {
+        sizes.forEach((size, sizeIndex) =>{
+          
+          const index = colorIndex * sizes.length + sizeIndex;
+          
+          let auxStock=productSelected.details[index].stock
+
+          if (auxStock == undefined){
+            auxStock= false
+          }
+          setCheckboxes(prevState => ({
+            ...prevState,
+            [color]: {
+              ...prevState[color],
+              [size]: auxStock
+            }
+          }));
+        })
+      })
     }
     else{
       // setColors([.colors])
@@ -242,9 +253,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }));
   };
 
-  
   const handleDetails = () => {
-    // const stockArray = handleChecks()
     let updatedDetails = {};
     
     (colors).forEach((color, colorIndex) => {
