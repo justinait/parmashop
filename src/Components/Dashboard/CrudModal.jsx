@@ -20,12 +20,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [boxer, setBoxer] = useState(false)
   const [errorsArray, setErrorsArray] = useState([])
   const [imageValidation, setImageValidation]=useState(false);
-  const [itsOnSale, setItsOnSale] = useState(false)
+
   const [oldPrice, setOldPrice] = useState(0);
-  const [newUnitPrice, setNewUnitPrice] = useState()
-  const [initialIsOnSale, setInitialIsOnSale] = useState(false);
+  const [newUnitPrice, setNewUnitPrice] = useState(0)
   const [unitPriceAux, setUnitPriceAux] = useState()
+  const [itsOnSale, setItsOnSale] = useState(false)
+  const [initialIsOnSale, setInitialIsOnSale] = useState(false);
   const [salePercentageAux, setSalePercentageAux] = useState()
+
   const [handleNextExecuted, setHandleNextExecuted] = useState(false)
   const [progress, setProgress] = useState(0);
   const [progressTwo, setProgressTwo] = useState(0);
@@ -77,18 +79,20 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       ...productSelected,
       category: categorySelected,
       colors: colors,
-      unit_price: newUnitPrice,
+      ...(itsOnSale? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
+      // unit_price: newUnitPrice,
+      
       //so wronggggggggggggggggggg
       oldPrice: oldPrice,
-      sale: salePercentageAux
+      ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
+      // sale: salePercentageAux,
+      ...(boxer && { boxer: true })
     })
     const result = validate(productSelected)
     
     if(!Object.keys(result).length){
       setShowSecondScreen(true);
     }
-    console.log(colors);
-    console.log(productSelected.colors);
   };
 
   const handleImage = async () => {
@@ -158,16 +162,24 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   
   const handleSubmit = (e, updatedDetails) => {
     e.preventDefault()
-
+    if (Object.values(productSelected).some(value => value === undefined)) {
+      console.log(productSelected);
+      console.error("Algunos campos están undefined. No se puede agregar el documento.");
+      return;
+    }
     try {
       const productsCollection = collection(db, "products")
       if(productSelected.id !== undefined){
         let obj = {
           ...productSelected,
           unit_price: +productSelected.unit_price,
+          // unit_price: newUnitPrice,
           category: categorySelected,
           colors: colors,
-          details: updatedDetails
+          details: updatedDetails,
+          ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
+          // sale: salePercentageAux,
+          ...(boxer && { boxer: true })
         }
 
         updateDoc(doc(productsCollection, productSelected.id), obj).then(()=>{
@@ -180,10 +192,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         let obj = {
           ...productSelected,
           unit_price: +productSelected.unit_price,
+          // unit_price: newUnitPrice,
           category: categorySelected,
           colors: productSelected.colors,
-          details: updatedDetails
+          details: updatedDetails,
+          ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
+          // sale: salePercentageAux,
+          ...(boxer && { boxer: true })
         }
+        console.log(obj);
         addDoc(productsCollection, obj).then(()=> {
           setIsChange(true);
           handleClose();
@@ -237,10 +254,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setOldPrice(productSelected.oldPrice? productSelected.oldPrice : productSelected.unit_price)
       setUnitPriceAux(productSelected.unit_price)
       setSalePercentageAux(productSelected.sale)
-      //so wrongggg
-      setNewUnitPrice(productSelected.unit_price)
       
-      //TRAER CHECKS
+      //so wrongggg
+      //yo esto lo hice para safar el momento, ahora condicionalo
+      itsOnSale &&      setNewUnitPrice(productSelected.unit_price)
+      
+      //TRAER CHECKS details
       colors.forEach((color, colorIndex)=> {
         sizes.forEach((size, sizeIndex) =>{
           
@@ -259,6 +278,22 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           }));
         })
       })
+      //traer checks sale y boxer
+      let auxBoxer = productSelected.boxer
+      if (auxBoxer == undefined ){
+        auxBoxer= false
+      }
+      setBoxer(auxBoxer)
+
+      let auxSaleCheck = false
+      if(productSelected.sale > 1){
+        auxSaleCheck = true;
+      }
+      if (auxSaleCheck == undefined ){
+        auxSaleCheck= false
+      }
+      console.log(auxSaleCheck);
+      setItsOnSale(auxSaleCheck)
     }
     else{
       // setColors([colors])
@@ -324,7 +359,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       
     } else {
       setNewUnitPrice(oldPrice);
-      setOldPrice(null);
+      setOldPrice(0);
     }
   }
   
@@ -374,7 +409,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Buzos">Buzos</option>
                 <option value="Abrigos">Abrigos</option>
                 <option value="Accesorios">Accesorios</option>
-                <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
               </select>
               {errorsArray.category && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.category}           </Alert> }
               
@@ -418,7 +452,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                   type="number"
                   name="sale"
                   placeholder='%'
-                  // onChange={handleChange}
                   onChange={(event) => setSalePercentageAux(event.target.value)}
                   className="input"
                   defaultValue={productSelected?.sale}
