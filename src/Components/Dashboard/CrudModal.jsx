@@ -18,7 +18,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [colors, setColors] = useState(['']);
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
-  const [details, setDetails] = useState({});
   const [errorsArray, setErrorsArray] = useState([])
   const [imageValidation, setImageValidation]=useState(false);
   const [itsOnSale, setItsOnSale] = useState(false)
@@ -42,16 +41,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!categorySelected){
       errors.category = 'Este campo es obligatorio'
     }
-    //validacion para todos los campos, capaz un map y si alguno es '' da error
-    if(colors[0] == ''){
-      errors.colors = 'Este campo es obligatorio'
-    }
+    if (colors.some(color => color === '')) {
+      errors.colors = 'Este campo es obligatorio';
+    }    
 
     // if(productSelected.id == null){
     //   console.log('no hay id');
-      // if(imageValidation ==false){
-      //   errors.firstImage = 'Este campo es obligatorio'
-      // }
+      if(imageValidation ==false){
+        errors.firstImage = 'Este campo es obligatorio'
+      }
     // }
 
     if(itsOnSale == true){
@@ -65,7 +63,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     return errors
   }
   useEffect(() => {
-    // initialIsOnSale !==
     if ( itsOnSale && handleNextExecuted) {
       calculateSale();
     }
@@ -90,7 +87,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!Object.keys(result).length){
       setShowSecondScreen(true);
     }
-    console.log(colors[0]);
+    console.log(colors);
+    console.log(productSelected.colors);
   };
 
   const handleImage = async () => {
@@ -242,9 +240,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         sizes.forEach((size, sizeIndex) =>{
           
           const index = colorIndex * sizes.length + sizeIndex;
-          let auxStock=productSelected.details[index].stock
-
-          if (auxStock == undefined){
+          
+          let auxStock=productSelected.details[index]?.stock
+          if (auxStock == undefined || !productSelected.details[index]){
             auxStock= false
           }
           setCheckboxes(prevState => ({
@@ -397,9 +395,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
-                  {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
                 </div>
               ))}
+              {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
             <div className='checkboxContainerLine'>
