@@ -45,14 +45,17 @@
 }
 .stockProducts {
     position: relative;
-    top: -30px;
+    top: -206px;
+    font-size: 20px;
+    right: -59px;
+    margin: 0;
     background: black;
     color: white;
     font-weight: 500;
-    width: 50%;
+    width: 60%;
     border-radius: 25px;
     padding: 1% 2%;
-    font-size: 14px;
+    font-size: 17px;
     text-align: center;
 }
 .categoryTitle{

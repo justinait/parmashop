@@ -19,11 +19,11 @@ function Products({handlePageChange, activePage}) {
       setTitle(category)
       setProductsList(filteredProducts)
       if(category == 'NUEVO'){
-        filteredProducts = dataProducts.sort((a, b) => b.timestamp - a.timestamp);
+        filteredProducts = dataProducts?.sort((a, b) => b.timestamp - a.timestamp);
         setProductsList(filteredProducts)
       }
       if(category == 'sale'){
-        filteredProducts = dataProducts.filter((e)=> e.sale && (e.sale > 0))
+        filteredProducts = dataProducts?.filter((e)=> e.sale && (e.sale > 0))
         setProductsList(filteredProducts)
       }
       
@@ -72,6 +72,10 @@ function Products({handlePageChange, activePage}) {
           return(
             <Link to={`/item/${e.id}`} className='productContainer' key={i}>
               <img src={e.image} alt={e.title} className='imgProduct'/>
+              {
+                e.sale > 0 &&
+                <p className='stockProducts'>{e.sale}% OFF</p>
+              }
               <div className='productInfoContainer'>
                 <p className='productName'>{e.title}</p>
                 <p className='productPrice'>$ {e.unit_price}</p>
