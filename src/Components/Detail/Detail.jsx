@@ -76,8 +76,10 @@ function Detail() {
     if (product) {
       if (product.category === 'Bermudas' || product.category === 'Pantalones') {
         setSizes(['38', '40', '42', '44', '46']);
-      } else if (product.category === 'Accesorios' && !boxer) {
+      } else if (product.category === 'Accesorios' && !product.boxer) {
         setSizes([]);
+      } else if(product.category === 'Accesorios' && product.boxer){
+        setSizes(['S', 'M', 'L']);
       } else {
         setSizes(['S', 'M', 'L', 'XL']);
       }
@@ -146,13 +148,17 @@ function Detail() {
                 return <p key={i}  onClick={()=>{handleColorPick(e)}} className={`size ${selectedColor === e ? 'sizeActive' : ''}`}>{e}</p>
               })}
             </div>
-            
-            <p className='selectDetail'>Seleccionar talle</p>
-            <div className='sizesBox'>
-              {sizes.map((e, i)=>{
-                return <p key={i}  onClick={()=>{handleSizePick(e)}} className={`size ${selectedSize === e ? 'sizeActive' : ''}`}>{e}</p>
-              })}
-            </div>
+            {
+              sizes.length > 0 &&
+              <>
+                <p className='selectDetail'>Seleccionar talle</p>
+                <div className='sizesBox'>
+                  {sizes.map((e, i)=>{
+                    return <p key={i}  onClick={()=>{handleSizePick(e)}} className={`size ${selectedSize === e ? 'sizeActive' : ''}`}>{e}</p>
+                  })}
+                </div>
+              </>
+            }
 
             {
               (selectedColor && selectedSize) &&
@@ -162,10 +168,10 @@ function Detail() {
             <button 
             onClick={()=>onAdd(product)} 
             className={`addToCartButton ${!stock ? 'disabledButton' : ''}`}
-            disabled={!stock || !selectedColor || !selectedSize}
+            disabled={!stock || !selectedColor || (product.category != 'Accesorios' && !selectedSize)}
             >Agregar al carrito</button>
 
-          <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
+            <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
           </div>
         </div>
       )}
