@@ -41,7 +41,7 @@ function HomeProducts() {
             </div>
         </Link>
         <Link to='/Abrigos' className='productHomeBox'>
-            <img src={buzos} alt="Buzos" className='imageProductHome' />
+            <img src={buzos} alt="Abrigos" className='imageProductHome' />
             <div className='homeProductInfo'>
                 <p className='productTitleHome'>Abrigos</p>
                 <p className='seeInfoHome'>Ver</p>

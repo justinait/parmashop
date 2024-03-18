@@ -347,7 +347,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Pantalones">Pantalones</option>
                 <option value="Camisas">Camisas</option>
                 <option value="Bermudas">Bermudas</option>
-                <option value="Buzo">Buzo</option>
+                <option value="Buzos">Buzos</option>
                 <option value="Abrigos">Abrigos</option>
                 <option value="Accesorios">Accesorios</option>
                 <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
