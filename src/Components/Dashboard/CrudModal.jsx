@@ -412,8 +412,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               file &&
-              <button type='button' onClick={handleImage}>Confirmar imagen principal</button>
+              <button type='button' className='confirmImage' onClick={handleImage}>Confirmar imagen principal</button>
             }
+
             <div className="inputModal">
               <h6>Imagen Secundaria</h6>
               <input
@@ -424,7 +425,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               fileTwo &&
-              <button type='button' onClick={handleImageTwo}>Confirmar imagen secundaria</button>
+              <button type='button' className='confirmImage' onClick={handleImageTwo}>Confirmar imagen secundaria</button>
             }
             {
               !isLoading &&
