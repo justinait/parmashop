@@ -15,6 +15,7 @@ import AuthContextComponent from './context/AuthContext';
 import Dashboard from './Components/Dashboard/Dashboard';
 import ProtectedAdmin from './ProtectedAdmin';
 import UserOrders from './Components/UserOrders/UserOrders';
+import CheckScroll from './CheckScroll';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
         <CartContextComponent>
           <AuthContextComponent>
             <BrowserRouter>
+              <CheckScroll />
               <Navbar/>
               <Routes>
                 
