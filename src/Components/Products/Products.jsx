@@ -9,7 +9,6 @@ function Products({handlePageChange, activePage}) {
   const {category} = useParams();
   const [title, setTitle] = useState()
   const [productsList, setProductsList] = useState(dataProducts); 
-  // const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 10;
 
   const getProducts = () => {
@@ -58,6 +57,9 @@ function Products({handlePageChange, activePage}) {
   }, []);
 
   return (
+    <div>
+
+    
     <div className='productsContainer'>
       <h2 className='categoryTitle'>{title} </h2>
 
@@ -75,6 +77,8 @@ function Products({handlePageChange, activePage}) {
           )
         })
       }
+
+    </div>
 
       <Pagination>
         <Pagination.Prev
@@ -95,7 +99,6 @@ function Products({handlePageChange, activePage}) {
           disabled={activePage === totalPages}
         />
       </Pagination>
-
     </div>
   )
 }
