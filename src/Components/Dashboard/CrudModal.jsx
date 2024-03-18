@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { db, uploadFile } from '../../firebaseConfig';
 import {addDoc, collection, updateDoc, doc} from "firebase/firestore"
 import Alert from 'react-bootstrap/Alert';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
 const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelected}) => {
@@ -21,16 +22,16 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [details, setDetails] = useState({});
   const [errorsArray, setErrorsArray] = useState([])
   const [imageValidation, setImageValidation]=useState(false);
-
   const [itsOnSale, setItsOnSale] = useState(false)
   const [oldPrice, setOldPrice] = useState(0);
   const [newUnitPrice, setNewUnitPrice] = useState()
   const [initialIsOnSale, setInitialIsOnSale] = useState(false);
   const [unitPriceAux, setUnitPriceAux] = useState()
-
   const [salePercentageAux, setSalePercentageAux] = useState()
   const [handleNextExecuted, setHandleNextExecuted] = useState(false)
-
+  const [progress, setProgress] = useState(0);
+  const [progressTwo, setProgressTwo] = useState(0);
+  
   const validate = (values) => {
     const errors = {}
     if(!values.title){
@@ -94,8 +95,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
   const handleImage = async () => {
     setIsLoading(true);
-    let url = await uploadFile(file);
-
+    simulateUpload()
+    let url = await uploadFile(file)
+    
     if(productSelected) {
       
       setProductSelected({
@@ -109,7 +111,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   }
   const handleImageTwo = async () => {
     setIsLoading(true);
-    let urlTwo = await uploadFile(fileTwo);
+    simulateUploadTwo()
+    let urlTwo = await uploadFile(fileTwo)
 
     if(productSelected) {
       
@@ -119,6 +122,30 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       })
     }
     setIsLoading(false);
+  }
+  const simulateUpload = () => {
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        const nextProgress = prevProgress + 10;
+        if (nextProgress >= 100) {
+          clearInterval(interval);
+        }
+        return nextProgress;
+      });
+    }, 300);
+  }
+  const simulateUploadTwo = () => {
+    setProgressTwo(0);
+    const interval = setInterval(() => {
+      setProgressTwo((prevProgress) => {
+        const nextProgress = prevProgress + 10;
+        if (nextProgress >= 100) {
+          clearInterval(interval);
+        }
+        return nextProgress;
+      });
+    }, 300);
   }
   const handleChange = (e) => {
     if(productSelected) {
@@ -412,7 +439,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               file &&
-              <button type='button' className='confirmImage' onClick={handleImage}>Confirmar imagen principal</button>
+              <>
+                <button type='button' className='confirmImage' onClick={handleImage}>Confirmar imagen principal</button>
+                <ProgressBar now={progress} label={`${progress}%`} />
+              </>
             }
 
             <div className="inputModal">
@@ -425,7 +455,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             {
               fileTwo &&
-              <button type='button' className='confirmImage' onClick={handleImageTwo}>Confirmar imagen secundaria</button>
+              <>
+                <button type='button' className='confirmImage' onClick={handleImageTwo}>Confirmar imagen secundaria</button>
+                <ProgressBar now={progressTwo} label={`${progress}%`} />
+              </>
             }
             {
               !isLoading &&
