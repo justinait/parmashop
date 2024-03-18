@@ -314,7 +314,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         <form className="form">
           {!showSecondScreen && (
           <div>
-            <h5>Información General</h5>
+            <h4>Información General</h4>
             <div className="inputModal">
               <h6>Nombre de la prenda</h6>
               <input
@@ -435,7 +435,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           
           {showSecondScreen && (
           <div>
-            <h5>Información específica</h5>
+            <h4>Información específica</h4>
             <div>
               {
                 (colors).map((color, index) => {

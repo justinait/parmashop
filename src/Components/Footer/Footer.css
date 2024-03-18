@@ -1,5 +1,8 @@
-.footer {
+.footerContainer {
+
     background-color: #222222;
+}
+.footer {
     color: #ebebeb;
 }
 .logoFooter {

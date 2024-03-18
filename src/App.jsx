@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home'
 import Navbar from './Components/Navbar/Navbar'
@@ -41,7 +41,7 @@ function App() {
                   <Route path="/orders" element={<UserOrders/>} />
                   
                 </Route>
-                
+                <Route path='*' element={<Navigate to="/" />} />
               </Routes>
               <Footer />
             </BrowserRouter>
