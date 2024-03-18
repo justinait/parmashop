@@ -16,23 +16,28 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import ProtectedAdmin from './ProtectedAdmin';
 import UserOrders from './Components/UserOrders/UserOrders';
 import CheckScroll from './CheckScroll';
+import { useState } from 'react';
 
 function App() {
+  const [activePage, setActivePage] = useState(1); // Definir activePage utilizando useState
 
+  const handlePageChange = (pageNumber) => {
+    setActivePage(pageNumber);
+  };
   return (
     <>
       <ProductsProvider>
         <CartContextComponent>
           <AuthContextComponent>
             <BrowserRouter>
-              <CheckScroll />
+              <CheckScroll pageNumber={activePage} />
               <Navbar/>
               <Routes>
                 
                 <Route path='/' element={< Home />} />
                 
                 <Route path='item/:id' element={<Detail />} />
-                <Route path=':category' element={< Products />} />
+                <Route path=':category' element={< Products  handlePageChange={handlePageChange} />} />
                 <Route path='/changes' element={< Changes />} />
                 <Route path='/login' element={< Login />} />
                 <Route path='/cart' element={< Cart />} />

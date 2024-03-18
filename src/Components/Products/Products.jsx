@@ -3,8 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import './Products.css'
 import { ProductsContext } from '../../context/ProductsProvider';
 import Pagination from 'react-bootstrap/Pagination';
+import CheckScroll from '../../CheckScroll';
 
-function Products() {
+function Products({handlePageChange}) {
   const { dataProducts } = useContext(ProductsContext);
   const {category} = useParams();
   const [title, setTitle] = useState()
@@ -31,9 +32,9 @@ function Products() {
     return productsList;
   };
 
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
-  };
+  // const handlePageChange = (pageNumber) => {
+  //   setActivePage(pageNumber);
+  // };
   const totalPages = Math.ceil(productsList.length / itemsPerPage);
   const startIndex = (activePage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -41,8 +42,25 @@ function Products() {
 
   useEffect(() => {
     getProducts()
+    const scrollPosition = JSON.parse(localStorage.getItem("scrollPosition"));
+    if (scrollPosition && scrollPosition.category === category) {
+      window.scrollTo(scrollPosition.x, scrollPosition.y);
+    } else {
+      window.scrollTo(100, 0);
+    }
   }, [category, dataProducts]);
+
+  const handleScroll = () => {
+    localStorage.setItem("scrollPosition", JSON.stringify({ x: window.scrollX, y: window.scrollY }));
+  };
   
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className='productsContainer'>
       <h2 className='categoryTitle'>{title} </h2>
