@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import './Products.css'
 import { ProductsContext } from '../../context/ProductsProvider';
 import Pagination from 'react-bootstrap/Pagination';
-import CheckScroll from '../../CheckScroll';
 
 function Products({handlePageChange}) {
   const { dataProducts } = useContext(ProductsContext);
@@ -32,9 +31,6 @@ function Products({handlePageChange}) {
     return productsList;
   };
 
-  // const handlePageChange = (pageNumber) => {
-  //   setActivePage(pageNumber);
-  // };
   const totalPages = Math.ceil(productsList.length / itemsPerPage);
   const startIndex = (activePage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
