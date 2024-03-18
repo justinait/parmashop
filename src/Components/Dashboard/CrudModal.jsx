@@ -16,7 +16,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [fileTwo, setFileTwo] = useState(null);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
-  const [specificInfo, setSpecificInfo] = useState([])
   const [checkboxes, setCheckboxes] = useState({})
   const [boxer, setBoxer] = useState(false)
   const [details, setDetails] = useState({});
@@ -43,16 +42,17 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!categorySelected){
       errors.category = 'Este campo es obligatorio'
     }
+    //validacion para todos los campos, capaz un map y si alguno es '' da error
     if(colors[0] == ''){
       errors.colors = 'Este campo es obligatorio'
     }
 
-    if(productSelected.id == null){
-      console.log('no hay id');
-      if(imageValidation ==false){
-        errors.firstImage = 'Este campo es obligatorio'
-      }
-    }
+    // if(productSelected.id == null){
+    //   console.log('no hay id');
+      // if(imageValidation ==false){
+      //   errors.firstImage = 'Este campo es obligatorio'
+      // }
+    // }
 
     if(itsOnSale == true){
       if(!values.sale){
@@ -267,10 +267,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     newColors[index] = event.target.value;
     setColors(newColors);
   }
-
-  useEffect(()=> {
-    setDetails({})
-  }, [productSelected])
 
   const handleCheckboxChange = (event, color, size) => {
     const { name, checked } = event.target;
