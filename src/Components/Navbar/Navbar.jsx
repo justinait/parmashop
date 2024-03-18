@@ -37,8 +37,9 @@ function Navbar() {
   }
 
   const categorys = [
-    { name: 'Todos los productos', id: 'category', className: '' },
     { name: 'NUEVO', id: 'NUEVO', className: ''},
+    { name: 'SALE', id: 'sale', className: '' },
+    { name: 'Todos los productos', id: 'category', className: '' },
     { name: 'Remeras', id: 'Remeras', className: '' },
     { name: 'Camisas', id: 'Camisas', className: ''},
     { name: 'Pantalones', id: 'Pantalones', className: ''},

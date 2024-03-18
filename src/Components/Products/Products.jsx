@@ -21,7 +21,11 @@ function Products({handlePageChange, activePage}) {
       if(category == 'NUEVO'){
         filteredProducts = dataProducts.sort((a, b) => b.timestamp - a.timestamp);
         setProductsList(filteredProducts)
-      } 
+      }
+      if(category == 'sale'){
+        filteredProducts = dataProducts.filter((e)=> e.sale && (e.sale > 0))
+        setProductsList(filteredProducts)
+      }
       
     } else {
       setTitle('Todos los productos')
