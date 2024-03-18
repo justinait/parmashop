@@ -220,6 +220,11 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const addColorInput = () => {
     setColors([...colors, '']);
   };
+  const removeColorInput = (index) => {
+    const newColors = [...colors];
+    newColors.splice(index, 1);
+    setColors(newColors);
+  };
 
   useEffect(()=>{
     handleSizes()
@@ -256,7 +261,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       })
     }
     else{
-      // setColors([.colors])
+      // setColors([colors])
     }
   }, [productSelected])
 
@@ -310,7 +315,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setItsOnSale(event.target.checked);
   };
   
-
   const calculateSale =()=> {
     if(itsOnSale== true){
       const newPriceAux = +(unitPriceAux - (unitPriceAux * (salePercentageAux/100)));
@@ -323,7 +327,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setOldPrice(null);
     }
   }
-  
   
   return (
     <>
@@ -395,15 +398,18 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
+                  <button className='addMoreButton' onClick={()=> removeColorInput(index)}>-</button>
                 </div>
               ))}
               {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
+
             <div className='checkboxContainerLine'>
               <h6>El producto está en SALE?</h6>
               <input type="checkbox" name='itsOnSale' checked={itsOnSale} onChange={handleSaleChange} />
             </div>
+
             {
               itsOnSale &&
               <div className="inputModal">

@@ -50,6 +50,7 @@
 }
 .addMoreButton {
     margin: auto;
+    line-height: normal;
     height: 35px;
     width: 34px;
     padding: 9px;
