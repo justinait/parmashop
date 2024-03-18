@@ -4,12 +4,12 @@ import './Products.css'
 import { ProductsContext } from '../../context/ProductsProvider';
 import Pagination from 'react-bootstrap/Pagination';
 
-function Products({handlePageChange}) {
+function Products({handlePageChange, activePage}) {
   const { dataProducts } = useContext(ProductsContext);
   const {category} = useParams();
   const [title, setTitle] = useState()
   const [productsList, setProductsList] = useState(dataProducts); 
-  const [activePage, setActivePage] = useState(1);
+  // const [activePage, setActivePage] = useState(1);
   const itemsPerPage = 10;
 
   const getProducts = () => {

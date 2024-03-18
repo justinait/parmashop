@@ -19,7 +19,7 @@ import CheckScroll from './CheckScroll';
 import { useState } from 'react';
 
 function App() {
-  const [activePage, setActivePage] = useState(1); // Definir activePage utilizando useState
+  const [activePage, setActivePage] = useState(1);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
@@ -37,7 +37,7 @@ function App() {
                 <Route path='/' element={< Home />} />
                 
                 <Route path='item/:id' element={<Detail />} />
-                <Route path=':category' element={< Products  handlePageChange={handlePageChange} />} />
+                <Route path=':category' element={< Products  handlePageChange={handlePageChange} activePage={activePage}  />} />
                 <Route path='/changes' element={< Changes />} />
                 <Route path='/login' element={< Login />} />
                 <Route path='/cart' element={< Cart />} />

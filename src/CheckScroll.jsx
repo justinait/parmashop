@@ -3,13 +3,12 @@ import { useLocation } from "react-router-dom";
 
 const CheckScroll = ({ pageNumber }) => {
     const location = useLocation();
-    const [currentPage, setCurrentPage] = useState(pageNumber); // Estado para almacenar el número de página
+    const [currentPage, setCurrentPage] = useState(pageNumber);
 
     useEffect(() => {
         window.scrollTo(100, 0);
-    }, [location, currentPage]); // Dependencias: location y currentPage
+    }, [location, currentPage]);
 
-    // Actualiza el estado de currentPage cuando pageNumber cambia
     useEffect(() => {
         setCurrentPage(pageNumber);
     }, [pageNumber]);
