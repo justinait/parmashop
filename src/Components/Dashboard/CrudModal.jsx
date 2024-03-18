@@ -45,12 +45,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(colors[0] == ''){
       errors.colors = 'Este campo es obligatorio'
     }
-    // if(!productSelected.id){
 
-    //   if(imageValidation ==false){
-    //     errors.firstImage = 'Este campo es obligatorio'
-    //   }
-    // }
+    if(productSelected.id == null){
+      console.log('no hay id');
+      if(imageValidation ==false){
+        errors.firstImage = 'Este campo es obligatorio'
+      }
+    }
 
     if(itsOnSale == true){
       if(!values.sale){
@@ -320,11 +321,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 type="text"
                 name="title"
                 onChange={handleChange}
-                // placeholder="Nombre"
                 className="input"
                 defaultValue={productSelected?.title}
               />
-              {errorsArray.title && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.title}           </Alert> }
+              {errorsArray.title && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.title}           </Alert> }
             </div>
             
             <div className="inputModal">
@@ -336,7 +336,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 className="input"
                 defaultValue={productSelected?.unit_price}
               />
-              {errorsArray.unit_price && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.unit_price}           </Alert> }
+              {errorsArray.unit_price && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.unit_price}           </Alert> }
               
             </div>
             <h6>Categoría</h6>
@@ -352,15 +352,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <option value="Accesorios">Accesorios</option>
                 <option value="Accesorios" onClick={()=>setBoxer(true)}>Boxer</option>
               </select>
-              {errorsArray.category && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.category}           </Alert> }
+              {errorsArray.category && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.category}           </Alert> }
               
             </div>
             {
               categorySelected == 'Accesorios' &&
-              <>
+              <div className='checkboxContainerLine'>
                 <h6>El producto es un BOXER?</h6>
                 <input type="checkbox" name='boxer' checked={boxer} onChange={handleBoxerChange} />
-              </>
+              </div>
             }
 
             <h6>Colores</h6>
@@ -374,14 +374,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
-                  {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.colors}           </Alert> }
+                  {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
                 </div>
               ))}
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
-
-            <h6>El producto está en SALE?</h6>
-            <input type="checkbox" name='itsOnSale' checked={itsOnSale} onChange={handleSaleChange} />
+            <div className='checkboxContainerLine'>
+              <h6>El producto está en SALE?</h6>
+              <input type="checkbox" name='itsOnSale' checked={itsOnSale} onChange={handleSaleChange} />
+            </div>
             {
               itsOnSale &&
               <div className="inputModal">
@@ -395,7 +396,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                   className="input"
                   defaultValue={productSelected?.sale}
                 />
-                {errorsArray.sale && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.sale}           </Alert> }
+                {errorsArray.sale && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.sale}           </Alert> }
               </div>
             }
 
@@ -406,7 +407,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 onChange={(e)=>setFile(e.target.files[0])}
                 className="input"
               />
-              {errorsArray.firstImage && <Alert key={'danger'} variant={'danger'} className='p-1'>                {errorsArray.firstImage}           </Alert> }
+              {errorsArray.firstImage && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.firstImage}           </Alert> }
               
             </div>
             {
@@ -427,7 +428,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             }
             {
               !isLoading &&
-              <p onClick={handleNext}>Siguiente</p>
+              <p className='nextButtonCrud' onClick={handleNext}>Siguiente</p>
             }
           </div>
           )}

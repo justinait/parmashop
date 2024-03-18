@@ -1,6 +1,7 @@
 .tableDiv {
     font-size: 12px;
     margin-bottom: 10vh;
+    width: 100%;
 }
 .dashboardItemContainer{
     display: flex;
@@ -48,8 +49,14 @@
     margin: 5% 0 10% 25%;
 }
 .addMoreButton {
-    border: 1px solid grey;
-    width: 10%;
+    margin: auto;
+    height: 35px;
+    width: 34px;
+    padding: 9px;
+    padding-top: 0;
+    font-size: 25px;
+    border-radius: 20px;
+    border: 1px solid black;
 }
 .colorsDiv {
     display: flex;
@@ -85,6 +92,18 @@
 .dashboardCategoryBox{
     margin-bottom: 15%;
 }
+.checkboxContainerLine {
+    display: flex;
+    justify-content: space-between;
+    margin: 8% 0;
+    align-items: baseline;
+}
+.nextButtonCrud {
+    text-align: right;
+    font-size: 22px;
+    font-weight: 500;
+    color: darkblue;
+}
 @media(min-width:1000px){
     .tableDiv {
         font-size: 16px;
@@ -101,6 +120,15 @@
     .dashboardCategory {
         font-size: 16px;
     }
+    .tableRowDashboard td {
+        font-size: large;
+    }
+    
+    .checkboxContainerLine {
+        display: flex;
+        justify-content: space-between;
+        margin: 8% 25% 8% 0;
+    }
 }
 
 @media(min-width:1200px){
@@ -112,5 +140,9 @@
     }
     .dashboardImagesContainer {
         width: 40%;
+    }
+    
+    .dashboardCategoryBox {
+        margin: 2% 5% 5%;
     }
 }
