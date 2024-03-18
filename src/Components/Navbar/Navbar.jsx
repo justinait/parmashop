@@ -37,17 +37,17 @@ function Navbar() {
   }
 
   const categorys = [
+    { name: 'Todos los productos', id: 'category', className: '' },
     { name: 'NUEVO', id: 'NUEVO', className: ''},
     { name: 'SALE', id: 'sale', className: '' },
-    { name: 'Todos los productos', id: 'category', className: '' },
     { name: 'Remeras', id: 'Remeras', className: '' },
     { name: 'Camisas', id: 'Camisas', className: ''},
     { name: 'Pantalones', id: 'Pantalones', className: ''},
     { name: 'Abrigos', id: 'Abrigos', className: ''},
     { name: 'Buzos', id: 'Buzos', className: ''},
     { name: 'Accesorios', id: 'Accesorios', className: ''},
+    { name: 'Carrito', id: 'cart', className: ''},
     { name: 'Política de cambios', id: 'changes', className: ''},
-    { name: 'Carrito', id: 'cart', className: ''}
   ]
 
   return (
@@ -69,7 +69,7 @@ function Navbar() {
           
           <CloseIcon onClick={handleClose} className='closeIconNavbar iconsNavbar menuIcon'/>
           <div className='dropdownItemsContainer'>
-            <Link to='/' onClick={()=>handleClose('home')} className={selectedCategory == 'home'? 'activeNavbar': ''}>INICIO</Link>
+            <Link to='/' onClick={()=>handleClose('home')} className={selectedCategory == 'home'? 'activeNavbar': ''}>Inicio</Link>
             {categorys.map((e, i)=> {
               return <Link key={i} to={`/${e.id}`} onClick={()=>handleClose(e.id)} className={selectedCategory == e.id? 'activeNavbar': ''}>{e.name}</Link>
             })}
