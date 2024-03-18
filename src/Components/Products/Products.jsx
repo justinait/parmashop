@@ -31,10 +31,10 @@ function Products({handlePageChange}) {
     return productsList;
   };
 
-  const totalPages = Math.ceil(productsList.length / itemsPerPage);
+  const totalPages = Math.ceil(productsList?.length / itemsPerPage);
   const startIndex = (activePage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = productsList.slice(startIndex, endIndex);
+  const currentProducts = productsList?.slice(startIndex, endIndex);
 
   useEffect(() => {
     getProducts()

@@ -62,6 +62,13 @@
     width: 100%;
 }
 
+.pagination {
+    --bs-link-color: black;
+    --bs-pagination-active-bg: black;
+    --bs-pagination-active-border-color: black;
+    --bs-pagination-focus-color: none
+}
+
 @media (min-width: 600px) {
     
     .categoryTitle{
