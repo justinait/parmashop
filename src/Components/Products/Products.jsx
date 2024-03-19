@@ -9,7 +9,7 @@ function Products({handlePageChange, activePage}) {
   const {category} = useParams();
   const [title, setTitle] = useState()
   const [productsList, setProductsList] = useState(dataProducts); 
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
 
   const getProducts = () => {
     let filteredProducts
