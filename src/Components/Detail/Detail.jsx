@@ -135,6 +135,10 @@ function Detail() {
             </Carousel.Item>
             }
           </Carousel>
+          {
+            product.sale > 0 &&
+            <p className='saleDetail'>{product.sale}% OFF</p>
+          }
           {/* <img src={product.image} alt={product.title} className='imageDetail'/> */}
           <div className='infoBasic'>
             <p className='nameDetail'>{product.title}</p>
