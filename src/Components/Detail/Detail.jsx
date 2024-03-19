@@ -166,9 +166,16 @@ function Detail() {
               <p className='noStock'>Sin stock</p>
             }
             <button 
-            onClick={()=>onAdd(product)} 
-            className={`addToCartButton ${!stock ? 'disabledButton' : ''}`}
-            disabled={!stock || !selectedColor || (product.category != 'Accesorios' && !selectedSize)}
+              onClick={()=>onAdd(product)} 
+              className={`addToCartButton ${
+                ((product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !stock) 
+                  || !selectedColor 
+                  ||((product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !selectedSize)
+                ? 'disabledButton' : ''}`}
+              disabled={(
+                (product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !stock) 
+                || !selectedColor 
+                ||((product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !selectedSize)}
             >Agregar al carrito</button>
 
             <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
