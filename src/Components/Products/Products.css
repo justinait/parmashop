@@ -87,6 +87,11 @@
     .productContainer {
         height: 390px;
     }
+    .stockProducts{
+        top: -270px;
+        font-size: 20px;
+        right: -90px;
+    }
 }
 
 @media (min-width: 1000px) {
@@ -107,9 +112,20 @@
         width: 25%;
     }
  
+    .stockProducts{
+        top: -285px;
+        font-size: 18px;
+        width: 50%;
+        right: -120px;
+    }
 }
 @media (min-width: 1400px) {
-    
+    .stockProducts {
+        top: -315px;
+        font-size: 18px;
+        width: 50%;
+        right: -140px;
+    }
     .categoryTitle{
         margin: 7% 0 6%;
         font-weight: 700;    
@@ -123,7 +139,7 @@
     }
  
 }
-@media (min-width: 1700px) {
+@media (min-width: 1600px) {
     
     .categoryTitle{
         margin: 6% 0 5%;
@@ -137,6 +153,12 @@
     }
     .productPrice{
         font-size: 18px;
+    }
+    .stockProducts {
+        top: -416px;
+        font-size: 20px;
+        width: 40%;
+        right: -230px;
     }
  
 }
