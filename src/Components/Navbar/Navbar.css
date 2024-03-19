@@ -142,7 +142,7 @@ a:hover {
         left: 87%;
     }
 }
-@media (min-width:1700px){
+@media (min-width:1600px){
     .logoNavbar {
         width: 200px;
     }
@@ -157,5 +157,10 @@ a:hover {
     .iconsNavbar {
         width: 1.5em !important;
         height: 1.5em !important;
+    }
+    .cartItemCount{
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
     }
 }
