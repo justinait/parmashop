@@ -22,6 +22,8 @@ function ProductsDashboard({products, setIsChange}) {
     })
     const [show, setShow] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('Todos los productos');
+    const [confirmDelete, setConfirmDelete] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
 
     const handleClose = () => {
         setShow(false);
@@ -34,10 +36,20 @@ function ProductsDashboard({products, setIsChange}) {
             setProductSelected(product);
         }
     }
-  
-    const deleteProduct = (id) => {
-        deleteDoc(doc(db, "products", id));
+    const handleDeleteConfirmation = (id) => {
+        setDeleteId(id);
+        setConfirmDelete(true);
+    }
+    const handleDeleteCancel = () => {
+        setConfirmDelete(false);
+        setDeleteId(null);
+    }
+
+    const deleteProduct = () => {//handledeleteconfirm
+        deleteDoc(doc(db, "products", deleteId));
         setIsChange(true);
+        setConfirmDelete(false);
+        setDeleteId(null);
     }
     
     const categories = [     'Todos los productos' , 'Remeras', 'Pantalones', 'Camisas', 'Bermudas', 'Buzos' , 'Abrigos', 'Accesorios'    ]
@@ -99,7 +111,7 @@ function ProductsDashboard({products, setIsChange}) {
                                 
                                 <td>
                                     <button className='dashboardButton editButton' onClick={()=> handleOpen(e) }> <EditIcon/> </button>
-                                    <button className='dashboardButton deleteButton' onClick={()=>deleteProduct(e.id)}> <DeleteIcon/></button>
+                                    <button className='dashboardButton deleteButton' onClick={()=>handleDeleteConfirmation(e.id)}> <DeleteIcon/></button>
                                 </td>
 
                             </tr>
@@ -115,7 +127,18 @@ function ProductsDashboard({products, setIsChange}) {
                         <CrudModal handleClose={handleClose} setIsChange={setIsChange} productSelected={productSelected} setProductSelected={setProductSelected} />
                         
                     </Modal>
-                        
+                    {confirmDelete && (
+                        <Modal show={confirmDelete} onHide={handleDeleteCancel}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Confirmar eliminación</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>¿Estás seguro de que quieres eliminar este producto?</Modal.Body>
+                            <Modal.Footer>
+                                <button className="btn btn-secondary" onClick={handleDeleteCancel}>Cancelar</button>
+                                <button className="btn btn-danger" onClick={deleteProduct}>Eliminar</button>
+                            </Modal.Footer>
+                        </Modal>
+                    )}
 
                 </tbody>
             </table>    :    
