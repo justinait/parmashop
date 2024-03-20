@@ -120,6 +120,7 @@ function Checkout() {
             pagar
             <CreditCardIcon/>
           </div>
+          
           <p>Detalle de la compra</p>
           {cart.map((e, i)=>{
             return(
@@ -129,7 +130,9 @@ function Checkout() {
               </div>
             )
           })}
-          <p>DATOS DE CONTACTO</p>
+          {/* <p>{cart}</p> */}
+
+          <h5>DATOS DE CONTACTO</h5>
           <div className="input">
             <input
               type="text"
@@ -148,7 +151,8 @@ function Checkout() {
               className="input"
             />
           </div>
-          <p>DATOS DE ENVÍO</p>
+
+          <h5>DATOS DE ENVÍO</h5>
           <div className="input">
             <input
               type="string"
@@ -170,9 +174,28 @@ function Checkout() {
           <div className="input">
             <input
               type="string"
+              name="province"
+              onChange={handleChange}
+              placeholder="Provincia"
+              className="input"
+            />
+          </div>
+          <div className="input">
+            <input
+              type="string"
               name="adress"
               onChange={handleChange}
               placeholder="Dirección de entrega"
+              className="input"
+            />
+          </div>
+          
+          <div className="input">
+            <input
+              type="string"
+              name="depto"
+              onChange={handleChange}
+              placeholder="Departamento"
               className="input"
             />
           </div>

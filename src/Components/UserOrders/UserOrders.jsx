@@ -10,21 +10,21 @@ function UserOrders() {
     useEffect(()=> {
         const ordersCollections = collection (db, "orders")
         getDocs(ordersCollections).then(res =>{
-            const newArr = res.docs.map( e =>{
+            const newArr = res.docs.map(e =>{
                 return {
                     ...e.data(), id: e.id
                 }
             })
             setOrders(newArr)
         })
-    }, [ ])
+    }, [])
 
   return (
     <div className='userOrdersContainer'>
-        <p>ORDENES</p>
-        {orders.map(e => {
+        <h2>ORDENES</h2>
+        {orders.map((e, i) => {
             
-            return <div key={e.id}>
+            return <div key={i}>
                 <h4>{e.title}</h4>
                 <p>{e.total}</p>
                 {console.log(e.items)}

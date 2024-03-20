@@ -46,7 +46,6 @@ function App() {
                 <Route element={<ProtectedAdmin/>} >
                   <Route path="/dashboard" element={<Dashboard/>} />
                   <Route path="/orders" element={<UserOrders/>} />
-                  
                 </Route>
                 <Route path='*' element={<Navigate to="/" />} />
               </Routes>
