@@ -18,7 +18,6 @@ function Checkout() {
   
   const [shipmentCost, setShipmentCost] = useState(10);
   const [preferenceId, setPreferenceId]= useState(null);
-  const [orderId, setOrderId] = useState(null)
   const [userData, setUserData] = useState({
     email: "",
     name: "",
@@ -30,18 +29,15 @@ function Checkout() {
     depto: "",
   })
   
-  let total = getTotalPrice()
-  const [orderDB, setOrderDB] = useState({
-    userData: userData,
-    items: cart,
-    date: new Date().toLocaleString(),
-    total: total
-  })
-
+  const [orderId, setOrderId] = useState(null)
+  
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
   const paramValue = queryParams.get("status")
 
+  let total = getTotalPrice()
+
+  
 
   const pushData = async(order)=>{
 
@@ -59,7 +55,13 @@ function Checkout() {
     console.log(order);
     if(paramValue === "approved"){
       
-      pushData(orderDB);
+      let ordersCollections = collection(db, "orders");
+      addDoc(ordersCollections, {
+        ...order,
+        date: serverTimestamp()
+      }).then(res=>{
+        setOrderId(res.id)
+      })
 
       localStorage.removeItem("order");
       clearCart();
@@ -95,11 +97,6 @@ function Checkout() {
       items: cart,
       total: total + shipmentCost
     }
-    // setOrderDB({
-    //   userData: userData,
-    //   items: cart,
-    //   total: total + shipmentCost
-    // })
 
     console.log(order);
     localStorage.setItem("order", JSON.stringify(order))
