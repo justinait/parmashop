@@ -37,7 +37,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if(!values.title){
       errors.title = 'Este campo es obligatorio'
     }
-    if(!values.unit_price){
+    if(!values.unit_price || values.unit_price == 0){
       errors.unit_price = 'Este campo es obligatorio'
     }
     if(!categorySelected){
@@ -56,7 +56,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
 
     if(itsOnSale == true){
-      if(!values.sale){
+      if(!values.sale || values.sale ==0){
         errors.sale = 'Este campo es obligatorio'
       }
     }
@@ -75,12 +75,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     e.preventDefault();
     setInitialIsOnSale(itsOnSale);
     setHandleNextExecuted(true);
-
+    
     setProductSelected({
       ...productSelected,
       category: categorySelected,
       colors: colors,
-      ...(itsOnSale? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
+      ...(itsOnSale == true? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
       oldPrice: oldPrice,
       ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
       ...(boxer && { boxer: true })
@@ -169,13 +169,12 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       if(productSelected.id !== undefined){
         let obj = {
           ...productSelected,
-          unit_price: +productSelected.unit_price,
-          // unit_price: newUnitPrice,
+          // unit_price: +productSelected.unit_price,
+          ...(itsOnSale == true? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
           category: categorySelected,
           colors: colors,
           details: updatedDetails,
           ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
-          // sale: salePercentageAux,
           ...(boxer && { boxer: true })
         }
 
@@ -189,12 +188,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         let obj = {
           ...productSelected,
           unit_price: +productSelected.unit_price,
-          // unit_price: newUnitPrice,
           category: categorySelected,
           colors: productSelected.colors,
           details: updatedDetails,
           ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
-          // sale: salePercentageAux,
           ...(boxer && { boxer: true })
         }
         console.log(obj);
@@ -254,15 +251,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   }, [categorySelected, productSelected])
 
   useEffect(()=>{
+
     if(productSelected.id !== undefined){
       setColors(productSelected?.colors)
       setCategorySelected(productSelected?.category)
       setOldPrice(productSelected.oldPrice? productSelected.oldPrice : productSelected.unit_price)
       setUnitPriceAux(productSelected.unit_price)
+
       setSalePercentageAux(productSelected.sale)
       
-      //so wrongggg
-      //yo esto lo hice para safar el momento, ahora condicionalo
       itsOnSale &&      setNewUnitPrice(productSelected.unit_price)
       
       //TRAER CHECKS details
@@ -284,13 +281,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           }));
         })
       })
-      //traer checks sale y boxer
+
+      //boxer
       let auxBoxer = productSelected.boxer
       if (auxBoxer == undefined ){
         auxBoxer= false
       }
       setBoxer(auxBoxer)
-
+      //sale
       let auxSaleCheck = false
       if(productSelected.sale > 1){
         auxSaleCheck = true;
@@ -298,7 +296,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       if (auxSaleCheck == undefined ){
         auxSaleCheck= false
       }
-      console.log(auxSaleCheck);
       setItsOnSale(auxSaleCheck)
     }
     else{
@@ -402,7 +399,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             <h6>Categoría</h6>
             <div className="inputModal">
-              <select value={categorySelected&& categorySelected} onChange={(event)=>setCategorySelected(event.target.value)}>
+              {/* onChange={(event)=>setCategorySelected(event.target.value)} */}
+              <select value={categorySelected&& categorySelected}  onChange={(e)=>{setCategorySelected(e.target.value);}}>
                 <option value="">Categorias..</option>
                 <option value="Remeras">Remeras</option>
                 <option value="Pantalones">Pantalones</option>
@@ -455,6 +453,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                   name="sale"
                   placeholder='%'
                   onChange={(event) => setSalePercentageAux(event.target.value)}
+                  // onChange={(event) => console.log(event.target.value)}
                   className="input"
                   defaultValue={productSelected?.sale}
                 />
