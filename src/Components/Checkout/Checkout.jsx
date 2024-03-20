@@ -21,8 +21,13 @@ function Checkout() {
   const [orderId, setOrderId] = useState(null)
   const [userData, setUserData] = useState({
     email: "",
+    name: "",
     cp: "",
-    phone: ""
+    phone: "",
+    city: "",
+    province: "",
+    adress: "",
+    depto: "",
   })
   
   let total = getTotalPrice()
@@ -32,6 +37,7 @@ function Checkout() {
     date: new Date().toLocaleString(),
     total: total
   })
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
   const paramValue = queryParams.get("status")
@@ -85,7 +91,7 @@ function Checkout() {
   const handleBuy = async () => {
 
     let order = {
-      userData: userData,
+      userData: {userData},
       items: cart,
       total: total + shipmentCost
     }
@@ -120,7 +126,7 @@ function Checkout() {
             pagar
             <CreditCardIcon/>
           </div>
-          
+
           <p>Detalle de la compra</p>
           {cart.map((e, i)=>{
             return(
@@ -136,6 +142,15 @@ function Checkout() {
           <div className="input">
             <input
               type="text"
+              name="name"
+              onChange={handleChange}
+              placeholder="Nombre y apellido"
+              className="input"
+            />
+          </div>
+          <div className="input">
+            <input
+              type="text"
               name="email"
               onChange={handleChange}
               placeholder="Email"
@@ -144,7 +159,7 @@ function Checkout() {
           </div>
           <div className="input">
             <input
-              type="number"
+              type="string"
               name="phone"
               onChange={handleChange}
               placeholder="Número de Celular"
@@ -164,7 +179,7 @@ function Checkout() {
           </div>
           <div className="input">
             <input
-              type="number"
+              type="string"
               name="city"
               onChange={handleChange}
               placeholder="Ciudad"
@@ -200,11 +215,14 @@ function Checkout() {
             />
           </div>
           
+          <button onClick={handleBuy}>Seleccionar método de pago</button>
         </div>
         :
-        <h2>El pago se realizó con éxito. {orderId}</h2>
+        <div>
+          <h2>El pago se realizó con éxito. {orderId}</h2>
+          <Link to='/' className='returnButtonCart'>Regresar al Inicio</Link>
+        </div>
     }
-    <button onClick={handleBuy}>Seleccionar método de pago</button>
       {
         preferenceId && <Wallet initialization={{preferenceId, redirectMode:"self"}} />
       }
