@@ -47,12 +47,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       errors.colors = 'Este campo es obligatorio';
     }    
 
-    // if(productSelected.id == null){
-    //   console.log('no hay id');
+    if(productSelected.image == undefined) {
+
       if(imageValidation ==false){
         errors.firstImage = 'Este campo es obligatorio'
+        console.log(productSelected.image);
       }
-    // }
+    }
 
     if(itsOnSale == true){
       if(!values.sale){
@@ -80,12 +81,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       category: categorySelected,
       colors: colors,
       ...(itsOnSale? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
-      // unit_price: newUnitPrice,
-      
-      //so wronggggggggggggggggggg
       oldPrice: oldPrice,
       ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
-      // sale: salePercentageAux,
       ...(boxer && { boxer: true })
     })
     const result = validate(productSelected)
@@ -242,6 +239,15 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     newColors.splice(index, 1);
     setColors(newColors);
   };
+  // const removeColorInput = (colorToRemove) => {
+  //   setColors(prevColors => prevColors.filter((color, i) => color !== colorToRemove));
+  // };
+
+  const handleColorChange =(index, event)=> {
+    const newColors = [...colors];
+    newColors[index] = event.target.value;
+    setColors(newColors);
+  }
 
   useEffect(()=>{
     handleSizes()
@@ -300,11 +306,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
   }, [productSelected])
 
-  const handleColorChange =(index, event)=> {
-    const newColors = [...colors];
-    newColors[index] = event.target.value;
-    setColors(newColors);
-  }
+  
 
   const handleCheckboxChange = (event, color, size) => {
     const { name, checked } = event.target;
@@ -432,7 +434,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
-                  <button className='addMoreButton' onClick={()=> removeColorInput(index)}>-</button>
+                  <button className='addMoreButton' onClick={()=> removeColorInput(e)}>-</button>
                 </div>
               ))}
               {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
