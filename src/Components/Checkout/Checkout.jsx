@@ -37,18 +37,6 @@ function Checkout() {
 
   let total = getTotalPrice()
 
-  
-
-  const pushData = async(order)=>{
-
-    let ordersCollections = collection(db, "orders");
-    addDoc(ordersCollections, {
-      ...order,
-      date: serverTimestamp()
-    }).then(res=>{
-      setOrderId(res.id)
-    })
-  }
 
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
@@ -93,7 +81,7 @@ function Checkout() {
   const handleBuy = async () => {
 
     let order = {
-      userData: {userData},
+      userData: userData,
       items: cart,
       total: total + shipmentCost
     }
