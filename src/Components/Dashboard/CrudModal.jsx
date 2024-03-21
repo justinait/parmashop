@@ -69,7 +69,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if ( itsOnSale && handleNextExecuted) {
       calculateSale();
     }
-  }, [itsOnSale, initialIsOnSale, handleNextExecuted]);
+    // itsOnSale
+  }, [ handleNextExecuted]);
 
   const handleNext = (e) => {
     e.preventDefault();
@@ -86,7 +87,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       ...(boxer && { boxer: true })
     })
     const result = validate(productSelected)
-    
+    console.log(productSelected);
     if(!Object.keys(result).length){
       setShowSecondScreen(true);
     }
@@ -260,7 +261,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
       setSalePercentageAux(productSelected.sale)
       
-      itsOnSale &&      setNewUnitPrice(productSelected.unit_price)
+      !itsOnSale &&      setNewUnitPrice(productSelected.unit_price)
       
       //TRAER CHECKS details
       colors.forEach((color, colorIndex)=> {
@@ -355,7 +356,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       
       setOldPrice(unitPriceAux);
       setNewUnitPrice(newPriceAux);
-      
+      console.log(newPriceAux);
+      console.log(newUnitPrice);
     } else {
       setNewUnitPrice(oldPrice);
       setOldPrice(0);
