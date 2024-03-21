@@ -62,7 +62,6 @@ function Products({handlePageChange, activePage}) {
 
   return (
     <div>
-
     
     <div className='productsContainer'>
       <h2 className='categoryTitle'>{title} </h2>
@@ -78,7 +77,14 @@ function Products({handlePageChange, activePage}) {
               }
               <div className='productInfoContainer'>
                 <p className='productName'>{e.title}</p>
-                <p className='productPrice'>$ {e.unit_price}</p>
+                {
+                  (e.oldPrice != undefined && e.oldPrice != e.unit_price && e.oldPrice > 0 )?
+                  <div className='salePricesDiv'>
+                    <p className='oldPrice'>$ {e.oldPrice}</p>
+                    <p className='productPrice'>$ {e.unit_price}</p>
+                  </div>:
+                  <p className='productPrice'>$ {e.unit_price}</p>
+                }
               </div>
 
             </Link>
