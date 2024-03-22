@@ -232,14 +232,14 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const addColorInput = () => {
     setColors([...colors, '']);
   };
-  const removeColorInput = (index) => {
-    const newColors = [...colors];
-    newColors.splice(index, 1);
-    setColors(newColors);
+  const removeColorInput = () => {
+    if(colors.length > 0){
+
+      const newColors = [...colors];
+      newColors.pop();
+      setColors(newColors);
+    }
   };
-  // const removeColorInput = (colorToRemove) => {
-  //   setColors(prevColors => prevColors.filter((color, i) => color !== colorToRemove));
-  // };
 
   const handleColorChange =(index, event)=> {
     const newColors = [...colors];
@@ -426,7 +426,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             <h6>Colores</h6>
             <div className='colorsDiv'>
               {colors.map((e, index) => (
-                <div key={index} className="inputModal">
+                <div key={index} className="inputModal inputModalColors">
                   <input
                     type="text"
                     defaultValue={e}
@@ -434,10 +434,10 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                     placeholder="Color"
                     className="inputModal"
                   />
-                  <button className='addMoreButton' onClick={()=> removeColorInput(e)}>-</button>
                 </div>
               ))}
               {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
+              <p className='addMoreButton' onClick={()=> removeColorInput()}>-</p>
               <p className='addMoreButton' onClick={addColorInput}>+</p>
             </div>
 
