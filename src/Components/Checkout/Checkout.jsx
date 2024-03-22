@@ -6,9 +6,6 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
 
 function Checkout() {
   
@@ -16,7 +13,7 @@ function Checkout() {
   
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
   
-  const [shipmentCost, setShipmentCost] = useState(10);
+  const [shipmentCost, setShipmentCost] = useState(0);
   const [preferenceId, setPreferenceId]= useState(null);
   const [userData, setUserData] = useState({
     email: "",
@@ -40,6 +37,7 @@ function Checkout() {
 
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
+    console.log(paramValue);
     console.log(order);
     if(paramValue === "approved"){
       
@@ -56,6 +54,7 @@ function Checkout() {
     }
 
   }, [paramValue])
+  
 
   const createPreference = async()=> {
     const newArray = cart.map ( e=>{
@@ -68,7 +67,7 @@ function Checkout() {
     try {
       let response = await axios.post("https://back-parma.vercel.app/create_preference", {
         items: newArray,
-        shipment_cost: 100
+        shipment_cost: 1
       })
       const {id} = response.data
 
@@ -83,16 +82,20 @@ function Checkout() {
     let order = {
       userData: userData,
       items: cart,
-      total: total + shipmentCost
+      total: total
     }
 
     console.log(order);
     localStorage.setItem("order", JSON.stringify(order))
-    
-    const id = await createPreference();
-    if(id){
-      setPreferenceId(id);
+    try {
+      const id = await createPreference();
+      if(id){
+        setPreferenceId(id);
+      }
+    } catch (error) {
+      console.error(error);
     }
+    
   }
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -109,8 +112,8 @@ function Checkout() {
           <p>Subtotal: $</p>
           {cart.map((e, i)=>{
             return(
-              <div>
-                <div key={i} className='checkoutDetailContainer'>
+              <div key={i} >
+                <div className='checkoutDetailContainer'>
                   <img src={e.productData.image} alt="" className='imgCheckout'/>
                   <p>{e.productData.title}</p>
                   <p>${e.productData.unit_price}</p>
@@ -206,7 +209,13 @@ function Checkout() {
           <h2>El pago se realizó con éxito. {orderId}</h2>
           <Link to='/' className='returnButtonCart'>Regresar al Inicio</Link>
         </div>
-    }
+      }
+      {/* loading ? 
+      <div className='spinner'>
+        <Spinner animation="border" role="status" >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div> */}
       {
         preferenceId && <Wallet initialization={{preferenceId, redirectMode:"self"}} />
       }

@@ -6,6 +6,7 @@ function CartContextComponent({children}) {
     
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
   const [totalProducts, setTotalProducts] = useState(0);
+  
   useEffect(() => {
     setTotalProducts(cart.length);
   }, [cart]);
