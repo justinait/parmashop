@@ -88,6 +88,9 @@
 }
 @media (min-width: 600px) {
     
+    .imgProduct{
+        height: 250px;
+    }
     .categoryTitle{
         font-size: 35px;
     }
@@ -100,7 +103,7 @@
         height: 390px;
     }
     .stockProducts{
-        top: -270px;
+        top: -240px;
         font-size: 20px;
         right: -90px;
     }
@@ -125,7 +128,7 @@
     }
  
     .stockProducts{
-        top: -285px;
+        top: -250px;
         font-size: 18px;
         width: 50%;
         right: -120px;
@@ -133,7 +136,6 @@
 }
 @media (min-width: 1400px) {
     .stockProducts {
-        top: -315px;
         font-size: 18px;
         width: 50%;
         right: -140px;
@@ -149,10 +151,16 @@
     .productInfoContainer{
         margin: 5px auto;
     }
+    .imgProduct {
+        height: 300px;
+    }
  
 }
 @media (min-width: 1600px) {
     
+    .imgProduct {
+        height: 400px;
+    }
     .categoryTitle{
         margin: 6% 0 5%;
     }
@@ -167,7 +175,7 @@
         font-size: 18px;
     }
     .stockProducts {
-        top: -416px;
+        top: -390px;
         font-size: 20px;
         width: 40%;
         right: -230px;
