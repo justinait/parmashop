@@ -103,28 +103,27 @@ function Checkout() {
       {
         !orderId ?
         <div className="form">
-          <div>
-            carrito
-            <ShoppingCartOutlinedIcon/>
-            envio
-            <LocalShippingIcon/>
-            pagar
-            <CreditCardIcon/>
-          </div>
+          
 
-          <p>Detalle de la compra</p>
+          <h5>Detalle de la compra</h5>
+          <p>Subtotal: $</p>
           {cart.map((e, i)=>{
             return(
-              <div key={i}>
-                {e.productData.title}
-                {e.productData.unit_price}
+              <div>
+                <div key={i} className='checkoutDetailContainer'>
+                  <img src={e.productData.image} alt="" className='imgCheckout'/>
+                  <p>{e.productData.title}</p>
+                  <p>${e.productData.unit_price}</p>
+                </div>
+
+                <div className='separatorCart'></div>
               </div>
             )
           })}
-          {/* <p>{cart}</p> */}
-
+          <p>Total: $</p>
+          
           <h5>DATOS DE CONTACTO</h5>
-          <div className="input">
+          <div >
             <input
               type="text"
               name="name"
@@ -133,7 +132,7 @@ function Checkout() {
               className="input"
             />
           </div>
-          <div className="input">
+          <div >
             <input
               type="text"
               name="email"
@@ -142,7 +141,7 @@ function Checkout() {
               className="input"
             />
           </div>
-          <div className="input">
+          <div >
             <input
               type="string"
               name="phone"
@@ -153,7 +152,7 @@ function Checkout() {
           </div>
 
           <h5>DATOS DE ENVÍO</h5>
-          <div className="input">
+          <div >
             <input
               type="string"
               name="cp"
@@ -162,7 +161,7 @@ function Checkout() {
               className="input"
             />
           </div>
-          <div className="input">
+          <div >
             <input
               type="string"
               name="city"
@@ -171,7 +170,7 @@ function Checkout() {
               className="input"
             />
           </div>
-          <div className="input">
+          <div >
             <input
               type="string"
               name="province"
@@ -180,7 +179,7 @@ function Checkout() {
               className="input"
             />
           </div>
-          <div className="input">
+          <div >
             <input
               type="string"
               name="adress"
@@ -190,7 +189,7 @@ function Checkout() {
             />
           </div>
           
-          <div className="input">
+          <div >
             <input
               type="string"
               name="depto"
@@ -200,7 +199,7 @@ function Checkout() {
             />
           </div>
           
-          <button onClick={handleBuy}>Seleccionar método de pago</button>
+          <button className='seleccionarMetodoCheckout' onClick={handleBuy}>Seleccionar método de pago</button>
         </div>
         :
         <div>

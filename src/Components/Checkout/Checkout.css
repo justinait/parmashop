@@ -1,3 +1,24 @@
 .checkoutContainer {
-    margin-top: 8vh;
+    margin: 10vh 5%;
+}
+.checkoutContainer h5 {
+
+    margin: 5% 0;
+}
+.imgCheckout {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.checkoutDetailContainer {
+    display: flex;
+    font-size: 11px;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+.seleccionarMetodoCheckout {
+    margin: 8vh 0 0;
+    background: none;
+    padding: 2%;
+    border-radius: 5px;
 }
