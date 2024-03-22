@@ -27,6 +27,7 @@
     font-weight: 400;
     font-family: 'Chakra Petch', sans-serif;
     color: #353535;
+    margin: 3% 0;
 }
 
 .priceDetail {
@@ -95,7 +96,7 @@
     position: absolute;
     top: 90px;
     font-size: 20px;
-    right: 7px;
+    right: 30px;
     margin: 0;
     background: black;
     color: white;
@@ -105,6 +106,9 @@
     padding: 1% 2%;
     font-size: 17px;
     text-align: center;
+}
+.backTo {
+    font-size: 12px;
 }
 @media (min-width:600px){
 

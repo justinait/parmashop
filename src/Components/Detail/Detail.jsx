@@ -139,8 +139,10 @@ function Detail() {
             product.sale > 0 &&
             <p className='saleDetail'>{product.sale}% OFF</p>
           }
-          {/* <img src={product.image} alt={product.title} className='imageDetail'/> */}
           <div className='infoBasic'>
+  
+            <Link to={`/${product?.category}`} className='backTo'> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
+
             <p className='nameDetail'>{product.title}</p>
             <p className='priceDetail'>${product.unit_price}</p>
             
@@ -182,7 +184,6 @@ function Detail() {
                 ||((product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !selectedSize)}
             >Agregar al carrito</button>
 
-            <Link to={`/${product?.category}`}> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
           </div>
         </div>
       )}

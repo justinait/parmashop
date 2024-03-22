@@ -190,7 +190,9 @@
         margin: 3% 2%;
     }
     .goToCheckoutButton, .clearCartButton {
-        padding: 1.5% 3%;
+        padding: 1% 2.5%;
+        font-size: 14px;
+        margin: 3% 2%;
     }
     .emptyContainer{
         height: 60vh;
