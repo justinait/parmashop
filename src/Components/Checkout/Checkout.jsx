@@ -27,6 +27,7 @@ function Checkout() {
   })
   
   const [orderId, setOrderId] = useState(null)
+  const [pickUp, setPickUp] = useState(false);
   
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
@@ -45,7 +46,7 @@ function Checkout() {
       addDoc(ordersCollections, {
         ...order,
         date: serverTimestamp()
-      }).then(res=>{
+      }).then((res)=>{
         setOrderId(res.id)
       })
 
@@ -67,7 +68,7 @@ function Checkout() {
     try {
       let response = await axios.post("https://back-parma.vercel.app/create_preference", {
         items: newArray,
-        shipment_cost: 1
+        shipment_cost: pickUp ? 0 : shipmentCost
       })
       const {id} = response.data
 
@@ -100,7 +101,13 @@ function Checkout() {
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
   }
-
+  useEffect(()=>{
+    let shipmentCollection = collection(db, "shipment")
+    let shipmentDoc = doc(shipmentCollection, "9W3lmfPC5YpolvXbmrEL")
+    getDoc(shipmentDoc).then(res=>{
+      setShipmentCost(res.data().cost)
+    })
+  }, [])
   return (
     <div className='checkoutContainer'>
       {
