@@ -9,7 +9,6 @@
 }
 .productContainer {
     height: 320px;
-    /* max-height: 320px; */
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -40,6 +39,7 @@
 }
 .productPrice {
     font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 .productInfoContainer {
     text-align: center;
@@ -79,12 +79,12 @@
     text-decoration: line-through;
     font-size: 14px;
     padding: 1% 2%;
-    font-size: 14px;
-    margin-bottom: 30px;
+    font-size: 12px;
+    margin-bottom: 0;
 }
 .salePricesDiv {
     position: relative;
-    top: -55px;
+    top: -30px;
 }
 @media (min-width: 600px) {
     

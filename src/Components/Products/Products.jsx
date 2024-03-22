@@ -76,14 +76,17 @@ function Products({handlePageChange, activePage}) {
                 <p className='stockProducts'>{e.sale}% OFF</p>
               }
               <div className='productInfoContainer'>
-                <p className='productName'>{e.title}</p>
                 {
                   (e.oldPrice != undefined && e.oldPrice != e.unit_price && e.oldPrice > 0 )?
                   <div className='salePricesDiv'>
+                    <p className='productName'>{e.title}</p>
                     <p className='oldPrice'>$ {e.oldPrice}</p>
                     <p className='productPrice'>$ {e.unit_price}</p>
                   </div>:
-                  <p className='productPrice'>$ {e.unit_price}</p>
+                  <div>
+                    <p className='productName'>{e.title}</p>
+                    <p className='productPrice'>$ {e.unit_price}</p>
+                  </div>
                 }
               </div>
 
