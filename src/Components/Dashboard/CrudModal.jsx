@@ -401,7 +401,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
             </div>
             <h6>Categoría</h6>
             <div className="inputModal">
-              {/* onChange={(event)=>setCategorySelected(event.target.value)} */}
               <select value={categorySelected&& categorySelected}  onChange={(e)=>{setCategorySelected(e.target.value);}}>
                 <option value="">Categorias..</option>
                 <option value="Remeras">Remeras</option>

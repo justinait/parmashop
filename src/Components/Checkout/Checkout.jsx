@@ -4,8 +4,9 @@ import { CartContext } from '../../context/CartContext';
 import './Checkout.css'
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { addDoc, collection, serverTimestamp, doc } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
+import mp from '/mercadopago.png'
 
 function Checkout() {
   
@@ -14,6 +15,7 @@ function Checkout() {
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
   
   const [shipmentCost, setShipmentCost] = useState(0);
+  const [shipmentCostAux, setShipmentCostAux] = useState(0);
   const [preferenceId, setPreferenceId]= useState(null);
   const [userData, setUserData] = useState({
     email: "",
@@ -40,6 +42,7 @@ function Checkout() {
     let order = JSON.parse(localStorage.getItem("order"));
     console.log(paramValue);
     console.log(order);
+    console.log(orderId);
     if(paramValue === "approved"){
       
       let ordersCollections = collection(db, "orders");
@@ -106,17 +109,31 @@ function Checkout() {
     let shipmentDoc = doc(shipmentCollection, "9W3lmfPC5YpolvXbmrEL")
     getDoc(shipmentDoc).then(res=>{
       setShipmentCost(res.data().cost)
+      setShipmentCostAux(res.data().cost)
     })
+    
   }, [])
+  
+  const handlePickUp =(e)=> {
+    
+    setPickUp(e.target.checked);
+
+    if(pickUp == true){
+      setShipmentCost(0);   
+    } else {
+      setShipmentCost(shipmentCostAux);
+    }
+  }
+
   return (
     <div className='checkoutContainer'>
       {
         !orderId ?
         <div className="form">
           
-
           <h5>Detalle de la compra</h5>
           <p>Subtotal: $</p>
+
           {cart.map((e, i)=>{
             return(
               <div key={i} >
@@ -161,55 +178,63 @@ function Checkout() {
             />
           </div>
 
-          <h5>DATOS DE ENVÍO</h5>
-          <div >
-            <input
-              type="string"
-              name="cp"
-              onChange={handleChange}
-              placeholder="Código Postal"
-              className="input"
-            />
+          <div className='checkboxContainerLine'>
+            <h6>Retiro por el local</h6>
+            <input type="checkbox" name='pickUp' checked={pickUp} onChange={(e)=>handlePickUp(e)} />
           </div>
-          <div >
-            <input
-              type="string"
-              name="city"
-              onChange={handleChange}
-              placeholder="Ciudad"
-              className="input"
-            />
-          </div>
-          <div >
-            <input
-              type="string"
-              name="province"
-              onChange={handleChange}
-              placeholder="Provincia"
-              className="input"
-            />
-          </div>
-          <div >
-            <input
-              type="string"
-              name="adress"
-              onChange={handleChange}
-              placeholder="Dirección de entrega"
-              className="input"
-            />
-          </div>
+          {(pickUp == false) &&
+          <>
+            <h5>DATOS DE ENVÍO</h5>
+            <div >
+              <input
+                type="string"
+                name="cp"
+                onChange={handleChange}
+                placeholder="Código Postal"
+                className="input"
+              />
+            </div>
+            <div >
+              <input
+                type="string"
+                name="city"
+                onChange={handleChange}
+                placeholder="Ciudad"
+                className="input"
+              />
+            </div>
+            <div >
+              <input
+                type="string"
+                name="province"
+                onChange={handleChange}
+                placeholder="Provincia"
+                className="input"
+              />
+            </div>
+            <div >
+              <input
+                type="string"
+                name="adress"
+                onChange={handleChange}
+                placeholder="Dirección de entrega"
+                className="input"
+              />
+            </div>
+            
+            <div >
+              <input
+                type="string"
+                name="depto"
+                onChange={handleChange}
+                placeholder="Departamento"
+                className="input"
+              />
+            </div>
+          </>
           
-          <div >
-            <input
-              type="string"
-              name="depto"
-              onChange={handleChange}
-              placeholder="Departamento"
-              className="input"
-            />
-          </div>
-          
-          <button className='seleccionarMetodoCheckout' onClick={handleBuy}>Seleccionar método de pago</button>
+          }
+          <button className='seleccionarMetodoCheckout' onClick={handleBuy}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito.</button>
         </div>
         :
         <div>

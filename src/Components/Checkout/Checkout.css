@@ -19,6 +19,11 @@
 .seleccionarMetodoCheckout {
     margin: 8vh 0 0;
     background: none;
-    padding: 2%;
+    padding: 2% 0;
     border-radius: 5px;
+    font-size: 13px;
+    border: grey 2px solid;
+}
+.mercadoPagoLogo {
+    width: 40px;
 }
