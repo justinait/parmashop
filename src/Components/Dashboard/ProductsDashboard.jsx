@@ -57,7 +57,7 @@ function ProductsDashboard({products, setIsChange}) {
     return (
         <div>
         
-        <button className='dashboardButton addButton' onClick={()=>handleOpen(productSelected)}>Agregar Nuevo Producto</button>
+        <button className='dashboardButton shipmentCostDashboard' onClick={()=>handleOpen(productSelected)}>Agregar Nuevo Producto</button>
 
         <div className='dashboardCategoryBox' >
             {categories.map((e, i) => (

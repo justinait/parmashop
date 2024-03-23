@@ -43,7 +43,7 @@ function Dashboard() {
       
       <h2>Dashboard de Administrador</h2>
 
-      <p onClick={()=>setOpen(true)}>Costo de envío</p>
+      <p onClick={()=>setOpen(true)} className='shipmentCostDashboard'>Modificar costo de envío </p>
       
       <Modal
         show={open}
