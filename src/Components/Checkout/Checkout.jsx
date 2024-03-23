@@ -30,10 +30,12 @@ function Checkout() {
   
   const [orderId, setOrderId] = useState(null)
   const [pickUp, setPickUp] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('')
   
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
   const paramValue = queryParams.get("status")
+  
 
   let total = getTotalPrice()
 
@@ -44,17 +46,25 @@ function Checkout() {
     console.log(order);
     console.log(orderId);
     if(paramValue === "approved"){
-      
+      console.log('hola');
+    }
+    if(paramValue === "approved"){
+      setPaymentMethod('card')
       let ordersCollections = collection(db, "orders");
+      console.log("Order data:", order); // Agregar este log
       addDoc(ordersCollections, {
         ...order,
         date: serverTimestamp()
       }).then((res)=>{
+        console.log("Document successfully added: ", res);
         setOrderId(res.id)
-      })
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+      });
 
       localStorage.removeItem("order");
       clearCart();
+      console.log(orderId);
     }
 
   }, [paramValue])
@@ -86,7 +96,8 @@ function Checkout() {
     let order = {
       userData: userData,
       items: cart,
-      total: total
+      total: total,
+      paymentMethod: paymentMethod
     }
 
     console.log(order);
@@ -236,6 +247,7 @@ function Checkout() {
           }
           <Link className='seleccionarMetodoCheckout' to={'/transfer'}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></Link>
           <button className='seleccionarMetodoCheckout' onClick={handleBuy}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+
         </div>
         :
         <div>

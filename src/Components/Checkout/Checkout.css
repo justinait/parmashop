@@ -43,4 +43,5 @@
 
 .transferContainer {
     margin-top: 10vh;
+    min-height: 70vh;
 }
