@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
-import {collection, getDocs, doc, updateDoc} from "firebase/firestore"
+import {collection, getDocs, doc, updateDoc, getDoc} from "firebase/firestore"
 import ProductsDashboard from './ProductsDashboard';
 import './ProductsDashboard.css'
 import { Modal } from 'react-bootstrap';
@@ -27,6 +27,17 @@ function Dashboard() {
       productsWithNames.sort((a, b) => a.name.localeCompare(b.name));
       setProducts(newArr)
     })
+
+    const shipmentDocRef = doc(db, "shipment", "9W3lmfPC5YpolvXbmrEL");
+    getDoc(shipmentDocRef).then((doc) => {
+      if (doc.exists()) {
+        setShipmentCost(doc.data().cost)
+      } else {
+        console.log("No such document!");
+      }
+    }).catch((error) => {
+      console.log("Error getting document:", error);
+    });
   }, [isChange])
 
   const updateShipment = async()=>{
@@ -50,14 +61,18 @@ function Dashboard() {
         onHide={handleClose}
         backdrop="static"
       >
+        <Modal.Header closeButton>
+          <Modal.Title></Modal.Title>
+        </Modal.Header>
         <Modal.Body>
 
         <input
           label="Costo"
           onChange={(e) => setShipmentCost(+e.target.value)}
+          value={shipmentCost}
         />
-        </Modal.Body>
         <p onClick={updateShipment}>Modificar</p>
+        </Modal.Body>
       </Modal>
       <ProductsDashboard products={products} setIsChange={setIsChange} /> 
       
