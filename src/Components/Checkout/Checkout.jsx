@@ -3,7 +3,7 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { CartContext } from '../../context/CartContext';
 import './Checkout.css'
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import mp from '/mercadopago.png'
@@ -234,7 +234,8 @@ function Checkout() {
           </>
           
           }
-          <button className='seleccionarMetodoCheckout' onClick={handleBuy}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito.</button>
+          <Link className='seleccionarMetodoCheckout' to={'/transfer'}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></Link>
+          <button className='seleccionarMetodoCheckout' onClick={handleBuy}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
         </div>
         :
         <div>
