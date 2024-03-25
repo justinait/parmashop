@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 function PaymentApproved() {
   return (
-    <div>
+    <div className='checkoutContainer'>
         <h2>El pago se realizó con éxito.</h2>
-        <p>Te contactaremos a tu mail.</p>
-        <Link to='/' className='returnButtonCart'>Regresar al Inicio</Link>
+        <p className='approvedText'>Te contactaremos a tu correo.</p>
+        <Link to='/category' className='returnButtonCart'>Continuar comprando</Link>
     </div>
   )
 }

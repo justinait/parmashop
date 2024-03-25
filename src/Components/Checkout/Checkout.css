@@ -1,5 +1,6 @@
 .checkoutContainer {
     margin: 10vh 5%;
+    min-height: 70vh;
 }
 .checkoutContainer h5 {
     margin: 5% 0;
@@ -44,4 +45,9 @@
 .transferContainer {
     margin-top: 10vh;
     min-height: 70vh;
+}
+.approvedText{
+    
+    margin: 5% 0 10%;
+
 }
