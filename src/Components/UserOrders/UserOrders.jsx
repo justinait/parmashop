@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import './UserOrders.css'
 
 function UserOrders() {
@@ -9,7 +9,8 @@ function UserOrders() {
 
     useEffect(()=> {
         const ordersCollections = collection (db, "orders")
-        getDocs(ordersCollections).then(res =>{
+        const ordersQuery = query(ordersCollections, orderBy("date", "desc"))
+        getDocs(ordersQuery).then(res =>{
             const newArr = res.docs.map(e =>{
                 return {
                     ...e.data(), id: e.id
@@ -23,7 +24,7 @@ function UserOrders() {
     <div className='checkoutContainer'>
         <h2>PEDIDOS</h2>
         {orders.map((e, i) => {
-            
+            const reversedIndex = orders.length - i;
             const timestamp = e.date;
             const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
             const formattedDate = date.toISOString();
@@ -32,6 +33,7 @@ function UserOrders() {
                 <div key={i} className='orderContainer'>
                     
                     <h6>Código de orden: {e.id}</h6>
+                    <h5># {reversedIndex}</h5>
                     <p>Fecha de compra: {finalDate}</p>
                     {e.pickUp &&
                     <h6>RETIRA POR EL LOCAL</h6>
