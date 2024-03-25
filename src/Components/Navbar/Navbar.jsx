@@ -79,7 +79,7 @@ function Navbar() {
               user.rol == import.meta.env.VITE_ROLADMIN &&
               <>
                 <Link to='/dashboard' onClick={handleClose} className='dropdownItem' ><DashboardCustomizeIcon fontSize='small'/>Administrar</Link>
-                <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><ViewListIcon fontSize='small'/>Pedidos</Link>
+                <Link to='/orders' onClick={handleClose} className='dropdownItem'><ViewListIcon fontSize='small'/>Pedidos</Link>
                 <p className="dropdownItem"><LogoutIcon onClick={logoutButton} fontSize='small'/>Cerrar sesión</p>
               </>
             }

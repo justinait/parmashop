@@ -21,21 +21,45 @@ function UserOrders() {
 
   return (
     <div className='userOrdersContainer'>
-        <h2>ORDENES</h2>
+        <h2>PEDIDOS</h2>
         {orders.map((e, i) => {
             
-            return <div key={i}>
-                <h4>{e.title}</h4>
-                <p>{e.total}</p>
-                {console.log(e.items)}
-                {(e.items).map((element, index) => {
-                    return <div key={index}>
-                        <h2>{element.title}</h2>
-                        <p>{element.size}</p>
-                        <p>{element.color}</p>
-                    </div>
-                })}
-            </div>
+            const timestamp = e.date;
+            const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
+            const formattedDate = date.toISOString();
+            const finalDate = formattedDate.split("T")[0];
+            return (
+                <div key={i}>
+                    <p>Método de pago: {e.paymentMethod}</p>
+                    <p>Total: ${e.total}</p>
+                    <p>Fecha de compra: {finalDate}</p>
+                    <h6>Datos de los productos:</h6>
+                    {(e.items).map((item, index) => {
+                        return (
+                            <div key={index}>
+                                <h6>Prenda {index + 1}</h6>
+                                <img src={item.image} width={50}/>
+                                <p>Nombre: {item.title}</p>
+                                <p>Categoría: {item.category}</p>
+                                <p>Talle: {item.size}</p>
+                                <p>Color: {item.color}</p>
+                                <p>Precio: ${item.unit_price}</p>
+                            </div>
+                        )
+                    })}
+                    <h6>Datos del comprador:</h6>
+                    
+                    {Object.keys(e.userData).map((key, index) => {
+                        const element = e.userData[key];
+                        return (
+                            <div key={index}>
+                                <p>{element}</p>
+                            </div>
+                        )
+                    })}
+                    
+                </div>
+            )
         })
         }
     </div>

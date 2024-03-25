@@ -107,15 +107,25 @@ function Checkout() {
   const handleBuy = async (method) => {
     setMethodChange(!methodChange)
     let paymentMethod = method;
+    const newArray = cart.map ( e=>{
+      return {
+        title: e.productData.title,
+        unit_price: +e.productData.unit_price,
+        oldPrice: +e.productData.oldPrice,
+        sale: +e.productData.sale,
+        color: e.color,
+        size: e.size,
+        category: e.productData.category,
+        image: e.productData.image
+      }
+    })
+    console.log(newArray);
     let order = {
       userData: userData,
-      items: cart,
+      items: newArray,
       total: total,
       paymentMethod
     }
-    
-    console.log(order);
-    console.log(paymentMethod);
     
     localStorage.setItem("order", JSON.stringify(order))
     try {
@@ -155,11 +165,11 @@ function Checkout() {
   return (
     <div className='checkoutContainer'>
       {
-        !orderId ?
+        (!orderId) ?
         <div className="form">
           
           <h5>Detalle de la compra</h5>
-          <p>Subtotal: $</p>
+          <p>Subtotal: {cart.total} $</p>
 
           {cart.map((e, i)=>{
             return(
@@ -174,7 +184,7 @@ function Checkout() {
               </div>
             )
           })}
-          <p>Total: $</p>
+          <p>Total: {cart.total}$</p>
           
           <h5>DATOS DE CONTACTO</h5>
           <div >
