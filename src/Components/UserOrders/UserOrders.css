@@ -1,3 +1,18 @@
-.userOrdersContainer {
-    margin-top: 10vh;
+.orderContainer {
+    background-color: rgb(240, 240, 240);
+    margin: 5% 0;
+}
+.prendaOrderInfoPpal {
+    display: flex;
+    justify-content: space-between;
+}
+.prendaOrder p {
+    margin: 0;
+}
+.prendaOrder {
+    padding: 7%;
+}
+.userOrder p{
+
+    margin-bottom: 0.5rem;
 }

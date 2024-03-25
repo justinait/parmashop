@@ -20,7 +20,7 @@ function UserOrders() {
     }, [])
 
   return (
-    <div className='userOrdersContainer'>
+    <div className='checkoutContainer'>
         <h2>PEDIDOS</h2>
         {orders.map((e, i) => {
             
@@ -29,22 +29,25 @@ function UserOrders() {
             const formattedDate = date.toISOString();
             const finalDate = formattedDate.split("T")[0];
             return (
-                <div key={i}>
+                <div key={i} className='orderContainer'>
                     
-                    <h6> Código de orden: {e.id}</h6>
+                    <h6>Código de orden: {e.id}</h6>
+                    <p>Fecha de compra: {finalDate}</p>
                     {e.pickUp &&
                     <h6>RETIRA POR EL LOCAL</h6>
                     }
                     <p>Método de pago: {e.paymentMethod}</p>
                     <p>Total: ${e.total}</p>
-                    <p>Fecha de compra: {finalDate}</p>
 
                     <h6>Datos de los productos:</h6>
                     {(e.items).map((item, index) => {
                         return (
-                            <div key={index}>
-                                <h6>Prenda {index + 1}</h6>
-                                <img src={item.image} width={50}/>
+                            <div key={index} className='prendaOrder'>
+                                <div className='prendaOrderInfoPpal'>
+                                    <h6>Prenda {index + 1}</h6>
+                                    <img src={item.image} width={50}/>                                    
+                                </div>
+
                                 <p>Nombre: {item.title}</p>
                                 <p>Categoría: {item.category}</p>
                                 <p>Talle: {item.size}</p>
@@ -58,7 +61,7 @@ function UserOrders() {
                     {Object.keys(e.userData).map((key, index) => {
                         const element = e.userData[key];
                         return (
-                            <div key={index}>
+                            <div key={index} className='userOrder'>
                                 <p>{element}</p>
                             </div>
                         )
