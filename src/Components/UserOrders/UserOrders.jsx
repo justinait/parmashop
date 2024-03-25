@@ -30,9 +30,14 @@ function UserOrders() {
             const finalDate = formattedDate.split("T")[0];
             return (
                 <div key={i}>
+                    
+                    {e.pickUp &&
+                    <h6>RETIRA POR EL LOCAL</h6>
+                    }
                     <p>Método de pago: {e.paymentMethod}</p>
                     <p>Total: ${e.total}</p>
                     <p>Fecha de compra: {finalDate}</p>
+
                     <h6>Datos de los productos:</h6>
                     {(e.items).map((item, index) => {
                         return (

@@ -3,13 +3,14 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { CartContext } from '../../context/CartContext';
 import './Checkout.css'
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import mp from '/mercadopago.png'
 
 function Checkout() {
-  
+  const navigate = useNavigate();
+
   const { cart, addToCartContext, clearCart, deleteById, getTotalPrice, totalProducts   } = useContext(CartContext);
   
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
@@ -42,9 +43,6 @@ function Checkout() {
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
     
-    console.log(paramValue);
-    console.log(order);
-    
     if(order?.paymentMethod === 'transfer') {
       let ordersCollections = collection(db, "orders");
       console.log("Order data:", order);
@@ -54,6 +52,7 @@ function Checkout() {
       }).then((res)=>{
         console.log("Document successfully added: ", res);
         setOrderId(res.id)
+        navigate('/transfer')
       }).catch((error) => {
         console.error("Error adding document: ", error);
       });
@@ -76,7 +75,6 @@ function Checkout() {
 
       localStorage.removeItem("order");
       clearCart();
-      console.log(orderId);
     }
     
   }, [methodChange])
@@ -119,24 +117,28 @@ function Checkout() {
         image: e.productData.image
       }
     })
-    console.log(newArray);
     let order = {
       userData: userData,
       items: newArray,
       total: total,
-      paymentMethod
+      paymentMethod,
+      pickUp: pickUp
     }
     
     localStorage.setItem("order", JSON.stringify(order))
-    try {
-      const id = await createPreference();
-      if(id){
-        setPreferenceId(id);
+    if(paymentMethod === 'transfer'){
+      
+    } else {
+      try {
+        const id = await createPreference();
+        if(id){
+          setPreferenceId(id);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
+      return order
     }
-    return order
   }
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -271,7 +273,7 @@ function Checkout() {
           </>
           
           }
-          <Link className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')} to={'/transfer'}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></Link>
+          <p className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
           <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
 
         </div>
