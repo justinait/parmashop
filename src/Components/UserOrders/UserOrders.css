@@ -1,6 +1,7 @@
 .orderContainer {
     background-color: rgb(240, 240, 240);
     margin: 5% 0;
+    padding: 2%;
 }
 .prendaOrderInfoPpal {
     display: flex;
@@ -13,6 +14,22 @@
     padding: 7%;
 }
 .userOrder p{
-
     margin-bottom: 0.5rem;
+}
+
+@media(min-width: 1200px){
+
+    .prendaOrder{
+        padding: 3%;
+        width: 33%;
+    }
+    .prendaDivContainer {
+        display: flex;
+    }
+    .orderTitle {
+        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }

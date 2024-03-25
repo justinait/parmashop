@@ -31,9 +31,11 @@ function UserOrders() {
             const finalDate = formattedDate.split("T")[0];
             return (
                 <div key={i} className='orderContainer'>
-                    
-                    <h6>Código de orden: {e.id}</h6>
-                    <h5># {reversedIndex}</h5>
+                    <div className='orderTitle'>
+
+                        <h6>Código de orden: {e.id}</h6>
+                        <h5>#   {reversedIndex}</h5>
+                    </div>
                     <p>Fecha de compra: {finalDate}</p>
                     {e.pickUp &&
                     <h6>RETIRA POR EL LOCAL</h6>
@@ -42,22 +44,24 @@ function UserOrders() {
                     <p>Total: ${e.total}</p>
 
                     <h6>Datos de los productos:</h6>
-                    {(e.items).map((item, index) => {
-                        return (
-                            <div key={index} className='prendaOrder'>
-                                <div className='prendaOrderInfoPpal'>
-                                    <h6>Prenda {index + 1}</h6>
-                                    <img src={item.image} width={50}/>                                    
-                                </div>
+                    <div className='prendaDivContainer'>
+                        {(e.items).map((item, index) => {
+                            return (
+                                <div key={index} className='prendaOrder'>
+                                    <div className='prendaOrderInfoPpal'>
+                                        <h6>Prenda {index + 1}</h6>
+                                        <img src={item.image} width={50}/>                                    
+                                    </div>
 
-                                <p>Nombre: {item.title}</p>
-                                <p>Categoría: {item.category}</p>
-                                <p>Talle: {item.size}</p>
-                                <p>Color: {item.color}</p>
-                                <p>Precio: ${item.unit_price}</p>
-                            </div>
-                        )
-                    })}
+                                    <p>Nombre: {item.title}</p>
+                                    <p>Categoría: {item.category}</p>
+                                    <p>Talle: {item.size}</p>
+                                    <p>Color: {item.color}</p>
+                                    <p>Precio: ${item.unit_price}</p>
+                                </div>
+                            )
+                        })}
+                    </div>
                     <h6>Datos del comprador:</h6>
                     
                     {Object.keys(e.userData).map((key, index) => {
