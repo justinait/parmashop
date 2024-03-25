@@ -33,10 +33,6 @@ function Checkout() {
   const [pickUp, setPickUp] = useState(false);
   const [methodChange, setMethodChange] = useState(false)
   
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location)
-  const paramValue = queryParams.get("status")
-  
   let total = getTotalPrice()
 
 
@@ -52,7 +48,8 @@ function Checkout() {
       }).then((res)=>{
         console.log("Document successfully added: ", res);
         setOrderId(res.id)
-        navigate('/transfer')
+        
+        navigate('/transfer', { state: { total } });
       }).catch((error) => {
         console.error("Error adding document: ", error);
       });
@@ -170,8 +167,7 @@ function Checkout() {
         <div className="form">
           
           <h5>Detalle de la compra</h5>
-          <p>Subtotal: {cart.total} $</p>
-
+          
           {cart.map((e, i)=>{
             return(
               <div key={i} >
@@ -185,7 +181,7 @@ function Checkout() {
               </div>
             )
           })}
-          <p>Total: {cart.total}$</p>
+          <p>Total: ${total}</p>
           
           <h5>DATOS DE CONTACTO</h5>
           <div >

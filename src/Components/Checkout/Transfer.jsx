@@ -1,9 +1,16 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 function Transfer() {
+  const location = useLocation();
+  if (!location.state) {
+    
+    return <p>No se proporcionó ningún número</p>;
+  }
+
   return (
     <div className='transferContainer'>
+      {console.log(location)}
       <p>CBU: 1111111111111</p>
       <p>Alias: 1111111111111111</p>
 
@@ -24,8 +31,10 @@ function Transfer() {
       Recordá enviar el comprobante dentro de las 48 horas respondiendo el mail de compra que te llegó para poder confirmarte tu pedido.
 
       <strong>¡Gracias por tu compra!</strong>
-      
+      <p>El valor de tu compra es ${location.state.total}</p>
+      <p>Con el descuento del 10%. Debes transferir: $</p>
       </p>
+
       {/* //tmb ver el pedido */}
 
       <Link to={'/'}>Continuar comprando</Link>
