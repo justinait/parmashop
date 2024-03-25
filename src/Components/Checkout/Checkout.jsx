@@ -30,28 +30,40 @@ function Checkout() {
   
   const [orderId, setOrderId] = useState(null)
   const [pickUp, setPickUp] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState('')
+  const [methodChange, setMethodChange] = useState(false)
   
   const location = useLocation();
   const queryParams = new URLSearchParams(location)
   const paramValue = queryParams.get("status")
   
-
   let total = getTotalPrice()
 
 
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
+    
     console.log(paramValue);
     console.log(order);
-    console.log(orderId);
-    if(paramValue === "approved"){
-      console.log('hola');
-    }
-    if(paramValue === "approved"){
-      setPaymentMethod('card')
+    
+    if(order?.paymentMethod === 'transfer') {
       let ordersCollections = collection(db, "orders");
-      console.log("Order data:", order); // Agregar este log
+      console.log("Order data:", order);
+      addDoc(ordersCollections, {
+        ...order,
+        date: serverTimestamp()
+      }).then((res)=>{
+        console.log("Document successfully added: ", res);
+        setOrderId(res.id)
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+
+      localStorage.removeItem("order");
+      clearCart();
+    } else if(order?.paymentMethod === 'card') {
+      // if(paramValue === "approved"){
+      let ordersCollections = collection(db, "orders");
+      console.log("Order data:", order);
       addDoc(ordersCollections, {
         ...order,
         date: serverTimestamp()
@@ -66,8 +78,8 @@ function Checkout() {
       clearCart();
       console.log(orderId);
     }
-
-  }, [paramValue])
+    
+  }, [methodChange])
   
 
   const createPreference = async()=> {
@@ -90,17 +102,21 @@ function Checkout() {
       console.log(error);
     }
   }
-
-  const handleBuy = async () => {
-
+  
+  
+  const handleBuy = async (method) => {
+    setMethodChange(!methodChange)
+    let paymentMethod = method;
     let order = {
       userData: userData,
       items: cart,
       total: total,
-      paymentMethod: paymentMethod
+      paymentMethod
     }
-
+    
     console.log(order);
+    console.log(paymentMethod);
+    
     localStorage.setItem("order", JSON.stringify(order))
     try {
       const id = await createPreference();
@@ -110,7 +126,7 @@ function Checkout() {
     } catch (error) {
       console.error(error);
     }
-    
+    return order
   }
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -245,8 +261,8 @@ function Checkout() {
           </>
           
           }
-          <Link className='seleccionarMetodoCheckout' to={'/transfer'}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></Link>
-          <button className='seleccionarMetodoCheckout' onClick={handleBuy}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+          <Link className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')} to={'/transfer'}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></Link>
+          <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
 
         </div>
         :
@@ -255,12 +271,7 @@ function Checkout() {
           <Link to='/' className='returnButtonCart'>Regresar al Inicio</Link>
         </div>
       }
-      {/* loading ? 
-      <div className='spinner'>
-        <Spinner animation="border" role="status" >
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </div> */}
+      
       {
         preferenceId && <Wallet initialization={{preferenceId, redirectMode:"self"}} />
       }

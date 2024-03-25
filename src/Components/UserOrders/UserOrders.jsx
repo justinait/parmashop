@@ -28,8 +28,8 @@ function UserOrders() {
                 <h4>{e.title}</h4>
                 <p>{e.total}</p>
                 {console.log(e.items)}
-                {(e.items).map(element => {
-                    return <div>
+                {(e.items).map((element, index) => {
+                    return <div key={index}>
                         <h2>{element.title}</h2>
                         <p>{element.size}</p>
                         <p>{element.color}</p>

@@ -10,7 +10,8 @@ function Transfer() {
 
         <p>Enviar comprobante de pago a parmashop1@gmail.com junto con los nombres de las prendas y el codigo del pedido.</p>
 
-        <p>¡Hola! ¿Cómo estás?
+        <p>
+        ¡Hola! ¿Cómo estás?
 
         Podés hacer transferencia o depósito desde cualquier billetera virtual o banco,  a la siguiente cuenta:
 

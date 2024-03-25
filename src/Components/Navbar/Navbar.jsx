@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../context/AuthContext';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import { CartContext } from '../../context/CartContext';
+import ViewListIcon from '@mui/icons-material/ViewList';
 import CartWidget from './CartWidget';
 
 function Navbar() {
@@ -77,8 +78,9 @@ function Navbar() {
             { 
               user.rol == import.meta.env.VITE_ROLADMIN &&
               <>
-                <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><DashboardCustomizeIcon/></Link>
-                <p className="dropdownItem"><LogoutIcon onClick={logoutButton} /></p>
+                <Link to='/dashboard' onClick={handleClose} className='dropdownItem' ><DashboardCustomizeIcon fontSize='small'/>Administrar</Link>
+                <Link to='/dashboard' onClick={handleClose} className='dropdownItem'><ViewListIcon fontSize='small'/>Pedidos</Link>
+                <p className="dropdownItem"><LogoutIcon onClick={logoutButton} fontSize='small'/>Cerrar sesión</p>
               </>
             }
             
