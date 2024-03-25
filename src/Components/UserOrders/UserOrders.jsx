@@ -31,6 +31,7 @@ function UserOrders() {
             return (
                 <div key={i}>
                     
+                    <h6> Código de orden: {e.id}</h6>
                     {e.pickUp &&
                     <h6>RETIRA POR EL LOCAL</h6>
                     }

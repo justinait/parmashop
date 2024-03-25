@@ -18,6 +18,7 @@ import UserOrders from './Components/UserOrders/UserOrders';
 import CheckScroll from './CheckScroll';
 import { useState } from 'react';
 import Transfer from './Components/Checkout/Transfer';
+import PaymentApproved from './Components/Checkout/PaymentApproved';
 
 function App() {
   const [activePage, setActivePage] = useState(1);
@@ -44,6 +45,7 @@ function App() {
                 <Route path='/cart' element={< Cart />} />
                 <Route path='/checkout' element={< Checkout />} />
                 <Route path='/transfer' element={< Transfer />} />
+                <Route path='/paymentApproved' element={< PaymentApproved />} />
                 
                 <Route element={<ProtectedAdmin/>} >
                   <Route path="/dashboard" element={<Dashboard/>} />

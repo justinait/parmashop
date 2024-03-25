@@ -167,7 +167,6 @@ function Checkout() {
   return (
     <div className='checkoutContainer'>
       {
-        (!orderId) ?
         <div className="form">
           
           <h5>Detalle de la compra</h5>
@@ -277,11 +276,8 @@ function Checkout() {
           <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
 
         </div>
-        :
-        <div>
-          <h2>El pago se realizó con éxito. {orderId}</h2>
-          <Link to='/' className='returnButtonCart'>Regresar al Inicio</Link>
-        </div>
+        
+        
       }
       
       {
