@@ -7,6 +7,7 @@ import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import mp from '/mercadopago.png'
+import { Alert } from 'react-bootstrap';
 
 function Checkout() {
   const navigate = useNavigate();
@@ -29,53 +30,61 @@ function Checkout() {
     depto: "",
   })
   
+  const [errorsArray, setErrorsArray] = useState([])
   const [orderId, setOrderId] = useState(null)
   const [pickUp, setPickUp] = useState(false);
   const [methodChange, setMethodChange] = useState(false)
   
   let total = getTotalPrice()
-
-
+  
+  
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
+    // const formIsValid = validate(userData);
+    console.log(errorsArray.length);
     
     if(order?.paymentMethod === 'transfer') {
-      let ordersCollections = collection(db, "orders");
-      console.log("Order data:", order);
-      addDoc(ordersCollections, {
-        ...order,
-        date: serverTimestamp()
-      }).then((res)=>{
-        console.log("Document successfully added: ", res);
-        setOrderId(res.id)
+      if(!errorsArray.length){
         
-        navigate('/transfer', { state: { total } });
-      }).catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-
-      localStorage.removeItem("order");
-      clearCart();
-    } else if(order?.paymentMethod === 'card') {
-      // if(paramValue === "approved"){
-      let ordersCollections = collection(db, "orders");
-      console.log("Order data:", order);
-      addDoc(ordersCollections, {
-        ...order,
-        date: serverTimestamp()
-      }).then((res)=>{
-        console.log("Document successfully added: ", res);
-        setOrderId(res.id)
-      }).catch((error) => {
-        console.error("Error adding document: ", error);
-      });
-
-      localStorage.removeItem("order");
-      clearCart();
+        let ordersCollections = collection(db, "orders");
+        console.log("Order data:", order);
+        addDoc(ordersCollections, {
+          ...order,
+          date: serverTimestamp()
+        }).then((res)=>{
+          console.log("Document successfully added: ", res);
+          setOrderId(res.id)
+          
+          navigate('/transfer', { state: { total } });
+        }).catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+  
+        localStorage.removeItem("order");
+        clearCart();
+      }
+      } else if(order?.paymentMethod === 'card') {
+        // if(paramValue === "approved"){
+        if(!errorsArray.length){
+          let ordersCollections = collection(db, "orders");
+          console.log("Order data:", order);
+        addDoc(ordersCollections, {
+          ...order,
+          date: serverTimestamp()
+        }).then((res)=>{
+          console.log("Document successfully added: ", res);
+          setOrderId(res.id)
+        }).catch((error) => {
+          console.error("Error adding document: ", error);
+        });
+  
+        localStorage.removeItem("order");
+        clearCart();
+      }
+      
     }
     
   }, [methodChange])
-  
 
   const createPreference = async()=> {
     const newArray = cart.map ( e=>{
@@ -98,44 +107,52 @@ function Checkout() {
     }
   }
   
-  
-  const handleBuy = async (method) => {
-    setMethodChange(!methodChange)
-    let paymentMethod = method;
-    const newArray = cart.map ( e=>{
-      return {
-        title: e.productData.title,
-        unit_price: +e.productData.unit_price,
-        oldPrice: +e.productData.oldPrice,
-        sale: +e.productData.sale,
-        color: e.color,
-        size: e.size,
-        category: e.productData.category,
-        image: e.productData.image
-      }
-    })
-    let order = {
-      userData: userData,
-      items: newArray,
-      total: total,
-      paymentMethod,
-      pickUp: pickUp
-    }
-    
-    localStorage.setItem("order", JSON.stringify(order))
-    if(paymentMethod === 'transfer'){
+  const handleBuy = async (e, method) => {
+    e.preventDefault();
+    const result = validate(userData);
+    console.log(userData);
+    console.log(Object.keys(result).length);
+
+    if(!Object.keys(result).length){
       
-    } else {
-      try {
-        const id = await createPreference();
-        if(id){
-          setPreferenceId(id);
+      setMethodChange(!methodChange)
+      let paymentMethod = method;
+      const newArray = cart.map ( e=>{
+        return {
+          title: e.productData.title,
+          unit_price: +e.productData.unit_price,
+          oldPrice: +e.productData.oldPrice,
+          sale: +e.productData.sale,
+          color: e.color,
+          size: e.size,
+          category: e.productData.category,
+          image: e.productData.image
         }
-      } catch (error) {
-        console.error(error);
+      })
+      let order = {
+        userData: userData,
+        items: newArray,
+        total: total,
+        paymentMethod,
+        pickUp: pickUp
       }
-      return order
+      
+      localStorage.setItem("order", JSON.stringify(order))
+      if(paymentMethod === 'transfer'){
+      } else {
+        try {
+          const id = await createPreference();
+          if(id){
+            setPreferenceId(id);
+          }
+        } catch (error) {
+          console.error(error);
+        }
+        return order
+      }
     }
+
+    
   }
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -159,6 +176,35 @@ function Checkout() {
     } else {
       setShipmentCost(shipmentCostAux);
     }
+  }
+  const validate = (values) => {
+    const errors = {}
+    if(!values.name){
+      errors.name = 'Este campo es obligatorio'
+    }
+    if(!values.email){
+      errors.email = 'Este campo es obligatorio'
+    }
+    if(!values.phone){
+      errors.phone = 'Este campo es obligatorio'
+    }
+
+    if(!pickUp){
+      if(!values.cp){
+        errors.cp = 'Este campo es obligatorio'
+      }
+      if(!values.city){
+        errors.city = 'Este campo es obligatorio'
+      }
+      if(!values.province){
+        errors.province = 'Este campo es obligatorio'
+      }
+      if(!values.adress){
+        errors.adress = 'Este campo es obligatorio'
+      }
+    }
+    setErrorsArray(errors)
+    return errors;
   }
 
   return (
@@ -185,7 +231,7 @@ function Checkout() {
           </div>
           
           <h5>DATOS DE CONTACTO</h5>
-          <div >
+          <div>
             <input
               type="text"
               name="name"
@@ -193,6 +239,7 @@ function Checkout() {
               placeholder="Nombre y apellido"
               className="input"
             />
+            {errorsArray.name && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.name}           </Alert> }
           </div>
           <div >
             <input
@@ -202,8 +249,9 @@ function Checkout() {
               placeholder="Email"
               className="input"
             />
+            {errorsArray.email && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.email}           </Alert> }
           </div>
-          <div >
+          <div>
             <input
               type="string"
               name="phone"
@@ -211,6 +259,7 @@ function Checkout() {
               placeholder="Número de Celular"
               className="input"
             />
+            {errorsArray.phone && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.phone}           </Alert> }
           </div>
 
           <div className='checkboxContainerCheckout'>
@@ -228,6 +277,7 @@ function Checkout() {
                 placeholder="Código Postal"
                 className="input"
               />
+              {errorsArray.cp && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.cp}           </Alert> }
             </div>
             <div >
               <input
@@ -237,6 +287,7 @@ function Checkout() {
                 placeholder="Ciudad"
                 className="input"
               />
+              {errorsArray.city && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.city}           </Alert> }
             </div>
             <div >
               <input
@@ -246,6 +297,7 @@ function Checkout() {
                 placeholder="Provincia"
                 className="input"
               />
+              {errorsArray.province && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.province}           </Alert> }
             </div>
             <div >
               <input
@@ -255,6 +307,7 @@ function Checkout() {
                 placeholder="Dirección de entrega"
                 className="input"
               />
+              {errorsArray.adress && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.adress}           </Alert> }
             </div>
             
             <div >
@@ -270,12 +323,11 @@ function Checkout() {
           
           }
           <div className='buttonsCheckoutContainer'>
-            <p className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
-            <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+            <p className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
+            <button className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
           </div>
 
         </div>
-        
         
       }
       

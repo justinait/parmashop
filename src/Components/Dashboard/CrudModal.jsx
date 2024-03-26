@@ -304,8 +304,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
   }, [productSelected])
 
-  
-
   const handleCheckboxChange = (event, color, size) => {
     const { name, checked } = event.target;
     const isChecked = event.target.checked;
