@@ -40,47 +40,40 @@ function Checkout() {
   
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
-    // const formIsValid = validate(userData);
     console.log(errorsArray.length);
     
     if(order?.paymentMethod === 'transfer') {
-      if(!errorsArray.length){
+      let ordersCollections = collection(db, "orders");
+      console.log("Order data:", order);
+      addDoc(ordersCollections, {
+        ...order,
+        date: serverTimestamp()
+      }).then((res)=>{
+        console.log("Document successfully added: ", res);
+        setOrderId(res.id)
         
-        let ordersCollections = collection(db, "orders");
-        console.log("Order data:", order);
-        addDoc(ordersCollections, {
-          ...order,
-          date: serverTimestamp()
-        }).then((res)=>{
-          console.log("Document successfully added: ", res);
-          setOrderId(res.id)
-          
-          navigate('/transfer', { state: { total } });
-        }).catch((error) => {
-          console.error("Error adding document: ", error);
-        });
-  
-        localStorage.removeItem("order");
-        clearCart();
-      }
-      } else if(order?.paymentMethod === 'card') {
-        // if(paramValue === "approved"){
-        if(!errorsArray.length){
-          let ordersCollections = collection(db, "orders");
-          console.log("Order data:", order);
-        addDoc(ordersCollections, {
-          ...order,
-          date: serverTimestamp()
-        }).then((res)=>{
-          console.log("Document successfully added: ", res);
-          setOrderId(res.id)
-        }).catch((error) => {
-          console.error("Error adding document: ", error);
-        });
-  
-        localStorage.removeItem("order");
-        clearCart();
-      }
+        navigate('/transfer', { state: { total } });
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+
+      localStorage.removeItem("order");
+      clearCart();
+    } else if(order?.paymentMethod === 'card') {
+      let ordersCollections = collection(db, "orders");
+      console.log("Order data:", order);
+      addDoc(ordersCollections, {
+        ...order,
+        date: serverTimestamp()
+      }).then((res)=>{
+        console.log("Document successfully added: ", res);
+        setOrderId(res.id)
+      }).catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+
+      localStorage.removeItem("order");
+      clearCart();
       
     }
     
@@ -209,6 +202,7 @@ function Checkout() {
 
   return (
     <div className='checkoutContainer'>
+      <Link to={'/cart'}>Volver al carrito</Link>
       {
         <div className="form">
           <h6>DETALLE DE LA COMPRA</h6>
