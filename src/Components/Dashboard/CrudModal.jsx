@@ -69,7 +69,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     if ( itsOnSale && handleNextExecuted) {
       calculateSale();
     }
-    // itsOnSale
   }, [ handleNextExecuted]);
 
   const handleNext = (e) => {
@@ -170,7 +169,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       if(productSelected.id !== undefined){
         let obj = {
           ...productSelected,
-          // unit_price: +productSelected.unit_price,
           ...(itsOnSale == true? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
           category: categorySelected,
           colors: colors,
@@ -298,9 +296,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         auxSaleCheck= false
       }
       setItsOnSale(auxSaleCheck)
-    }
-    else{
-      // setColors([colors])
     }
   }, [productSelected])
 
@@ -452,7 +447,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                   name="sale"
                   placeholder='%'
                   onChange={(event) => setSalePercentageAux(event.target.value)}
-                  // onChange={(event) => console.log(event.target.value)}
                   className="input"
                   defaultValue={productSelected?.sale}
                 />
