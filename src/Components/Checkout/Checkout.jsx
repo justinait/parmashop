@@ -165,23 +165,24 @@ function Checkout() {
     <div className='checkoutContainer'>
       {
         <div className="form">
-          
-          <h5>Detalle de la compra</h5>
-          
-          {cart.map((e, i)=>{
-            return(
-              <div key={i} >
-                <div className='checkoutDetailContainer'>
-                  <img src={e.productData.image} alt="" className='imgCheckout'/>
-                  <p>{e.productData.title}</p>
-                  <p>${e.productData.unit_price}</p>
-                </div>
+          <h6>DETALLE DE LA COMPRA</h6>
+          <div className='detailCheckout'>
 
-                <div className='separatorCart'></div>
-              </div>
-            )
-          })}
-          <p>Total: ${total}</p>
+            {cart.map((e, i)=>{
+              return(
+                <div key={i} >
+                  <div className='checkoutDetailContainer'>
+                    <img src={e.productData.image} alt="" className='imgCheckout'/>
+                    <p>{e.productData.title}</p>
+                    <p>${e.productData.unit_price}</p>
+                  </div>
+
+                  <div className='separatorCart'></div>
+                </div>
+              )
+            })}
+            <p className='totalCheckout'>Total: ${total}</p>
+          </div>
           
           <h5>DATOS DE CONTACTO</h5>
           <div >
@@ -212,7 +213,7 @@ function Checkout() {
             />
           </div>
 
-          <div className='checkboxContainerLine'>
+          <div className='checkboxContainerCheckout'>
             <h6>Retiro por el local</h6>
             <input type="checkbox" name='pickUp' checked={pickUp} onChange={(e)=>handlePickUp(e)} />
           </div>
@@ -268,8 +269,10 @@ function Checkout() {
           </>
           
           }
-          <p className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
-          <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+          <div className='buttonsCheckoutContainer'>
+            <p className='seleccionarMetodoCheckout' onClick={()=>handleBuy('transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
+            <button className='seleccionarMetodoCheckout' onClick={()=>handleBuy('card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+          </div>
 
         </div>
         

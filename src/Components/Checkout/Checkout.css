@@ -5,6 +5,11 @@
 .checkoutContainer h5 {
     margin: 5% 0;
 }
+.checkoutContainer h6{
+    
+    margin: 5% 0 8%;
+    font-size: 16px;
+}
 .imgCheckout {
     width: 50px;
     height: 50px;
@@ -47,7 +52,115 @@
     min-height: 70vh;
 }
 .approvedText{
-    
     margin: 5% 0 10%;
+}
+.totalCheckout {
+    font-weight: 600;
+    text-align: right;
+}
+.checkboxContainerCheckout {
+    display: flex;
+    justify-content: space-between;
+    margin: 6% 0 0%;
+    align-items: baseline;
+    width: 60vw;
+}
+@media(min-width: 600px){
+    .seleccionarMetodoCheckout{
+        width: 60vw;
+    }
+    .input {
+        padding: 10px;
+    }
+}
+@media(min-width:1000px){
+    .checkoutDetailContainer{
+        font-size: 14px;    
+    }
+    
+    .totalCheckout {
+        font-weight: 700;
+        font-size: 16px;
+    }
+    .input {
+        width: 50vw;
+    }
+    
+    .checkboxContainerCheckout {
+        width: 50vw;
+    }
+    .checkoutContainer h5 {
+        margin: 5% 0 2%;
+    }
+    .seleccionarMetodoCheckout {
+        width: 50vw;
+    }
+    .seleccionarMetodoCheckout {
+        margin: 2vh 0 0;
+    }
+    .buttonsCheckoutContainer{
+        margin-top: 5%;
+    }
+    .detailCheckout {
+        width: 70vw;
+        margin: auto;
 
+    }
+    .transferCheckout{
+        padding: 1.5%;
+    }
+}
+@media(min-width:1200px){
+    .imgCheckout{
+        width: 60px;
+        height: 60px;
+    }
+    .input, .checkboxContainerCheckout, .seleccionarMetodoCheckout {
+        width: 40vw;
+    }
+    .checkoutContainer h6 {
+        margin: 5% 0;
+    }
+}
+@media(min-width: 1500px){
+    .totalCheckout{
+        font-size: 20px;
+    }
+    .checkoutDetailContainer {
+        font-size: 16px;
+    }
+    .checkoutContainer h6 {
+        font-size: 18px;
+        margin: 2% 0 4%;
+    }
+    .input {
+        font-size: 15px;
+    }
+    .checkoutContainer {
+        margin: 15vh 5%;
+    }
+}
+
+@media(min-width:1700px){
+    
+    .checkoutContainer h6 {
+        font-size: 20px;
+    }
+    .checkoutDetailContainer {
+        font-size: 18px;
+    }
+    .imgCheckout {
+        width: 80px;
+        height: 80px;
+    }
+    .checkoutContainer h5 {
+        
+        font-size: 24px;
+    }
+    .seleccionarMetodoCheckout {
+        padding: 1% 0;
+    }
+    .transferCheckout {
+        padding: 1%;
+    }
 }
