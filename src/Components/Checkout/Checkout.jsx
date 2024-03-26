@@ -51,8 +51,8 @@ function Checkout() {
       }).then((res)=>{
         console.log("Document successfully added: ", res);
         setOrderId(res.id)
-        
-        navigate('/transfer', { state: { total } });
+        let shipment = pickUp ? 0 :shipmentCost
+        navigate('/transfer', { state: { total, shipment } });
       }).catch((error) => {
         console.error("Error adding document: ", error);
       });
@@ -90,7 +90,7 @@ function Checkout() {
     try {
       let response = await axios.post("https://back-parma.vercel.app/create_preference", {
         items: newArray,
-        shipment_cost: pickUp ? 0 : shipmentCost
+        shipment_cost: pickUp ? 0 :shipmentCost 
       })
       const {id} = response.data
 

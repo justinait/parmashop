@@ -2,14 +2,16 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 function Transfer() {
-  const location = useLocation();
 
+  const location = useLocation();
+  
+  const shipmentCost = location.state.shipment;
   const total = location.state.total;
 
   const discount = total * 0.10;
-
   const discountPrice = total - discount;
 
+  const finalPrice = discountPrice + shipmentCost
 
   return (
     <div className='checkoutContainer'>
@@ -31,8 +33,8 @@ function Transfer() {
       <strong>¡Gracias por tu compra!</strong>
       <br /><br />
 
-      <p>El valor de tu carrito es ${total}</p>
-      <p>Con el descuento del 10%, el valor de tu compra es de: <strong> ${discountPrice}</strong> </p>
+      <p>El valor de tu compra es ${finalPrice}</p>
+      {/* <p>Con el descuento del 10%, el valor de tu compra es de: <strong> ${discountPrice}</strong> </p> */}
       </p>
 
       <br />
