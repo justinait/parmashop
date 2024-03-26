@@ -121,6 +121,7 @@
     padding: 2%;
     margin: 0% 5% 5%;
     border-radius: 5px;
+    font-size: 12px;
 }
 @media(min-width:1000px){
     .tableDiv {
@@ -141,7 +142,12 @@
     .tableRowDashboard td {
         font-size: large;
     }
-    
+    .shipmentCostDashboard {
+        
+        margin: 0% 5% 3%;
+        width: 40vw;
+        font-size: 15px;
+    }
     .checkboxContainerLine {
         display: flex;
         justify-content: space-between;
@@ -162,5 +168,11 @@
     
     .dashboardCategoryBox {
         margin: 2% 5% 5%;
+    }
+    .shipmentCostDashboard {
+        margin: 0% 5% 2%;
+        width: 30vw;
+        font-size: 15px;
+        padding: 1%;
     }
 }
