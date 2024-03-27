@@ -49,7 +49,7 @@ function Login() {
   return (
     <div className="container">
       <form onSubmit={handleSubmit} className="form">
-        <div className="input">
+        <div>
           <input
             type="text"
             name="email"

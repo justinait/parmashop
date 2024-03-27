@@ -21,12 +21,13 @@ function Transfer() {
 
       Podés hacer transferencia o depósito desde cualquier billetera virtual o banco, a la siguiente cuenta:
       <br /><br />
+
       Banco Santander <br />
-      Número de CBU:
-      --- <br />
-      Alias: parmashop <br />
+      Número de CBU: 0720192588000004760418
+      <br />
+      Alias: PARMA.SHOP <br />
       Titular de la cuenta:
-      ---
+      Parma Daniela
       <br /> <br />
       Recordá enviar el comprobante dentro de las 48 horas respondiendo el mail de compra que te llegó para poder confirmarte tu pedido.
       <br /><br />

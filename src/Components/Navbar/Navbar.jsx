@@ -47,7 +47,7 @@ function Navbar() {
     { name: 'Abrigos', id: 'Abrigos', className: ''},
     { name: 'Buzos', id: 'Buzos', className: ''},
     { name: 'Accesorios', id: 'Accesorios', className: ''},
-    { name: 'Carrito', id: 'cart', className: ''},
+    // { name: 'Carrito', id: 'cart', className: ''},
     { name: 'Política de cambios', id: 'changes', className: ''},
   ]
 
