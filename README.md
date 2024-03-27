@@ -1,4 +1,4 @@
-<img align="center" src="/home.png">
+<img align="center" src="./public/home.png">
 
 <h3>PARMA</h3>
 
