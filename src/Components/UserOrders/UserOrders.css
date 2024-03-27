@@ -21,7 +21,8 @@
 
     .prendaOrder{
         padding: 3%;
-        width: 33%;
+        width: 20%;
+        border: 2px solid white;
     }
     .prendaDivContainer {
         display: flex;
