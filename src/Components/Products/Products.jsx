@@ -41,6 +41,7 @@ function Products({handlePageChange, activePage}) {
 
   useEffect(() => {
     getProducts()
+    handlePageChange(1)
     const scrollPosition = JSON.parse(localStorage.getItem("scrollPosition"));
     if (scrollPosition && scrollPosition.category === category) {
       window.scrollTo(scrollPosition.x, scrollPosition.y);
