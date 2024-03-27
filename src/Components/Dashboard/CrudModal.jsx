@@ -374,7 +374,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 type="text"
                 name="title"
                 onChange={handleChange}
-                className="input"
+                className="inputModal"
                 defaultValue={productSelected?.title}
               />
               {errorsArray.title && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.title}           </Alert> }
@@ -386,7 +386,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 type="number"
                 name="unit_price"
                 onChange={handleChange}
-                className="input"
+                className="inputModal"
                 defaultValue={productSelected?.unit_price}
               />
               {errorsArray.unit_price && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.unit_price}           </Alert> }
@@ -459,7 +459,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               <input
                 type="file"
                 onChange={(e)=>setFile(e.target.files[0])}
-                className="input"
+                className="inputModal"
               />
               {errorsArray.firstImage && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.firstImage}           </Alert> }
               
@@ -477,7 +477,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               <input
                 type="file"
                 onChange={(e)=>setFileTwo(e.target.files[0])}
-                className="input"
+                className="inputModal"
               />
             </div>
             {
