@@ -1,20 +1,24 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { CartContext } from '../../context/CartContext';
 import './Checkout.css'
 import axios from 'axios';
-import { Link, redirect, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import mp from '/mercadopago.png'
 import { Alert } from 'react-bootstrap';
 
+import emailjs from 'emailjs-com'; 
+// import emailjs from '@emailjs/browser';
+
 function Checkout() {
   const navigate = useNavigate();
-
+  const form = useRef();
   const { cart, addToCartContext, clearCart, deleteById, getTotalPrice, totalProducts   } = useContext(CartContext);
-  
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
+  
+  // const {service_id, template_id, public_id} = config.EMAIL;
   
   const [shipmentCost, setShipmentCost] = useState(0);
   const [shipmentCostAux, setShipmentCostAux] = useState(0);
@@ -29,15 +33,37 @@ function Checkout() {
     adress: "",
     depto: "",
   })
-  
+
   const [errorsArray, setErrorsArray] = useState([])
   const [orderId, setOrderId] = useState(null)
   const [pickUp, setPickUp] = useState(false);
   const [methodChange, setMethodChange] = useState(false)
   
+  
   let total = getTotalPrice()
   
-  
+  const sendEmail = async () => {
+    const user_email =userData.email;
+    const user_name =userData.name;
+    const total =getTotalPrice();
+    const items = cart.map ( e=> `${e.productData.title}: $${e.productData.unit_price}`);
+
+    const templateParams = {
+      user_name,
+      user_email,
+      total,
+      items: items.join(', ')
+    };
+    
+    try {
+      await emailjs.sendForm('tu_service_id', 'tu_template_id', form.current, 'tu_user_id'); // Enviar el formulario con los datos al servicio de EmailJS
+      // await emailjs.send('tu_service_id', 'tu_template_id', templateParams); // Enviar el correo electrónico
+      console.log('Correo electrónico enviado correctamente!');
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico:', error);
+    }
+  };
+
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
     console.log(errorsArray.length);
@@ -103,9 +129,7 @@ function Checkout() {
   const handleBuy = async (e, method) => {
     e.preventDefault();
     const result = validate(userData);
-    console.log(userData);
-    console.log(Object.keys(result).length);
-
+    
     if(!Object.keys(result).length){
       
       setMethodChange(!methodChange)
@@ -131,6 +155,7 @@ function Checkout() {
       }
       
       localStorage.setItem("order", JSON.stringify(order))
+      await sendEmail();
       if(paymentMethod === 'transfer'){
       } else {
         try {
@@ -145,7 +170,6 @@ function Checkout() {
       }
     }
 
-    
   }
   const handleChange = (e) => {
     setUserData({...userData, [e.target.name]: e.target.value})
@@ -204,7 +228,7 @@ function Checkout() {
     <div className='checkoutContainer'>
       <Link to={'/cart'}>Volver al carrito</Link>
       {
-        <div className="form">
+        <form ref={form} className="form">
           <h6>DETALLE DE LA COMPRA</h6>
           <div className='detailCheckout'>
 
@@ -321,7 +345,7 @@ function Checkout() {
             <button className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
           </div>
 
-        </div>
+        </form>
         
       }
       
