@@ -56,8 +56,7 @@ function Checkout() {
     };
     
     try {
-      await emailjs.sendForm('tu_service_id', 'tu_template_id', form.current, 'tu_user_id'); // Enviar el formulario con los datos al servicio de EmailJS
-      // await emailjs.send('tu_service_id', 'tu_template_id', templateParams); // Enviar el correo electrónico
+      await emailjs.send('service_kapndfh', 'template_76f9ja7', templateParams, 'eL-fM4UTQmw1_lpi4');
       console.log('Correo electrónico enviado correctamente!');
     } catch (error) {
       console.error('Error al enviar el correo electrónico:', error);
@@ -153,7 +152,7 @@ function Checkout() {
         paymentMethod,
         pickUp: pickUp
       }
-      
+      console.log(userData);
       localStorage.setItem("order", JSON.stringify(order))
       await sendEmail();
       if(paymentMethod === 'transfer'){
