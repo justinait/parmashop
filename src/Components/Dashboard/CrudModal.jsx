@@ -451,7 +451,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                   name="sale"
                   placeholder='%'
                   onChange={(event) => setSalePercentageAux(event.target.value)}
-                  className="input"
+                  className="inputModal"
                   defaultValue={productSelected?.sale}
                 />
                 {errorsArray.sale && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.sale}           </Alert> }
