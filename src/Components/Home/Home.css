@@ -41,9 +41,20 @@
     z-index: 1;
 }
 
+@media(min-width:400px){
+    .heroContainer{
+        padding-top: 85%;
+    }
+}
+@media(min-width:500px){
+    .heroContainer{
+        padding-top: 70%;
+    }
+}
+
 @media(min-width:600px){
     .heroContainer{
-        padding-top: 82%;
+        padding-top: 60%;
     }
     .heroLogo{
         width: 250px;
