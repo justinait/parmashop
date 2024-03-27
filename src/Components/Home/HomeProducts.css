@@ -9,7 +9,7 @@
     width: 100%;
     height: 100%;
     max-height: 100%;
-    padding: 5% 0 0;
+    padding: 3% 0 0;
     object-fit: cover;
     max-width: 100%;   
     transition: filter 0.7s ease-in-out, transform 0.7s ease-in-out; 
@@ -48,21 +48,22 @@
         top: -220px;
     }
     .imageProductHome {
-        padding: 3% 0 0;
+        padding: 2% 0 0;
     }
 }
 @media (min-width:1000px){
     .productHomeBox {
-        width: 50%;
         display: block;
         height: 60vh;
+        width: 49.5%;
     }
     .homeProductInfo {
         top: -280px;
     }
     .homeProductsContainer {
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: wrap; 
+        justify-content: space-between;
         /* background-color: black; */
     }
 }
