@@ -166,12 +166,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
     try {
       const productsCollection = collection(db, "products")
+      let capitalizedColors = colors.map(color => color.charAt(0).toUpperCase() + color.slice(1)); // Convertir la primera letra de cada color a mayúscula
       if(productSelected.id !== undefined){
         let obj = {
           ...productSelected,
           ...(itsOnSale == true? {unit_price: newUnitPrice} : {unit_price: productSelected.unit_price}),
           category: categorySelected,
-          colors: colors,
+          colors: capitalizedColors,
           details: updatedDetails,
           ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
           ...(boxer && { boxer: true })
@@ -184,11 +185,13 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         
       } 
       else{
+      let capitalizedColors = productSelected.colors.map(color => color.charAt(0).toUpperCase() + color.slice(1)); // Convertir la primera letra de cada color a mayúscula
+
         let obj = {
           ...productSelected,
           unit_price: +productSelected.unit_price,
           category: categorySelected,
-          colors: productSelected.colors,
+          colors: capitalizedColors,
           details: updatedDetails,
           ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
           ...(boxer && { boxer: true })
@@ -316,6 +319,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     let updatedDetails = {};
     
     (colors).forEach((color, colorIndex) => {
+      let capitalizedColor = color.charAt(0).toUpperCase() + color.slice(1);
       sizes.forEach((size, sizeIndex) => {
         
         let auxStock=checkboxes[color]?.[size]
@@ -324,7 +328,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         }
         const index = colorIndex * sizes.length + sizeIndex;
         updatedDetails[index] = {
-          color: color,
+          color: capitalizedColor,
           size: size,
           stock: auxStock
         };
