@@ -3,7 +3,7 @@ import logo from '/logo.png'
 import './Navbar.css'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { onLogOut } from '../../firebaseConfig';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../context/AuthContext';
@@ -16,7 +16,6 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('home')
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [handleLogOut, handleLogin, user, isLogged] = useContext(AuthContext);
   const {totalProducts} = useContext(CartContext);
@@ -37,9 +36,6 @@ function Navbar() {
     handleLogOut();
     navigate("/login")
   }
-  useEffect(() => {
-    setOpenMenu(false); // Cerrar el menú cuando cambia la ubicación de la ruta
-  }, [location]);
   const categorys = [
     { name: 'Todos los productos', id: 'category', className: '' },
     { name: 'NUEVO', id: 'NUEVO', className: ''},

@@ -3,7 +3,7 @@ import { CartContext } from '../../context/CartContext';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import './CartWidget.css'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function CartWidget() {
 
@@ -17,6 +17,7 @@ function CartWidget() {
     const [openCartDropdown, setOpenCartDropdown] = useState(false)
     const [prevTotal, setPrevTotal] = useState(0);
     let total = getTotalPrice()
+    const location = useLocation();
 
     const handleOpenCart =()=> {
         if(openCartDropdown == false)
@@ -28,9 +29,13 @@ function CartWidget() {
         if (total > prevTotal) {
             setOpenCartDropdown(true);
         }
-
         setPrevTotal(total);
     }, [total])
+    
+    useEffect(()=> {
+        // Cerrar el widget del carrito cuando cambia la ubicación de la página
+        setOpenCartDropdown(false);
+    }, [location.pathname]);
   return (
     <div>
         <ShoppingCartOutlinedIcon className='iconsNavbar' onClick={handleOpenCart} />

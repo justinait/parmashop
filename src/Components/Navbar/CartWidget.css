@@ -67,11 +67,11 @@
 }
 @media(min-width:1200px) {
     .cartWidgetItemContainer h6 {
-        font-size: 20px;
+        font-size: 18px;
         margin: 4% 11% 0% 0;
     }
     .cartItemDetail{
-        font-size: 18px;
+        font-size: 16px;
     }
     .cartItemPrice {
         font-size: 20px;
@@ -95,7 +95,7 @@
         right: -13vw;
     }
     .cartWidgetItemContainer h6 {
-        font-size: 24px;
+        font-size: 21px;
         margin: 5% 15% 0% 0;
     }
     .infoCartItem p {   
