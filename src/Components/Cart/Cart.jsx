@@ -42,6 +42,8 @@ function Cart() {
                     })
                 }
                 <p className='subtotalCart'>Subtotal: ${total}</p>
+                <Link className='' to={'/category'}>Continuar comprando</Link>
+
             </>
             :
             <div className='emptyContainer'>
