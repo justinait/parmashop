@@ -35,6 +35,10 @@
     font-weight: 500;
     color: grey;
 }
+.seleccionarMetodoCheckout:hover {
+    border: black 2px solid;
+    color: black;
+}
 .mercadoPagoLogo {
     width: 40px;
 }
