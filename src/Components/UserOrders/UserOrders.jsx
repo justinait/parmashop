@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, doc, getDocs, orderBy, query, updateDoc } from 'firebase/firestore';
 import './UserOrders.css'
 
 function UserOrders() {
 
     const [orders, setOrders] = useState([]);
+    const [orderState, setOrderState] = useState(false);
 
     useEffect(()=> {
         const ordersCollections = collection (db, "orders")
@@ -19,11 +20,31 @@ function UserOrders() {
             setOrders(newArr)
         })
     }, [])
-
+    const markAsSent = async (orderId) => {
+        const orderRef = doc(db, "orders", orderId);
+        await updateDoc(orderRef, {
+            sent: true
+        });
+        const updatedOrders = orders.map(order => {
+            if (order.id === orderId) {
+                return { ...order, sent: true };
+            }
+            return order;
+        });
+        setOrders(updatedOrders);
+    };
   return (
     <div className='checkoutContainer'>
         <h2>PEDIDOS</h2>
-        {orders.map((e, i) => {
+        
+        <div className='dashboardCategoryBox'>
+            <button className={`dashboardCategory ${orderState === false ? 'dashboardCategoryActive' : ''}`} onClick={() => setOrderState(false)}>En Espera</button>
+            <button className={`dashboardCategory ${orderState === true ? 'dashboardCategoryActive' : ''}`} onClick={() => setOrderState(true)}>Enviadas</button>
+        </div>
+
+        {orders
+        .filter((e) => (orderState === e.sent))
+        .map((e, i) => {
             const reversedIndex = orders.length - i;
             const timestamp = e.date;
             const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000);
@@ -32,9 +53,9 @@ function UserOrders() {
             return (
                 <div key={i} className='orderContainer'>
                     <div className='orderTitle'>
-
                         <h6>Código de orden: {e.id}</h6>
                         <h5>#   {reversedIndex}</h5>
+                        {!e.sent && <button onClick={() => markAsSent(e.id)}>Marcar como enviada</button>}
                     </div>
                     <p>Fecha de compra: {finalDate}</p>
                     {e.pickUp &&

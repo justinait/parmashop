@@ -71,7 +71,7 @@ function Dashboard() {
           onChange={(e) => setShipmentCost(+e.target.value)}
           value={shipmentCost}
         />
-        <p onClick={updateShipment}>Modificar</p>
+        <p className='modificarEnvio' onClick={updateShipment}>Modificar</p>
         </Modal.Body>
       </Modal>
       <ProductsDashboard products={products} setIsChange={setIsChange} /> 

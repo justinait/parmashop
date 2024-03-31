@@ -91,7 +91,6 @@ function Checkout() {
         ...order,
         date: serverTimestamp()
       }).then((res)=>{
-        console.log("Document successfully added: ", res);
         setOrderId(res.id)
       }).catch((error) => {
         console.error("Error adding document: ", error);
@@ -150,7 +149,8 @@ function Checkout() {
         items: newArray,
         total: total,
         paymentMethod,
-        pickUp: pickUp
+        pickUp: pickUp,
+        sent: false
       }
       console.log(userData);
       localStorage.setItem("order", JSON.stringify(order))
