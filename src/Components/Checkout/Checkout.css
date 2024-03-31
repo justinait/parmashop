@@ -98,9 +98,8 @@
     }
     .seleccionarMetodoCheckout {
         width: 50vw;
-    }
-    .seleccionarMetodoCheckout {
         margin: 2vh 0 0;
+        font-size: 15px;
     }
     .buttonsCheckoutContainer{
         margin-top: 5%;
