@@ -19,7 +19,7 @@ function Checkout() {
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
   
   // const {service_id, template_id, public_id} = config.EMAIL;
-  
+  const [mpButtonCreated, setMpButtonCreated] = useState(false)
   const [shipmentCost, setShipmentCost] = useState(0);
   const [shipmentCostAux, setShipmentCostAux] = useState(0);
   const [preferenceId, setPreferenceId]= useState(null);
@@ -341,7 +341,7 @@ function Checkout() {
           }
           <div className='buttonsCheckoutContainer'>
             <p className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
-            <button className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'card')}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
+            <button className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'card')} disabled={(preferenceId!=null)}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
           </div>
 
         </form>
@@ -349,7 +349,8 @@ function Checkout() {
       }
       
       {
-        preferenceId && <Wallet initialization={{preferenceId, redirectMode:"self"}} />
+        (preferenceId) &&
+        <Wallet initialization={{preferenceId, redirectMode:"self"}} />
       }
       
     </div>
