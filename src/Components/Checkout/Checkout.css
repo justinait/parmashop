@@ -73,6 +73,9 @@
     .seleccionarMetodoCheckout{
         width: 60vw;
     }
+    #walletBrick_container{
+        width: 60vw !important;
+    }
     .input {
         padding: 10px;
     }
@@ -101,6 +104,10 @@
         margin: 2vh 0 0;
         font-size: 15px;
     }
+    
+    #walletBrick_container{
+        width: 50vw !important;
+    }
     .buttonsCheckoutContainer{
         margin-top: 5%;
     }
@@ -120,6 +127,10 @@
     }
     .input, .checkboxContainerCheckout, .seleccionarMetodoCheckout {
         width: 40vw;
+    }
+    
+    #walletBrick_container{
+        width: 40vw !important;
     }
     .checkoutContainer h6 {
         margin: 5% 0;
