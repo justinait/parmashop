@@ -18,8 +18,6 @@ function Checkout() {
   const { cart, addToCartContext, clearCart, deleteById, getTotalPrice, totalProducts   } = useContext(CartContext);
   initMercadoPago(import.meta.env.VITE_PUBLICKEY, {locale:"es-AR"})
   
-  // const {service_id, template_id, public_id} = config.EMAIL;
-  const [mpButtonCreated, setMpButtonCreated] = useState(false)
   const [shipmentCost, setShipmentCost] = useState(0);
   const [shipmentCostAux, setShipmentCostAux] = useState(0);
   const [preferenceId, setPreferenceId]= useState(null);
@@ -65,7 +63,6 @@ function Checkout() {
 
   useEffect(()=>{
     let order = JSON.parse(localStorage.getItem("order"));
-    console.log(errorsArray.length);
     
     if(order?.paymentMethod === 'transfer') {
       let ordersCollections = collection(db, "orders");
@@ -152,9 +149,10 @@ function Checkout() {
         pickUp: pickUp,
         sent: false
       }
-      console.log(userData);
+      
       localStorage.setItem("order", JSON.stringify(order))
       await sendEmail();
+      
       if(paymentMethod === 'transfer'){
       } else {
         try {
