@@ -37,7 +37,6 @@ function Checkout() {
   const [pickUp, setPickUp] = useState(false);
   const [methodChange, setMethodChange] = useState(false)
   
-  
   let total = getTotalPrice()
   
   const sendEmail = async () => {

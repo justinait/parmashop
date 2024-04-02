@@ -54,7 +54,6 @@ function UserOrders() {
                 <div key={i} className='orderContainer'>
                     <div className='orderTitle'>
                         <h6>Código de orden: {e.id}</h6>
-                        <h5>#   {reversedIndex}</h5>
                         {!e.sent && <button onClick={() => markAsSent(e.id)}>Marcar como enviada</button>}
                     </div>
                     <p>Fecha de compra: {finalDate}</p>
