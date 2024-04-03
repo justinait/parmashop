@@ -183,11 +183,6 @@ function Checkout() {
     
     setPickUp(e.target.checked);
 
-    if(pickUp == true){
-      setShipmentCost(0);   
-    } else {
-      setShipmentCost(shipmentCostAux);
-    }
   }
   const validate = (values) => {
     const errors = {}
