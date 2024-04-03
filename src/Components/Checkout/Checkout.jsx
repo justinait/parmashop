@@ -152,8 +152,7 @@ function Checkout() {
       localStorage.setItem("order", JSON.stringify(order))
       await sendEmail();
       
-      if(paymentMethod === 'transfer'){
-      } else {
+      if(method === 'card'){
         try {
           const id = await createPreference();
           if(id){
@@ -276,6 +275,7 @@ function Checkout() {
             {errorsArray.phone && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.phone}           </Alert> }
           </div>
 
+          <h6>Costo de envío: ${shipmentCost}</h6>
           <div className='checkboxContainerCheckout'>
             <h6>Retiro por el local</h6>
             <input type="checkbox" name='pickUp' checked={pickUp} onChange={(e)=>handlePickUp(e)} />
