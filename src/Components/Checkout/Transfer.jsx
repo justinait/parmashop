@@ -8,7 +8,7 @@ function Transfer() {
   const shipmentCost = location.state.shipment;
   const total = location.state.total;
 
-  const discount = total * 0.10;
+  const discount = total * 0.20;
   const discountPrice = total - discount;
 
   const finalPrice = discountPrice + shipmentCost
@@ -34,8 +34,8 @@ function Transfer() {
       <strong>¡Gracias por tu compra!</strong>
       <br /><br />
 
-      <p>El valor de tu compra es ${finalPrice}</p>
-      {/* <p>Con el descuento del 10%, el valor de tu compra es de: <strong> ${discountPrice}</strong> </p> */}
+      <p>El valor total de tu compra es ${finalPrice}</p>
+      {/* <p>Con el descuento del 20%, el valor de tu compra es de: <strong> ${discountPrice}</strong> </p> */}
       </p>
 
       <br />

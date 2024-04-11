@@ -272,7 +272,7 @@ function Checkout() {
 
           <h6>Costo de envío: ${shipmentCost}</h6>
           <div className='checkboxContainerCheckout'>
-            <h6>Retiro por el local</h6>
+            <h6>Retiro por el local (gratis)</h6>
             <input type="checkbox" name='pickUp' checked={pickUp} onChange={(e)=>handlePickUp(e)} />
           </div>
           {(pickUp == false) &&
@@ -332,7 +332,7 @@ function Checkout() {
           
           }
           <div className='buttonsCheckoutContainer'>
-            <p className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'transfer')}> Pagar con transferencia <p className='transferCheckout'>10% OFF</p></p>
+            <p className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'transfer')}> Pagar con transferencia <strong className='transferCheckout'>20% OFF</strong></p>
             <button className='seleccionarMetodoCheckout' onClick={(e)=>handleBuy(e, 'card')} disabled={(preferenceId!=null)}> <img src={mp} alt="Mercado Pago" className='mercadoPagoLogo' /> Pagar con tarjeta de crédito/débito</button>
           </div>
 
