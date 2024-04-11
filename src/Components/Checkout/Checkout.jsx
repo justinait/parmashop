@@ -49,6 +49,7 @@ function Checkout() {
       user_name,
       user_email,
       total,
+      shipmentCost,
       items: items.join(', ')
     };
     

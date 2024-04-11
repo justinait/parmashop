@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { db } from '../../firebaseConfig';
-import { collection, doc, getDocs, orderBy, query, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, orderBy, query, updateDoc } from 'firebase/firestore';
 import './UserOrders.css'
 
 function UserOrders() {
 
     const [orders, setOrders] = useState([]);
     const [orderState, setOrderState] = useState(false);
+    const [shipmentCost, setShipmentCost] = useState(0);
+
+    useEffect(()=>{
+        let shipmentCollection = collection(db, "shipment")
+        let shipmentDoc = doc(shipmentCollection, "9W3lmfPC5YpolvXbmrEL")
+        getDoc(shipmentDoc).then(res=>{
+          setShipmentCost(res.data().cost)
+        })
+    }, [])
 
     useEffect(()=> {
         const ordersCollections = collection (db, "orders")
@@ -61,7 +70,7 @@ function UserOrders() {
                     <h6>RETIRA POR EL LOCAL</h6>
                     }
                     <p>Método de pago: {e.paymentMethod}</p>
-                    <p>Total: ${e.total}</p>
+                    <p>Total: ${e.total} + ${shipmentCost}</p>
 
                     <h6>Datos de los productos:</h6>
                     <div className='prendaDivContainer'>
