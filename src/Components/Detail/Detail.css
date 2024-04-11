@@ -110,6 +110,9 @@
 .backTo {
     font-size: 12px;
 }
+.carousel-indicators [data-bs-target]{
+    height: 6px!important;
+}
 @media (min-width:600px){
 
     .saleDetail {
@@ -133,6 +136,7 @@
     }
     .detailContainer{
         display: flex;
+        margin-top: 10vh;
     }
     .infoBasic{
         width: 50vw;

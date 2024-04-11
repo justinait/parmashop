@@ -14,6 +14,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [categorySelected, setCategorySelected] = useState('');
   const [file, setFile] = useState(null);
   const [fileTwo, setFileTwo] = useState(null);
+  const [additionalFiles, setAdditionalFiles] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
   const [checkboxes, setCheckboxes] = useState({})
@@ -122,6 +123,83 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
     setIsLoading(false);
   }
+  const handleAdditionalImage = async () => {
+    setIsLoading(true);
+    additionalFiles.map((e, i)=>{
+      let imageNumber = 'image'+(3+i);
+      console.log(e);
+      console.log(productSelected[imageNumber]);
+      if(e != (i+1)){
+        uploadFile(e)
+        .then(url => {
+          if(productSelected) {
+            setProductSelected(prevState => ({
+              ...prevState,
+              [imageNumber]: url,
+            }));            
+          } 
+        })
+        .catch(error => {
+          console.error("Error al cargar la imagen:", error);
+        });
+      }
+    })
+    setIsLoading(false);
+  }
+  // const handleAdditionalImage = async () => {
+  //   setIsLoading(true);
+    
+  //   const modifiedImages = {}; // Objeto para almacenar las imágenes modificadas
+    
+  //   // Procesar las imágenes adicionales
+  //   const promises = additionalFiles.map(async (e, i) => {
+  //     if (e) {
+  //       try {
+  //         const url = await uploadFile(e);
+  //         const imageNumber = 'image' + (3 + i);
+          
+  //         // Verificar si la imagen ha sido modificada
+  //         if (productSelected[imageNumber] !== url) {
+  //           modifiedImages[imageNumber] = url; // Almacenar la imagen modificada en el objeto
+  //         }
+  //       } catch (error) {
+  //         console.error("Error al cargar la imagen:", error);
+  //       }
+  //     }
+  //   });
+    
+  //   // Esperar a que todas las promesas se resuelvan
+  //   await Promise.all(promises);
+    
+  //   // Actualizar solo las imágenes modificadas en productSelected
+  //   setProductSelected(prevState => ({
+  //     ...prevState,
+  //     ...modifiedImages, // Fusionar las imágenes modificadas con el estado existente
+  //   }));
+    
+  //   setIsLoading(false);
+  // };
+  const handleAdditionalImageChange = (e, index) => {
+    const newFiles = [...additionalFiles];
+    const selectedFile = e.target.files[0];
+    const currentFile = newFiles[index];
+    
+    // Verificar si el archivo seleccionado es diferente al archivo actual
+    if (selectedFile !== currentFile) {
+      newFiles[index] = selectedFile; // Reemplazar el archivo actual con el archivo seleccionado
+      setAdditionalFiles(newFiles); // Actualizar el estado additionalFiles
+      console.log(additionalFiles);
+    }
+  };
+  
+  const handleAddImageInput = () => {
+    setAdditionalFiles([...additionalFiles, null]);
+  };
+  const handleRemoveImageInput = (index) => {
+    const newFiles = [...additionalFiles];
+    newFiles.splice(index, 1);
+    setAdditionalFiles(newFiles);
+  };
   const simulateUpload = () => {
     setProgress(0);
     const interval = setInterval(() => {
@@ -259,6 +337,16 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setCategorySelected(productSelected?.category)
       setOldPrice(productSelected.oldPrice? productSelected.oldPrice : productSelected.unit_price)
       setUnitPriceAux(productSelected.unit_price)
+      
+      productSelected.image3 &&
+      setAdditionalFiles([1])
+      productSelected.image4 &&
+      setAdditionalFiles([1, 2])
+      productSelected.image5 &&
+      setAdditionalFiles([1, 2, 3])
+      productSelected.image6 &&
+      setAdditionalFiles([1, 2, 3, 4])
+      
 
       setSalePercentageAux(productSelected.sale)
       
@@ -491,6 +579,25 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 <ProgressBar now={progressTwo} label={`${progress}%`} />
               </>
             }
+            {additionalFiles.map((additionalFile, index) => (
+              <div key={index}>
+                <p>Imagen Nº {index +3}</p>
+                <input
+                  type="file"
+                  onChange={(e) => handleAdditionalImageChange(e, index)}
+                  className="inputModal"
+                />
+                <p className="addMoreButton" onClick={() => handleRemoveImageInput(index)}>-</p>
+              </div>
+            ))}
+            <p className="addMoreButton" onClick={handleAddImageInput}>+</p>
+           
+            {additionalFiles.length > 0 && (
+              <>
+                <button type="button" className="confirmImage" onClick={handleAdditionalImage}>Confirmar imágenes adicionales</button>
+              </>
+            )}
+
             {
               !isLoading &&
               <p className='nextButtonCrud' onClick={handleNext}>Siguiente</p>

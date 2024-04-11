@@ -134,6 +134,26 @@ function Detail() {
               <img src={product.imageTwo} alt={product.title} className='imageDetail'/>
             </Carousel.Item>
             }
+            {product.image3 &&
+            <Carousel.Item>
+              <img src={product.image3} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            }
+            {product.image4 &&
+            <Carousel.Item>
+              <img src={product.image4} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            }
+            {product.image5 &&
+            <Carousel.Item>
+              <img src={product.image5} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            }
+            {product.image6 &&
+            <Carousel.Item>
+              <img src={product.image6} alt={product.title} className='imageDetail'/>
+            </Carousel.Item>
+            }
           </Carousel>
           {
             product.sale > 0 &&
