@@ -100,6 +100,22 @@ function ProductsDashboard({products, setIsChange}) {
                                     e.imageTwo &&
                                     <img src={e.imageTwo} width={80} alt={e.name} />
                                     }
+                                    {
+                                    e.image3 &&
+                                    <img src={e.image3} width={80} alt={e.name} />
+                                    }
+                                    {
+                                    e.image4 &&
+                                    <img src={e.image4} width={80} alt={e.name} />
+                                    }
+                                    {
+                                    e.image5 &&
+                                    <img src={e.image5} width={80} alt={e.name} />
+                                    }
+                                    {
+                                    e.image6 &&
+                                    <img src={e.image6} width={80} alt={e.name} />
+                                    }
                                 </td>
                                 <td>
                                 {
