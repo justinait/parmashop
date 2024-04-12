@@ -136,6 +136,9 @@
         width: 50%;
         right: -120px;
     }
+    .productName{
+        font-size: 15px;
+    }
 }
 @media (min-width: 1400px) {
     .stockProducts {
