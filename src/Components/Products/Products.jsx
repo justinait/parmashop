@@ -63,12 +63,14 @@ function Products({handlePageChange, activePage}) {
 
   return (
     <div>
-    
     <div className='productsContainer'>
       <h2 className='categoryTitle'>{title} </h2>
 
       {
         currentProducts && currentProducts.slice().reverse().map((e, i) =>  {
+          
+          let unitPrice = Math.trunc(e.unit_price);
+          let quota = Math.trunc((e.unit_price/3));
           return(
             <Link to={`/item/${e.id}`} className='productContainer' key={i}>
               <img src={e.image} alt={e.title} className='imgProduct'/>
@@ -82,11 +84,13 @@ function Products({handlePageChange, activePage}) {
                   <div className='salePricesDiv'>
                     <p className='productName'>{e.title}</p>
                     <p className='oldPrice'>$ {e.oldPrice}</p>
-                    <p className='productPrice'>$ {e.unit_price}</p>
+                    <p className='productPrice'>$ {unitPrice}</p>
+                    {/* <p className='productCuotes'>3 cuotas sin interés de ${quota} </p> */}
                   </div>:
                   <div>
                     <p className='productName'>{e.title}</p>
-                    <p className='productPrice'>$ {e.unit_price}</p>
+                    <p className='productPrice'>$ {unitPrice}</p>
+                    <p className='productCuotes'>3 cuotas sin interés de ${quota} </p>
                   </div>
                 }
               </div>

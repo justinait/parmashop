@@ -35,11 +35,14 @@
     text-transform: capitalize;
     font-weight: 400;
     margin-bottom: 3%;
-    font-size: 15px;
+    font-size: 13px;
 }
 .productPrice {
     font-weight: 600;
     margin-bottom: 0.5rem;
+}
+.productCuotes {
+    font-size: 10px;
 }
 .productInfoContainer {
     text-align: center;
