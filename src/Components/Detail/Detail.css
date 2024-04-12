@@ -110,9 +110,6 @@
 .backTo {
     font-size: 12px;
 }
-/* .carousel {
-    width: 50vw !important;
-} */
 .carousel-indicators [data-bs-target]{
     height: 6px!important;
 }
@@ -175,6 +172,9 @@
     }
     .quotaDetail {
         font-size: 15px;
+    }
+    .carousel {
+        width: 50vw !important;
     }
 }
 
