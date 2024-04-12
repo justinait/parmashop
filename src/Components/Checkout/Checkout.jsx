@@ -81,6 +81,16 @@ function Checkout() {
 
       localStorage.removeItem("order");
       clearCart();
+      setUserData({
+        email: "",
+        name: "",
+        cp: "",
+        phone: "",
+        city: "",
+        province: "",
+        adress: "",
+        depto: "",
+      })
     } else if(order?.paymentMethod === 'card') {
       let ordersCollections = collection(db, "orders");
       console.log("Order data:", order);
@@ -95,7 +105,16 @@ function Checkout() {
 
       localStorage.removeItem("order");
       clearCart();
-      
+      setUserData({
+        email: "",
+        name: "",
+        cp: "",
+        phone: "",
+        city: "",
+        province: "",
+        adress: "",
+        depto: "",
+      })
     }
     
   }, [methodChange])
