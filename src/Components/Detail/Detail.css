@@ -110,9 +110,9 @@
 .backTo {
     font-size: 12px;
 }
-.carousel {
+/* .carousel {
     width: 50vw !important;
-}
+} */
 .carousel-indicators [data-bs-target]{
     height: 6px!important;
 }
