@@ -115,6 +115,8 @@ function Detail() {
     }
   }
 
+  let unitPrice = Math.trunc(product?.unit_price);
+  let quota = Math.trunc((product?.unit_price/3));
   return (
     <div>
       {loading ? 
@@ -164,7 +166,9 @@ function Detail() {
             <Link to={`/${product?.category}`} className='backTo'> <KeyboardBackspaceOutlinedIcon/>Volver a {product.category}</Link>
 
             <p className='nameDetail'>{product.title}</p>
-            <p className='priceDetail'>${product.unit_price}</p>
+            <p className='priceDetail'>${unitPrice}</p>
+            <p className='quotaDetail'>3 cuotas sin interés de ${quota}</p>
+            <p className='quotaDetail'>20% off en transferencias</p>
             
             <div className='separatorLine'></div>
             
