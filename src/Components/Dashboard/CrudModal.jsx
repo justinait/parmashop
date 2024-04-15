@@ -146,39 +146,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     })
     setIsLoading(false);
   }
-  // const handleAdditionalImage = async () => {
-  //   setIsLoading(true);
-    
-  //   const modifiedImages = {}; // Objeto para almacenar las imágenes modificadas
-    
-  //   // Procesar las imágenes adicionales
-  //   const promises = additionalFiles.map(async (e, i) => {
-  //     if (e) {
-  //       try {
-  //         const url = await uploadFile(e);
-  //         const imageNumber = 'image' + (3 + i);
-          
-  //         // Verificar si la imagen ha sido modificada
-  //         if (productSelected[imageNumber] !== url) {
-  //           modifiedImages[imageNumber] = url; // Almacenar la imagen modificada en el objeto
-  //         }
-  //       } catch (error) {
-  //         console.error("Error al cargar la imagen:", error);
-  //       }
-  //     }
-  //   });
-    
-  //   // Esperar a que todas las promesas se resuelvan
-  //   await Promise.all(promises);
-    
-  //   // Actualizar solo las imágenes modificadas en productSelected
-  //   setProductSelected(prevState => ({
-  //     ...prevState,
-  //     ...modifiedImages, // Fusionar las imágenes modificadas con el estado existente
-  //   }));
-    
-  //   setIsLoading(false);
-  // };
+  
   const handleAdditionalImageChange = (e, index) => {
     const newFiles = [...additionalFiles];
     const selectedFile = e.target.files[0];
@@ -484,8 +452,8 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               {errorsArray.unit_price && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.unit_price}           </Alert> }
               
             </div>
-            <h6>Categoría</h6>
             <div className="inputModal">
+              <h6>Categoría</h6>
               <select value={categorySelected&& categorySelected}  onChange={(e)=>{setCategorySelected(e.target.value);}}>
                 <option value="">Categorias..</option>
                 <option value="Remeras">Remeras</option>
@@ -523,6 +491,17 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
               {errorsArray.colors && <Alert key={'danger'} variant={'danger'} className='p-1' style={{ width: 'fit-content' }}>                {errorsArray.colors}           </Alert> }
               <p className='addMoreButton' onClick={()=> removeColorInput()}>-</p>
               <p className='addMoreButton' onClick={addColorInput}>+</p>
+            </div>
+
+            <div className="inputModal">
+              <h6>Descripción</h6>
+              <input
+                type="text"
+                name="description"
+                onChange={handleChange}
+                className="inputModal"
+                defaultValue={productSelected?.description}
+              />
             </div>
 
             <div className='checkboxContainerLine'>

@@ -208,6 +208,11 @@ function Detail() {
                 ||((product.category != 'Accesorios' || (product.category == 'Accesorios' && product.boxer)) && !selectedSize)}
             >Agregar al carrito</button>
 
+            {
+              product.description &&
+              <p className='detailDescription'>{product.description}</p>
+            }
+
           </div>
         </div>
       )}
