@@ -14,6 +14,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
   const [categorySelected, setCategorySelected] = useState('');
   const [file, setFile] = useState(null);
   const [fileTwo, setFileTwo] = useState(null);
+  const [sizeChart, setSizeChart] = useState(null);
   const [additionalFiles, setAdditionalFiles] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [colors, setColors] = useState(['']);
@@ -92,7 +93,23 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       setShowSecondScreen(true);
     }
   };
-
+  const handleSizeChart = async (e) => {
+    const file = e.target.files[0];
+    setSizeChart(file);
+  
+    try {
+      const url = await uploadFile(file);
+      if (productSelected) {
+        setProductSelected(prevState => ({
+          ...prevState,
+          sizeChart: url,
+        }));
+      }
+    } catch (error) {
+      console.error('Error uploading size chart:', error);
+    }
+  }
+  
   const handleImage = async () => {
     setIsLoading(true);
     simulateUpload()
@@ -127,8 +144,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     setIsLoading(true);
     additionalFiles.map((e, i)=>{
       let imageNumber = 'image'+(3+i);
-      console.log(e);
-      console.log(productSelected[imageNumber]);
       if(e != (i+1)){
         uploadFile(e)
         .then(url => {
@@ -242,7 +257,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
           ...(salePercentageAux !== undefined && { sale: salePercentageAux }),
           ...(boxer && { boxer: true })
         }
-        console.log(obj);
         addDoc(productsCollection, obj).then(()=> {
           setIsChange(true);
           handleClose();
@@ -503,12 +517,21 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 defaultValue={productSelected?.description}
               />
             </div>
+            <div className="inputModal">
+              <h6>Tabla de talles</h6>
+              <input
+                type="file"
+                onChange={(e)=>handleSizeChart(e)}
+                className="inputModal"
+              />
+            </div>
 
             <div className='checkboxContainerLine'>
               <h6>El producto está en SALE?</h6>
               <input type="checkbox" name='itsOnSale' checked={itsOnSale} onChange={handleSaleChange} />
             </div>
 
+            
             {
               itsOnSale &&
               <div className="inputModal">

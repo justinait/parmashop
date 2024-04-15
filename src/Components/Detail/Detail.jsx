@@ -17,6 +17,7 @@ function Detail() {
   const [sizes, setSizes] = useState([]);
   const [stock, setStock] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [sizeChartOpen, setSizeChartOpen] = useState(false)
 
   const { addToCart } = useContext(CartContext);
   const [index, setIndex] = useState(0);
@@ -211,6 +212,20 @@ function Detail() {
             {
               product.description &&
               <p className='detailDescription'>{product.description}</p>
+            }
+            {
+              product.sizeChart &&
+              <div>
+
+                <div className='sizeChartText' onClick={()=>setSizeChartOpen(!sizeChartOpen)}>
+                  <p>¿Cuál es mi talle?</p>
+                  {sizeChartOpen ? <p>-</p> : <p>+</p>}
+                </div>
+                  {
+                    sizeChartOpen &&
+                    <img src={product.sizeChart} alt="Tabla de talles" />
+                  }
+              </div>
             }
 
           </div>
