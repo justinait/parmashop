@@ -136,6 +136,9 @@
     }
 }
 @media(min-width: 1500px){
+    .transferContainer{
+        width: 41vw;
+    }
     .totalCheckout{
         font-size: 20px;
     }
