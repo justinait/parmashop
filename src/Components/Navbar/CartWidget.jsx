@@ -16,7 +16,7 @@ function CartWidget() {
         totalProducts } = useContext(CartContext);
     const [openCartDropdown, setOpenCartDropdown] = useState(false)
     const [prevTotal, setPrevTotal] = useState(0);
-    let total = getTotalPrice()
+    let total = Math.trunc(getTotalPrice())
     const location = useLocation();
 
     const handleOpenCart =()=> {
@@ -43,10 +43,11 @@ function CartWidget() {
             <div className='cartWidgetBox'>
             {
                 cart.map((e, i)=>{
+                    let unitPrice = Math.trunc(e.productData.unit_price);
                     return (
                         <div key={i} className='cartWidgetItemContainer'>
     
-                            <h6>{e.productData.title}</h6>
+                            <h6 className='cartItemTitle'>{e.productData.title}</h6>
                             <div className='cartWidgetContainerInfo'>
                                 <div className='infoCartItem'>
                                     <img className='cartWidgetImage' src={e.productData.image} alt={e.title} />
@@ -55,7 +56,7 @@ function CartWidget() {
                                 <div className='infoCartItem'>
                                     <p className='cartItemDetail' >Color: <strong> {e.color}</strong></p>
                                     <p className='cartItemDetail' >Talle: <strong>{e.size}</strong> </p>
-                                    <p className='cartItemPrice'> <strong> ${e.productData.unit_price}</strong></p>
+                                    <p className='cartItemPrice'> <strong> ${unitPrice}</strong></p>
                                 </div>
                             </div>
                             <div className='separatorCart'></div>

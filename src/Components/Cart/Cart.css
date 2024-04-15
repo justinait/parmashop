@@ -23,7 +23,9 @@
     font-size: 14px;
     margin-top: 2%;
 }
-
+.cartItemTitle{
+    text-transform: capitalize;
+}
 .emptyContainer {
     text-align: center;
     display: flex;

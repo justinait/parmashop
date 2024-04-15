@@ -8,7 +8,8 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 function Cart() {
     const { cart, clearCart, deleteById, getTotalPrice } = useContext(CartContext);
 
-    let total = getTotalPrice()
+    let total = Math.trunc(getTotalPrice())
+    
     return (
         <div className='cartContainer'>
             {cart.length !== 0 ?
@@ -21,6 +22,7 @@ function Cart() {
                 </div>
                 {
                     cart.map((e, i)=>{
+                        let unitPrice = Math.trunc(e.productData.unit_price);
                         return (
                             <div key={i}>
 
@@ -29,11 +31,11 @@ function Cart() {
                                     <img className='cartItemImage' src={e.productData.image} alt={e.title} />
                                     <div className='infoCartItem'>
     
-                                        <h6>{e.productData.title}</h6>
+                                        <h6 className='cartItemTitle'>{e.productData.title}</h6>
                                         <p className='cartItemDetail' >Color: <strong> {e.color}</strong></p>
                                         <p className='cartItemDetail' >Talle: <strong>{e.size}</strong> </p>
                                         <button className='cartItemDelete' onClick={()=>deleteById(e.id)}> <DeleteOutlinedIcon/> </button>
-                                        <h6 className='cartItemPrice'> <strong> ${e.productData.unit_price}</strong></h6>
+                                        <h6 className='cartItemPrice'> <strong> ${unitPrice}</strong></h6>
                                     </div>
                                 </div>
                                 <div className='separatorCart'></div>
