@@ -80,7 +80,7 @@ function Products({handlePageChange, activePage}) {
               }
               <div className='productInfoContainer'>
                 {
-                  (e.oldPrice != undefined && e.oldPrice != e.unit_price && e.oldPrice > 0 )?
+                  (e.oldPrice != undefined && e.oldPrice != e.unit_price && e.oldPrice > 0 && e.sale > 0)?
                   <div className='salePricesDiv'>
                     <p className='productName'>{e.title}</p>
                     <p className='oldPrice'>$ {e.oldPrice}</p>
