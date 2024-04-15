@@ -223,7 +223,7 @@ function Detail() {
                 </div>
                   {
                     sizeChartOpen &&
-                    <img src={product.sizeChart} alt="Tabla de talles" />
+                    <img className='sizeChartImage' src={product.sizeChart} alt="Tabla de talles" />
                   }
               </div>
             }
