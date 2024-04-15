@@ -499,7 +499,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
                 type="text"
                 name="description"
                 onChange={handleChange}
-                className="inputModal"
+                className="inputModalDescription"
                 defaultValue={productSelected?.description}
               />
             </div>

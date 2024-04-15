@@ -69,8 +69,12 @@
     flex-wrap: wrap;
 }
 .inputModal {
-    padding: 6px;
+    padding: 3px 6px;
     text-transform: capitalize;
+}
+.inputModalDescription {
+    padding: 3px 6px;
+    width: 100%;
 }
 .dashboardCategory {
     border: none;
