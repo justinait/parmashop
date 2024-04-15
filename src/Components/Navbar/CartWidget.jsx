@@ -33,7 +33,6 @@ function CartWidget() {
     }, [total])
     
     useEffect(()=> {
-        // Cerrar el widget del carrito cuando cambia la ubicación de la página
         setOpenCartDropdown(false);
     }, [location.pathname]);
   return (

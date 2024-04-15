@@ -168,7 +168,9 @@ function Detail() {
 
             <p className='nameDetail'>{product.title}</p>
             <p className='priceDetail'>${unitPrice}</p>
+            {(unitPrice >= 23000) &&
             <p className='quotaDetail'>3 cuotas sin interés de ${quota}</p>
+            }
             <p className='quotaDetail'>10% off en transferencias</p>
             
             <div className='separatorLine'></div>

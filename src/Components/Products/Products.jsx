@@ -85,12 +85,17 @@ function Products({handlePageChange, activePage}) {
                     <p className='productName'>{e.title}</p>
                     <p className='oldPrice'>$ {e.oldPrice}</p>
                     <p className='productPrice'>$ {unitPrice}</p>
+                    {(unitPrice >= 23000) &&
+                    <p className='productCuotes'>3 cuotas sin interés de ${quota} </p>
+                    }
                     {/* <p className='productCuotes'>3 cuotas sin interés de ${quota} </p> */}
                   </div>:
                   <div>
                     <p className='productName'>{e.title}</p>
                     <p className='productPrice'>$ {unitPrice}</p>
+                    {(unitPrice >= 23000) &&
                     <p className='productCuotes'>3 cuotas sin interés de ${quota} </p>
+                    }
                   </div>
                 }
               </div>
