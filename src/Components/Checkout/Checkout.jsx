@@ -55,7 +55,6 @@ function Checkout() {
     
     try {
       await emailjs.send('service_kapndfh', 'template_76f9ja7', templateParams, 'eL-fM4UTQmw1_lpi4');
-      console.log('Correo electrónico enviado correctamente!');
     } catch (error) {
       console.error('Error al enviar el correo electrónico:', error);
     }
@@ -93,7 +92,6 @@ function Checkout() {
       })
     } else if(order?.paymentMethod === 'card') {
       let ordersCollections = collection(db, "orders");
-      console.log("Order data:", order);
       addDoc(ordersCollections, {
         ...order,
         date: serverTimestamp()

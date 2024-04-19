@@ -53,7 +53,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
 
       if(imageValidation ==false){
         errors.firstImage = 'Este campo es obligatorio'
-        console.log(productSelected.image);
       }
     }
 
@@ -88,7 +87,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       ...(boxer && { boxer: true })
     })
     const result = validate(productSelected)
-    console.log(productSelected);
     if(!Object.keys(result).length){
       setShowSecondScreen(true);
     }
@@ -167,11 +165,9 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     const selectedFile = e.target.files[0];
     const currentFile = newFiles[index];
     
-    // Verificar si el archivo seleccionado es diferente al archivo actual
     if (selectedFile !== currentFile) {
-      newFiles[index] = selectedFile; // Reemplazar el archivo actual con el archivo seleccionado
-      setAdditionalFiles(newFiles); // Actualizar el estado additionalFiles
-      console.log(additionalFiles);
+      newFiles[index] = selectedFile;
+      setAdditionalFiles(newFiles);
     }
   };
   
@@ -227,7 +223,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
     }
     try {
       const productsCollection = collection(db, "products")
-      let capitalizedColors = colors.map(color => color.charAt(0).toUpperCase() + color.slice(1)); // Convertir la primera letra de cada color a mayúscula
+      let capitalizedColors = colors.map(color => color.charAt(0).toUpperCase() + color.slice(1));
       if(productSelected.id !== undefined){
         let obj = {
           ...productSelected,
@@ -246,7 +242,7 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         
       } 
       else{
-      let capitalizedColors = productSelected.colors.map(color => color.charAt(0).toUpperCase() + color.slice(1)); // Convertir la primera letra de cada color a mayúscula
+      let capitalizedColors = productSelected.colors.map(color => color.charAt(0).toUpperCase() + color.slice(1));
 
         let obj = {
           ...productSelected,
@@ -354,13 +350,11 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
         })
       })
 
-      //boxer
       let auxBoxer = productSelected.boxer
       if (auxBoxer == undefined ){
         auxBoxer= false
       }
       setBoxer(auxBoxer)
-      //sale
       let auxSaleCheck = false
       if(productSelected.sale > 1){
         auxSaleCheck = true;
@@ -423,8 +417,6 @@ const CrudModal = ({handleClose, setIsChange, productSelected, setProductSelecte
       
       setOldPrice(unitPriceAux);
       setNewUnitPrice(newPriceAux);
-      console.log(newPriceAux);
-      console.log(newUnitPrice);
     } else {
       setNewUnitPrice(oldPrice);
       setOldPrice(0);

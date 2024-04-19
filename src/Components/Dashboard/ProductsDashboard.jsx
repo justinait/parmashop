@@ -45,7 +45,7 @@ function ProductsDashboard({products, setIsChange}) {
         setDeleteId(null);
     }
 
-    const deleteProduct = () => {//handledeleteconfirm
+    const deleteProduct = () => {
         deleteDoc(doc(db, "products", deleteId));
         setIsChange(true);
         setConfirmDelete(false);

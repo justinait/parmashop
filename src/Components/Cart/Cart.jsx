@@ -27,7 +27,6 @@ function Cart() {
                             <div key={i}>
 
                                 <div className='cartItemContainer'>
-                                    {console.log(e)}
                                     <img className='cartItemImage' src={e.productData.image} alt={e.title} />
                                     <div className='infoCartItem'>
     
